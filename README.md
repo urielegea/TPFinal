@@ -1,5 +1,6 @@
 # TPFinal
-Sistema de gestion de pacientes\n
-Uriel Egea\n
-Matias Valenzini\n
+Sistema de gestion de pacientes
+
+Uriel Egea
+Matias Valenzini
 Gaspar Almaraz
