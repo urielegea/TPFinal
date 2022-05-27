@@ -1,11 +1,20 @@
 package com.company;
 
-public class Persona {
+public abstract class Persona {
 
     String nombre;
     String apellido;
     double dni;
-    String email;
     double telefono;
+
+    //Constructor
+
+    public Persona(String nombre, String apellido, double dni,, double telefono){
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.dni=dni;
+        this.telefono=telefono;
+    }
+
 
 }
