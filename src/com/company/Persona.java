@@ -9,7 +9,7 @@ public abstract class Persona {
 
     //Constructor
 
-    public Persona(String nombre, String apellido, double dni,, double telefono){
+    public Persona(String nombre, String apellido, double dni, double telefono){
         this.nombre=nombre;
         this.apellido=apellido;
         this.dni=dni;

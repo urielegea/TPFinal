@@ -1,3 +1,5 @@
+package com.company;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -46,7 +48,7 @@ public class Sistema extends JFrame {
 		this.configMenuPaciente();
 	}
 	
-	// Inicializaci�n y configuraci�n del panel contenedor.
+	// Inicializaci?n y configuraci?n del panel contenedor.
 	
 	public void configContentPane(){
 		contentPane = new JPanel();
@@ -54,7 +56,7 @@ public class Sistema extends JFrame {
 		contentPane.setLayout(null);
 	}
 	
-	// Inicializaci�n, configuraci�n y eventos del panel login.
+	// Inicializaci?n, configuraci?n y eventos del panel login.
 	
 	public void configLoginPane() {
 		loginPane = new LoginJPanel();
@@ -64,7 +66,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-            	int PERFILPRUEBA = 3;
+            	int PERFILPRUEBA = 1;
             	
             	switch(PERFILPRUEBA) {
             	  case 0:
@@ -96,7 +98,7 @@ public class Sistema extends JFrame {
 		contentPane.add(loginPane);
 	}
 	
-	// Inicializaci�n, configuraci�n y eventos del panel menu administrador.
+	// Inicializaci?n, configuraci?n y eventos del panel menu administrador.
 	
 	public void configMenuAdministrador() {		
 		menuAdministradorPane = new MenuAdministradorJPanel();
@@ -140,7 +142,7 @@ public class Sistema extends JFrame {
 		menuAdministradorPane.setVisible(false);
 	}
 	
-	// Inicializaci�n, configuraci�n y eventos del panel menu profesional.
+	// Inicializaci?n, configuraci?n y eventos del panel menu profesional.
 	
 	public void configMenuProfesional() {
 		menuProfesionalPane = new MenuProfesionalJPanel();
@@ -177,7 +179,7 @@ public class Sistema extends JFrame {
 		menuProfesionalPane.setVisible(false);	
 	}
 	
-	// Inicializaci�n, configuraci�n y eventos del panel menu paciente.
+	// Inicializaci?n, configuraci?n y eventos del panel menu paciente.
 	
 	public void configMenuPaciente() {
 		menuPacientePane = new MenuPacienteJPanel();
