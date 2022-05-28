@@ -6,10 +6,10 @@ public class Administrador extends Usuario{
 
 
     //Constructor
-    public Administrador(String nombre, String apellido, double dni, double telefono, String uuid,String clave,
+    public Administrador(String nombre, String apellido, double dni, double telefono, String clave,
                          String cuenta){
-        super(nombre, apellido, dni, telefono, uuid, clave, cuenta);
+        super(nombre, apellido, dni, telefono, clave, cuenta);
     }
 
-
+    
 }
