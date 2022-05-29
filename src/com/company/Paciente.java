@@ -5,10 +5,9 @@ import java.util.Objects;
 public class Paciente extends Usuario{
 
     //Atributos
-    String numeroHistorial;
+    private String numeroHistorial;
+
     //Constructor
-
-
     public Paciente(String nombre, String apellido, double dni, double telefono, String clave, String cuenta, String numeroHistorial) {
         super(nombre, apellido, dni, telefono, clave, cuenta);
         this.numeroHistorial = numeroHistorial;

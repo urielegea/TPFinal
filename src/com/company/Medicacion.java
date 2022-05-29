@@ -3,7 +3,7 @@ package com.company;
 public class Medicacion extends TareaDeControl{
 
     //Atributos
-    String medicamento;
+    private String medicamento;
 
     //Constructor
     public Medicacion(String token, String medicamento){

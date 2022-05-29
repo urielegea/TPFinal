@@ -3,7 +3,7 @@ package com.company;
 public class Temperatura extends TareaDeControl{
 
     //Atributos
-    double temperatura;
+    private double temperatura;
 
     //Constructor
     public Temperatura(String token, double temperatura){

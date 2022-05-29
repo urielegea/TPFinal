@@ -4,11 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import Design.ButtonEdit;
-import Design.LoginJPanel;
-import Design.MenuAdministradorJPanel;
-import Design.MenuPacienteJPanel;
-import Design.MenuProfesionalJPanel;
+import com.company.Design.*;
 
 public class Sistema extends JFrame {
 
@@ -48,7 +44,7 @@ public class Sistema extends JFrame {
 		this.configMenuPaciente();
 	}
 	
-	// Inicializaci?n y configuraci?n del panel contenedor.
+	// Inicializaci�n y configuraci�n del panel contenedor.
 	
 	public void configContentPane(){
 		contentPane = new JPanel();
@@ -56,7 +52,7 @@ public class Sistema extends JFrame {
 		contentPane.setLayout(null);
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel login.
+	// Inicializaci�n, configuraci�n y eventos del panel login.
 	
 	public void configLoginPane() {
 		loginPane = new LoginJPanel();
@@ -66,7 +62,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-            	int PERFILPRUEBA = 1;
+            	int PERFILPRUEBA = 3;
             	
             	switch(PERFILPRUEBA) {
             	  case 0:
@@ -98,7 +94,7 @@ public class Sistema extends JFrame {
 		contentPane.add(loginPane);
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel menu administrador.
+	// Inicializaci�n, configuraci�n y eventos del panel menu administrador.
 	
 	public void configMenuAdministrador() {		
 		menuAdministradorPane = new MenuAdministradorJPanel();
@@ -142,7 +138,7 @@ public class Sistema extends JFrame {
 		menuAdministradorPane.setVisible(false);
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel menu profesional.
+	// Inicializaci�n, configuraci�n y eventos del panel menu profesional.
 	
 	public void configMenuProfesional() {
 		menuProfesionalPane = new MenuProfesionalJPanel();
@@ -179,7 +175,7 @@ public class Sistema extends JFrame {
 		menuProfesionalPane.setVisible(false);	
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel menu paciente.
+	// Inicializaci�n, configuraci�n y eventos del panel menu paciente.
 	
 	public void configMenuPaciente() {
 		menuPacientePane = new MenuPacienteJPanel();
