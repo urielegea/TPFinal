@@ -4,11 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import Design.ButtonEdit;
-import Design.LoginJPanel;
-import Design.MenuAdministradorJPanel;
-import Design.MenuPacienteJPanel;
-import Design.MenuProfesionalJPanel;
+import com.company.Design.*;
 
 public class Sistema extends JFrame {
 

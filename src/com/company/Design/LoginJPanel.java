@@ -1,4 +1,4 @@
-package Design;
+package com.company.Design;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
