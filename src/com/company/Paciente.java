@@ -4,13 +4,10 @@ import java.util.Objects;
 
 public class Paciente extends Usuario{
 
-    //Atributos
-    String numeroHistorial;
-    //Constructor
+    private String numeroHistorial;
 
-
-    public Paciente(String nombre, String apellido, double dni, double telefono, String clave, String cuenta, String numeroHistorial) {
-        super(nombre, apellido, dni, telefono, clave, cuenta);
+    public Paciente(String nombre, String apellido, String dni, String telefono, String clave, String cuenta, String numeroHistorial) {
+        super(nombre, apellido, dni, telefono, cuenta, clave);
         this.numeroHistorial = numeroHistorial;
     }
 

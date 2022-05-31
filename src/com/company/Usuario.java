@@ -4,34 +4,30 @@ import java.util.Objects;
 import java.util.UUID;
 
 public abstract class Usuario extends Persona{
+    
+    protected String token;
+    protected String cuenta;
+    protected String clave;
 
-    //Atributos
-    String uuid;
-    String clave;
-    String cuenta;
-
-    //Constructor
-
-    public Usuario(String nombre, String apellido, double dni, double telefono, String clave,
-                   String cuenta){
-
-        super(nombre, apellido, dni,telefono);
-
+    public Usuario(String nombre, String apellido, String dni, String telefono, String cuenta, 
+    String clave){
+        super(nombre, apellido, dni, telefono);
         UUID auxUUID = UUID.randomUUID();
-        this.uuid= auxUUID.toString();
-        this.clave=clave;
-        this.cuenta=cuenta;
+        this.token = auxUUID.toString();
+        this.cuenta = cuenta;
+        this.clave = clave;
     }
 
-    //Metodos
-
+    public String getToken(){
+        return token;
+    }
 
     public String getCuenta() {
         return cuenta;
     }
 
-    public void setCuenta(String cuenta) {
-        this.cuenta = cuenta;
+    public String getClave(){
+        return clave;
     }
 
     public void setClave(String clave) {
@@ -43,11 +39,11 @@ public abstract class Usuario extends Persona{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(uuid, usuario.uuid) && Objects.equals(clave, usuario.clave) && Objects.equals(cuenta, usuario.cuenta);
+        return Objects.equals(token, usuario.token) && Objects.equals(clave, usuario.clave) && Objects.equals(cuenta, usuario.cuenta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, clave, cuenta);
+        return Objects.hash(token, clave, cuenta);
     }
 }
