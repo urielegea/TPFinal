@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Profesional extends Usuario{
 
     //Atributos
-    HashMap<Integer, Paciente> pacienteLista;
+    private HashMap<Integer, Paciente> pacienteLista;
 
     //Constructor
 

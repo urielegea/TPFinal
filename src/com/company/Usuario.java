@@ -6,9 +6,9 @@ import java.util.UUID;
 public abstract class Usuario extends Persona{
 
     //Atributos
-    String uuid;
-    String clave;
-    String cuenta;
+    protected String uuid;
+    protected String clave;
+    protected String cuenta;
 
     //Constructor
 

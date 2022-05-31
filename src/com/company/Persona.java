@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public abstract class Persona {
 
-    String nombre;
-    String apellido;
-    double dni;
-    double telefono;
+    protected String nombre;
+    protected String apellido;
+    protected double dni;
+    protected double telefono;
 
     //Constructor
 
