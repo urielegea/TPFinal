@@ -3,22 +3,14 @@ package com.company;
 public abstract class TareaDeControl {
 
     //Atributos
-    protected String token;
-    protected boolean accion;
-    protected String observacion;
+    String token;
+    boolean accion;
+    String observacion;
 
     //Constructor
     public TareaDeControl(String token, boolean accion, String observacion){
         this.token=token;
         this.accion=accion;
         this.observacion=observacion;
-    }
-
-    public String getObservacion() {
-        return observacion;
-    }
-
-    public boolean isAccion() {
-        return accion;
     }
 }

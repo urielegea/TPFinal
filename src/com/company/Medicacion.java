@@ -18,6 +18,4 @@ public class Medicacion extends TareaDeControl{
     public void setMedicamento(String medicamento) {
         this.medicamento = medicamento;
     }
-
-
 }

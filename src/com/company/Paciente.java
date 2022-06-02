@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Paciente extends Usuario{
 
     //Atributos
-    private String numeroHistorial;
+    String numeroHistorial;
     //Constructor
 
 
