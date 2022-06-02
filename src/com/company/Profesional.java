@@ -1,5 +1,6 @@
 package com.company;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -8,8 +9,8 @@ public class Profesional extends Usuario{
     private HashMap<String, Paciente> pacienteLista;
 
     public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta, 
-    String clave, HashMap<String, Paciente> pacienteLista) {
-        super(nombre, apellido, dni, telefono, cuenta, clave);
+    String clave, LocalDate fechaAlta, HashMap<String, Paciente> pacienteLista) {
+        super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta);
         this.pacienteLista = pacienteLista;
     }
 
