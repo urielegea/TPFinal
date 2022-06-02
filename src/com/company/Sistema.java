@@ -31,6 +31,10 @@ public class Sistema extends JFrame {
 	private ButtonEdit ingresarDatosDeControl;	
 	private ButtonEdit cerrarMenuPacienteButton;
 	
+	private GenerarProfesionalJPanel generarProfesionalJPanel;
+	private ButtonEdit buttonGenerarProfesional;
+	private ButtonEdit buttonGenerarProfesionalCancelar;
+	
 	public Sistema() {				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -42,6 +46,7 @@ public class Sistema extends JFrame {
 		this.configMenuAdministrador();
 		this.configMenuProfesional();
 		this.configMenuPaciente();
+		this.configGenerarProfesionalJPanel();
 	}
 	
 	// Inicializaci?n y configuraci?n del panel contenedor.
@@ -103,7 +108,8 @@ public class Sistema extends JFrame {
 		nuevoProfesionalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("nuevoProfesionalButton...");
+        		menuAdministradorPane.setVisible(false);
+        		generarProfesionalJPanel.setVisible(true);
             }
         }); 		
 		nuevoPacienteButton = menuAdministradorPane.getNuevoPacienteButton();
@@ -197,4 +203,30 @@ public class Sistema extends JFrame {
 		contentPane.add(menuPacientePane);
 		menuPacientePane.setVisible(false);			
 	}	
+	
+	public void configGenerarProfesionalJPanel() {
+		generarProfesionalJPanel = new GenerarProfesionalJPanel();
+		generarProfesionalJPanel.setBounds(0, 0, 484, 461);				
+		buttonGenerarProfesional = generarProfesionalJPanel.getButtonGenerarProfesional();
+		buttonGenerarProfesional.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("buttonGenerarProfesional...");
+            }
+        }); 
+		buttonGenerarProfesionalCancelar = generarProfesionalJPanel.getButtonGenerarProfesionalCancelar();
+		buttonGenerarProfesionalCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("buttonGenerarProfesionalCancelar...");
+            }
+        }); 
+		contentPane.add(generarProfesionalJPanel);
+		generarProfesionalJPanel.setVisible(false);			
+	}	
+	
+	/* ============================================================================================================================================== */
+	/* ============================================================================================================================================== */
+	/* ============================================================================================================================================== */
+	
 }
