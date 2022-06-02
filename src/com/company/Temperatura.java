@@ -2,13 +2,11 @@ package com.company;
 
 public class Temperatura extends TareaDeControl{
 
-    //Atributos
-    double temperatura;
+    private double temperatura;
 
-    //Constructor
     public Temperatura(String token, double temperatura){
         super(token, false, "");
-        this.temperatura=temperatura;
+        this.temperatura = temperatura;
     }
 
     public double getTemperatura() {
@@ -18,6 +16,4 @@ public class Temperatura extends TareaDeControl{
     public void setTemperatura(double temperatura) {
         this.temperatura = temperatura;
     }
-
-
 }

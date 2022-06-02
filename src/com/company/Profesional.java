@@ -1,23 +1,20 @@
 package com.company;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class Profesional extends Usuario{
 
-    //Atributos
-    HashMap<Integer, Paciente> pacienteLista;
+    private HashMap<String, Paciente> pacienteLista;
 
-    //Constructor
-
-
-    public Profesional(String nombre, String apellido, double dni, double telefono, String clave, String cuenta, HashMap<Integer, Paciente> pacienteLista) {
-        super(nombre, apellido, dni, telefono, clave, cuenta);
+    public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta, 
+    String clave, LocalDate fechaAlta, HashMap<String, Paciente> pacienteLista) {
+        super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta);
         this.pacienteLista = pacienteLista;
     }
 
-
-    public HashMap<Integer, Paciente> getPacienteLista() {
+    public HashMap<String, Paciente> getPacienteLista() {
         return pacienteLista;
     }
 

@@ -1,15 +1,11 @@
 package com.company;
 
+import java.time.LocalDate;
+
 public class Administrador extends Usuario{
 
-    //Atributos
-
-
-    //Constructor
-    public Administrador(String nombre, String apellido, double dni, double telefono, String clave,
-                         String cuenta){
-        super(nombre, apellido, dni, telefono, clave, cuenta);
-    }
-
-    
+    public Administrador(String nombre, String apellido, String dni, String telefono, String cuenta, 
+    String clave, LocalDate fechaAlta){
+        super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta);
+    }   
 }
