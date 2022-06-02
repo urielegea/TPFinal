@@ -54,9 +54,9 @@ public class GenerarProfesionalJPanel extends JPanel {
 		cuentaTextField.setBounds(171, 11, 200, 30);
 		panel_1.add(cuentaTextField);
 		
-		passwordLabel = new JLabel("Contrase\u00F1a:");
+		passwordLabel = new JLabel("Clave:");
 		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		passwordLabel.setBounds(20, 51, 141, 30);
+		passwordLabel.setBounds(67, 52, 67, 30);
 		panel_1.add(passwordLabel);
 		
 		passwordField = new JPasswordField();
