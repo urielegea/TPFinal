@@ -18,6 +18,10 @@ public class Profesional extends Usuario{
         return pacienteLista;
     }
 
+    public void setPacienteLista(HashMap<String, Paciente> pacienteLista) {
+        this.pacienteLista = pacienteLista;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

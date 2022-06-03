@@ -51,6 +51,18 @@ public abstract class Usuario extends Persona{
         this.ultimaSesion = ultimaSesion;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public void setFechaAlta(LocalDate fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,4 +80,15 @@ public abstract class Usuario extends Persona{
 		result = prime * result + Objects.hash(clave, cuenta, fechaAlta, token, ultimaSesion);
 		return result;
 	}
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "token='" + token + '\'' +
+                ", cuenta='" + cuenta + '\'' +
+                ", clave='" + clave + '\'' +
+                ", fechaAlta=" + fechaAlta +
+                ", ultimaSesion=" + ultimaSesion +
+                "} " + super.toString();
+    }
 }
