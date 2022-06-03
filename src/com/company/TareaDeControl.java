@@ -1,15 +1,19 @@
 package com.company;
 
-public abstract class TareaDeControl {
+import java.awt.dnd.DragGestureEvent;
+
+public class TareaDeControl {
 
     protected String token;
     protected boolean accion;
     protected String observacion;
+    protected EstructuraTDC estructura;
 
-    public TareaDeControl(String token, boolean accion, String observacion){
+    public TareaDeControl(String token, boolean accion, String observacion, EstructuraTDC estruc){
         this.token = token;
         this.accion = accion;
         this.observacion = observacion;
+        this.estructura=estruc;
     }  
     
     public String getToken() {
