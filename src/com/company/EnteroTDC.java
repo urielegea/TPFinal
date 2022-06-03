@@ -3,19 +3,19 @@ package com.company;
 public class EnteroTDC extends EstructuraTDC{
 
     //Atributos
-    private int entero;
+    private Integer entero;
 
     //Constructor
-    public EnteroTDC(String texto, int entero){
+    public EnteroTDC(String texto){
         super(texto);
-        this.entero=entero;
+        this.entero=null;
     }
 
-    public int getEntero() {
+    public Integer getEntero() {
         return entero;
     }
 
-    public void setEntero(int entero) {
+    public void setEntero(Integer entero) {
         this.entero = entero;
     }
 

@@ -4,22 +4,22 @@ public class DecimalTDC extends EstructuraTDC{
 
     //Atributos
 
-    private double decimal;
+    private Double decimal;
 
     //Constructor
-    public DecimalTDC(String texto, double decimal){
+    public DecimalTDC(String texto){
         super(texto);
-        this.decimal=decimal;
+        this.decimal=null;
     }
 
     //Metodos
 
 
-    public double getDecimal() {
+    public Double getDecimal() {
         return decimal;
     }
 
-    public void setDecimal(double decimal) {
+    public void setDecimal(Double decimal) {
         this.decimal = decimal;
     }
 

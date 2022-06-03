@@ -3,22 +3,22 @@ package com.company;
 public class VerdaderoFalsoTDC extends EstructuraTDC{
 
     //Atributos
-    private boolean vof;
+    private Boolean vof;
 
     //Constructor
-    public VerdaderoFalsoTDC(String texto, boolean vof){
+    public VerdaderoFalsoTDC(String texto){
         super(texto);
-        this.vof=vof;
+        this.vof=null;
     }
 
     //Metodos
 
 
-    public boolean getVof() {
+    public Boolean getVof() {
         return this.vof;
     }
 
-    public void setVof(boolean vof) {
+    public void setVof(Boolean vof) {
         this.vof = vof;
     }
 
