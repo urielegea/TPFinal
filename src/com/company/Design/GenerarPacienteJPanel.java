@@ -8,15 +8,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 
-public class GenerarProfesionalJPanel extends JPanel {
+public class GenerarPacienteJPanel extends JPanel {
 	
 	private JPanel panel_1;	
 	
-	// Genera el profesional y vuelve al menu.
-	private ButtonEdit buttonGenerarProfesional;
+	// Genera el paciente y vuelve al menu.
+	private ButtonEdit buttonGenerarPaciente;
 	
-	// Cancela la generacion de un nuevo profesional y vuelve al menu.
-	private ButtonEdit buttonGenerarProfesionalCancelar;
+	// Cancela la generacion de un nuevo paciente y vuelve al menu.
+	private ButtonEdit buttonGenerarPacienteCancelar;
 	
 	private JLabel cuentaLabel;
 	private JTextField cuentaTextField;
@@ -31,12 +31,12 @@ public class GenerarProfesionalJPanel extends JPanel {
 	private JLabel passwordLabel;
 	private JPasswordField passwordField;
 	
-	public GenerarProfesionalJPanel() {		
+	public GenerarPacienteJPanel() {		
 		setLayout(null);		
-		JLabel lblMenuAdministrador = new JLabel("Generar profesional", SwingConstants.CENTER);
-		lblMenuAdministrador.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblMenuAdministrador.setBounds(0, 18, 484, 46);
-		add(lblMenuAdministrador);				
+		JLabel lblMenuPaciente = new JLabel("Generar paciente", SwingConstants.CENTER);
+		lblMenuPaciente.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblMenuPaciente.setBounds(0, 18, 484, 46);
+		add(lblMenuPaciente);				
 		
 		panel_1 = new JPanel();
 		panel_1.setBounds(27, 86, 428, 357);
@@ -109,29 +109,30 @@ public class GenerarProfesionalJPanel extends JPanel {
 		telefonoTextField.setBounds(171, 211, 200, 30);
 		panel_1.add(telefonoTextField);
 		
-		buttonGenerarProfesionalCancelar = new ButtonEdit("Cancelar");
-		buttonGenerarProfesionalCancelar.setPressedBackgroundColor(Color.BLACK);
-		buttonGenerarProfesionalCancelar.setHoverBackgroundColor(new Color(4, 84, 128));
-		buttonGenerarProfesionalCancelar.setForeground(Color.WHITE);
-		buttonGenerarProfesionalCancelar.setBackground(new Color(3, 59, 90));
-		buttonGenerarProfesionalCancelar.setBounds(20, 283, 180, 40);
-		panel_1.add(buttonGenerarProfesionalCancelar);
+		buttonGenerarPacienteCancelar = new ButtonEdit("Cancelar");
+		buttonGenerarPacienteCancelar.setPressedBackgroundColor(Color.BLACK);
+		buttonGenerarPacienteCancelar.setHoverBackgroundColor(new Color(4, 84, 128));
+		buttonGenerarPacienteCancelar.setForeground(Color.WHITE);
+		buttonGenerarPacienteCancelar.setBackground(new Color(3, 59, 90));
+		buttonGenerarPacienteCancelar.setBounds(20, 283, 180, 40);
+		panel_1.add(buttonGenerarPacienteCancelar);
 		
-		buttonGenerarProfesional = new ButtonEdit("Generar");
-		buttonGenerarProfesional.setPressedBackgroundColor(Color.BLACK);
-		buttonGenerarProfesional.setHoverBackgroundColor(new Color(4, 84, 128));
-		buttonGenerarProfesional.setForeground(Color.WHITE);
-		buttonGenerarProfesional.setBackground(new Color(3, 59, 90));
-		buttonGenerarProfesional.setBounds(238, 283, 180, 40);
-		panel_1.add(buttonGenerarProfesional);
+		buttonGenerarPaciente = new ButtonEdit("Resetear");
+		buttonGenerarPaciente.setText("Generar");
+		buttonGenerarPaciente.setPressedBackgroundColor(Color.BLACK);
+		buttonGenerarPaciente.setHoverBackgroundColor(new Color(4, 84, 128));
+		buttonGenerarPaciente.setForeground(Color.WHITE);
+		buttonGenerarPaciente.setBackground(new Color(3, 59, 90));
+		buttonGenerarPaciente.setBounds(238, 283, 180, 40);
+		panel_1.add(buttonGenerarPaciente);
 	}
 
-	public ButtonEdit getButtonGenerarProfesional() {
-		return buttonGenerarProfesional;
+	public ButtonEdit getButtonGenerarPaciente() {
+		return buttonGenerarPaciente;
 	}
 
-	public ButtonEdit getButtonGenerarProfesionalCancelar() {
-		return buttonGenerarProfesionalCancelar;
+	public ButtonEdit getButtonGenerarPacienteCancelar() {
+		return buttonGenerarPacienteCancelar;
 	}
 
 	public JTextField getCuentaTextField() {
