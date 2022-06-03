@@ -230,7 +230,8 @@ public class Sistema extends JFrame {
 		buttonGenerarProfesionalCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("buttonGenerarProfesionalCancelar...");
+        		menuAdministradorPane.setVisible(true);
+        		generarProfesionalJPanel.setVisible(false);
             }
         }); 
 		contentPane.add(generarProfesionalJPanel);
@@ -251,7 +252,8 @@ public class Sistema extends JFrame {
 		buttonGenerarPacienteCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("buttonGenerarPacienteCancelar...");
+        		menuAdministradorPane.setVisible(true);
+        		generarPacienteJPanel.setVisible(false);
             }
         }); 
 		contentPane.add(generarPacienteJPanel);
@@ -261,4 +263,5 @@ public class Sistema extends JFrame {
 	/* ============================================================================================================================================== */
 	/* ============================================================================================================================================== */
 	/* ============================================================================================================================================== */
+	
 }
