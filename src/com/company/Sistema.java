@@ -10,10 +10,12 @@ public class Sistema extends JFrame {
 
 	private JPanel contentPane;
 	
+	// Perfil todos
 	private LoginJPanel loginPane;
 	private ButtonEdit loginButton;
 	private ButtonEdit loginResetButton;
 	
+	// Perfil administrador.
 	private MenuAdministradorJPanel menuAdministradorPane;
 	private ButtonEdit nuevoProfesionalButton;
 	private ButtonEdit nuevoPacienteButton;
@@ -21,19 +23,27 @@ public class Sistema extends JFrame {
 	private ButtonEdit administrarTareaDeControlButton;
 	private ButtonEdit cerrarMenuAdministradorButton;
 	
+	// Perfil profesional.
 	private MenuProfesionalJPanel menuProfesionalPane;
 	private ButtonEdit asignarPlanesDeControl;	
 	private ButtonEdit controlRegistroDePacientes;
 	private ButtonEdit finalizarPlanesDeControl;
 	private ButtonEdit cerrarMenuProfesionalButton;
 	
+	// Perfil paciente.
 	private MenuPacienteJPanel menuPacientePane;
 	private ButtonEdit ingresarDatosDeControl;	
 	private ButtonEdit cerrarMenuPacienteButton;
 	
+	// Perfil administrador.
 	private GenerarProfesionalJPanel generarProfesionalJPanel;
 	private ButtonEdit buttonGenerarProfesional;
-	private ButtonEdit buttonGenerarProfesionalCancelar;
+	private ButtonEdit buttonGenerarProfesionalCancelar;	
+	
+	// Perfil administrador.
+	private GenerarPacienteJPanel generarPacienteJPanel;
+	private ButtonEdit buttonGenerarPaciente;
+	private ButtonEdit buttonGenerarPacienteCancelar;	
 	
 	public Sistema() {				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,9 +57,10 @@ public class Sistema extends JFrame {
 		this.configMenuProfesional();
 		this.configMenuPaciente();
 		this.configGenerarProfesionalJPanel();
+		configGenerarPacienteJPanel();
 	}
 	
-	// Inicializaci?n y configuraci?n del panel contenedor.
+	// Inicializacion y configuracion del panel contenedor.
 	
 	public void configContentPane(){
 		contentPane = new JPanel();
@@ -57,7 +68,7 @@ public class Sistema extends JFrame {
 		contentPane.setLayout(null);
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel login.
+	// Inicializacion, configuracion y eventos del panel login.
 	
 	public void configLoginPane() {
 		loginPane = new LoginJPanel();
@@ -99,7 +110,7 @@ public class Sistema extends JFrame {
 		contentPane.add(loginPane);
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel menu administrador.
+	// Inicializacion, configuracion y eventos del panel menu administrador.
 	
 	public void configMenuAdministrador() {		
 		menuAdministradorPane = new MenuAdministradorJPanel();
@@ -116,7 +127,8 @@ public class Sistema extends JFrame {
 		nuevoPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("nuevoPacienteButton...");
+        		menuAdministradorPane.setVisible(false);
+        		generarPacienteJPanel.setVisible(true);
             }
         }); 
 		administrarEnfermedadButton = menuAdministradorPane.getAdministrarEnfermedadButton();
@@ -144,7 +156,7 @@ public class Sistema extends JFrame {
 		menuAdministradorPane.setVisible(false);
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel menu profesional.
+	// Inicializacion, configuracion y eventos del panel menu profesional.
 	
 	public void configMenuProfesional() {
 		menuProfesionalPane = new MenuProfesionalJPanel();
@@ -181,7 +193,7 @@ public class Sistema extends JFrame {
 		menuProfesionalPane.setVisible(false);	
 	}
 	
-	// Inicializaci?n, configuraci?n y eventos del panel menu paciente.
+	// Inicializacion, configuracion y eventos del panel menu paciente.
 	
 	public void configMenuPaciente() {
 		menuPacientePane = new MenuPacienteJPanel();
@@ -223,10 +235,30 @@ public class Sistema extends JFrame {
         }); 
 		contentPane.add(generarProfesionalJPanel);
 		generarProfesionalJPanel.setVisible(false);			
-	}	
+	}
+	
+	public void configGenerarPacienteJPanel() {
+		generarPacienteJPanel = new GenerarPacienteJPanel();
+		generarPacienteJPanel.setBounds(0, 0, 484, 461);				
+		buttonGenerarPaciente = generarPacienteJPanel.getButtonGenerarPaciente();
+		buttonGenerarPaciente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("buttonGenerarPaciente...");
+            }
+        }); 
+		buttonGenerarPacienteCancelar = generarPacienteJPanel.getButtonGenerarPacienteCancelar();
+		buttonGenerarPacienteCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("buttonGenerarPacienteCancelar...");
+            }
+        }); 
+		contentPane.add(generarPacienteJPanel);
+		generarPacienteJPanel.setVisible(false);			
+	}
 	
 	/* ============================================================================================================================================== */
 	/* ============================================================================================================================================== */
 	/* ============================================================================================================================================== */
-	
 }
