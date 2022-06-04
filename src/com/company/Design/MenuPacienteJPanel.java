@@ -31,7 +31,7 @@ public class MenuPacienteJPanel extends JPanel {
 		ingresarDatosDeControl.setBounds(60, 110, 360, 40);
 		add(ingresarDatosDeControl);	
 		
-		cerrarMenuPacienteButton = new ButtonEdit("Cerrar sesi�n");
+		cerrarMenuPacienteButton = new ButtonEdit("Cerrar sesiï¿½n");
 		cerrarMenuPacienteButton.setForeground(Color.WHITE);
 		cerrarMenuPacienteButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuPacienteButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Class;
 
 public class VerdaderoFalsoTDC extends EstructuraTDC{
 

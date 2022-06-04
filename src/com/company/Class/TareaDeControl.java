@@ -1,6 +1,4 @@
-package com.company;
-
-import java.awt.dnd.DragGestureEvent;
+package com.company.Class;
 
 public class TareaDeControl {
 
