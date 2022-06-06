@@ -32,20 +32,37 @@ public class ProfesionalJSON implements InterfazJSON {
         Iterator i = arrayJSON.iterator();
 
         while (i.hasNext()) {
+
+            ArrayList<String> pacienteLista = null;
             JSONObject profesionalJSON = (JSONObject) i.next();
-            String nombre = (String)profesionalJSON.get("nombre");
-            String apellido = (String)profesionalJSON.get("apellido");
-            String dni = (String)profesionalJSON.get("dni");
-            String telefono = (String)profesionalJSON.get("telefono");
-            String cuenta = (String)profesionalJSON.get("cuenta");
-            String clave = (String)profesionalJSON.get("clave");
-            String fechaAlta = (String)profesionalJSON.get("fechaAlta");
-            String ultimaSesion = (String)profesionalJSON.get("ultimaSesion");
-            String pacienteLista = (String)profesionalJSON.get("pacienteLista");
+            String nombre = (String) profesionalJSON.get("nombre");
+            String apellido = (String) profesionalJSON.get("apellido");
+            String dni = (String) profesionalJSON.get("dni");
+            String telefono = (String) profesionalJSON.get("telefono");
+            String cuenta = (String) profesionalJSON.get("cuenta");
+            String clave = (String) profesionalJSON.get("clave");
+            String fechaAlta = (String) profesionalJSON.get("fechaAlta");
+            String ultimaSesion = (String) profesionalJSON.get("ultimaSesion");
+
+
+            JSONArray pacienteArrayJSON = (JSONArray) profesionalJSON.get("pacienteLista");
+
+            if(pacienteArrayJSON != null){
+                Iterator p = pacienteArrayJSON.iterator();
+                boolean flag = false;
+                while (p.hasNext()) {
+                    if(!flag){
+                        pacienteLista = new ArrayList<String>();
+                        flag = true;
+                    }
+                    pacienteLista.add(p.next().toString());
+                }
+
+            }
 
             Profesional profesional = new Profesional(nombre, apellido, dni, telefono, cuenta,
-                    clave, fechaAlta, ultimaSesion, pacienteLista);
-            profesionalHashMap.put(cuenta ,profesional);
+                                                    clave, fechaAlta, ultimaSesion, pacienteLista);
+            profesionalHashMap.put(cuenta, profesional);
         }
         return profesionalHashMap;
     }

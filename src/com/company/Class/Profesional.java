@@ -1,25 +1,26 @@
 package com.company.Class;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class Profesional extends Usuario{
 
-    private HashMap<String, Paciente> pacienteLista;
+    private ArrayList<String> pacienteLista;
 
     public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta, 
-    String clave, String fechaAlta, HashMap<String, Paciente> pacienteLista) {
+    String clave, String fechaAlta, ArrayList<String> pacienteLista) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta);
         this.pacienteLista = pacienteLista;
     }
     
     public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta,
-    String clave, String fechaAlta, String ultimaSesion, String pacienteLista) {
+    String clave, String fechaAlta, String ultimaSesion, ArrayList<String> pacienteLista) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta, ultimaSesion);
         this.pacienteLista = pacienteLista;
     }
 
-    public HashMap<String, Paciente> getPacienteLista() {
+    public ArrayList<String> getPacienteLista() {
         return pacienteLista;
     }
 
