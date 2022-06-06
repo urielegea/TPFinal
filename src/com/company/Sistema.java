@@ -353,4 +353,5 @@ public class Sistema extends JFrame {
 	public void mensajeLeer(String mensaje) {
 		System.out.println(mensaje);
 	}
+
 }
