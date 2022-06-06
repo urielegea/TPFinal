@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Class;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

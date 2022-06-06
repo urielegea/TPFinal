@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Class;
 
 import java.util.Objects;
 
