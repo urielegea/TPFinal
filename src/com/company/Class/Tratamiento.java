@@ -11,6 +11,7 @@ public class Tratamiento {
     private LocalDate diaInicial;
     private LocalDate diaFinal;
     private ArrayList<ControlDiario> controlDiarioLista;
+	private String profesionalCuenta;
 
     public Tratamiento(String token, String enfermedadNombre, int duracionDias, LocalDate diaInicial,
 			LocalDate diaFinal, ArrayList<ControlDiario> controlDiarioLista) {
