@@ -2,9 +2,16 @@ package com.company;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.HashMap;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.json.simple.parser.ParseException;
+
 import com.company.Design.*;
+import com.company.JSON.AdministradorJSON;
 import com.company.Class.*;
 
 public class Sistema extends JFrame {
@@ -46,6 +53,11 @@ public class Sistema extends JFrame {
 	private ButtonEdit buttonGenerarPaciente;
 	private ButtonEdit buttonGenerarPacienteCancelar;	
 	
+	// ================================================
+	
+	private HashMap<String,Usuario> usuariosHashMap; 
+	private Usuario usuarioActivo = null;
+	
 	public Sistema() {				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -54,11 +66,17 @@ public class Sistema extends JFrame {
 		setTitle("Centro de salud");		
 		this.configContentPane();
 		this.configLoginPane();
-		this.configMenuAdministrador();
-		this.configMenuProfesional();
-		this.configMenuPaciente();
-		this.configGenerarProfesionalJPanel();
-		configGenerarPacienteJPanel();
+		
+
+		//this.configGenerarPacienteJPanel();
+		
+		// =======================================	
+		
+		try {
+			cargarUsuarios();
+		} catch (ParseException e) {
+			mensajeLeer(e.toString());
+		}
 	}
 	
 	// Inicializacion y configuracion del panel contenedor.
@@ -78,26 +96,11 @@ public class Sistema extends JFrame {
 		loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
-            	int PERFILPRUEBA = 1;
-            	
-            	switch(PERFILPRUEBA) {
-            	  case 0:
-            		  System.out.println("ERROR");
-            	  	break;            		  
-            	  case 1:
-            		loginPane.setVisible(false);
-            		menuAdministradorPane.setVisible(true);
-            	    break;
-            	  case 2:
-              		loginPane.setVisible(false);
-              		menuProfesionalPane.setVisible(true);
-            	    break;
-            	  case 3:
-                	loginPane.setVisible(false);
-                  	menuPacientePane.setVisible(true);
-            	    break;
-            	 }
+        		if (!loginPane.getUserField().getText().isEmpty() && !loginPane.getPasswordField().getText().isEmpty()) {        			
+        			if (iniciarSesion(loginPane.getUserField().getText(),loginPane.getPasswordField().getText())) {
+        				loginPane.setVisible(false);
+        			}
+        		}            	
             }
         }); 
 		loginResetButton = loginPane.getResetButton();
@@ -120,16 +123,16 @@ public class Sistema extends JFrame {
 		nuevoProfesionalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-        		menuAdministradorPane.setVisible(false);
-        		generarProfesionalJPanel.setVisible(true);
+            	configGenerarProfesionalJPanel();
+        		menuAdministradorPane.setVisible(false);        		
             }
         }); 		
 		nuevoPacienteButton = menuAdministradorPane.getNuevoPacienteButton();
 		nuevoPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	configGenerarProfesionalJPanel();
         		menuAdministradorPane.setVisible(false);
-        		generarPacienteJPanel.setVisible(true);
             }
         }); 
 		administrarEnfermedadButton = menuAdministradorPane.getAdministrarEnfermedadButton();
@@ -154,7 +157,7 @@ public class Sistema extends JFrame {
             }
         }); 		
 		contentPane.add(menuAdministradorPane);
-		menuAdministradorPane.setVisible(false);
+		menuAdministradorPane.setVisible(true);
 	}
 	
 	// Inicializacion, configuracion y eventos del panel menu profesional.
@@ -191,7 +194,7 @@ public class Sistema extends JFrame {
             }
         }); 		
 		contentPane.add(menuProfesionalPane);
-		menuProfesionalPane.setVisible(false);	
+		menuProfesionalPane.setVisible(true);	
 	}
 	
 	// Inicializacion, configuracion y eventos del panel menu paciente.
@@ -236,7 +239,7 @@ public class Sistema extends JFrame {
             }
         }); 
 		contentPane.add(generarProfesionalJPanel);
-		generarProfesionalJPanel.setVisible(false);			
+		generarProfesionalJPanel.setVisible(true);			
 	}
 	
 	public void configGenerarPacienteJPanel() {
@@ -258,11 +261,100 @@ public class Sistema extends JFrame {
             }
         }); 
 		contentPane.add(generarPacienteJPanel);
-		generarPacienteJPanel.setVisible(false);			
+		generarPacienteJPanel.setVisible(true);			
 	}
 	
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
 	
+	public void cargarUsuarios() throws ParseException {		
+		HashMap<String,Usuario> usuariosHashMap = new HashMap<String,Usuario>();
+		HashMap<String,Object> administradorHashMap = leerAdministradorJSON();
+		if (administradorHashMap != null) {
+			for (HashMap.Entry<String, Object> obj : administradorHashMap.entrySet()) {
+			    Administrador administrador = (Administrador)obj.getValue();
+				usuariosHashMap.put(administrador.getCuenta(),administrador);
+			}
+		}
+		HashMap<String,Object> profesionalHashMap = leerProfesionalJSON();
+		if (profesionalHashMap != null) {
+			for (HashMap.Entry<String, Object> obj : profesionalHashMap.entrySet()) {
+			    Profesional profesional = (Profesional)obj.getValue();
+				usuariosHashMap.put(profesional.getCuenta(),profesional);
+			}
+		}
+		HashMap<String,Object> pacienteHashMap = leerProfesionalJSON();
+		if (pacienteHashMap != null) {
+			for (HashMap.Entry<String, Object> obj : pacienteHashMap.entrySet()) {
+			    Paciente paciente = (Paciente)obj.getValue();
+				usuariosHashMap.put(paciente.getCuenta(),paciente);
+			}
+		}
+		this.usuariosHashMap = usuariosHashMap;
+	}
+	
+	public HashMap<String,Object> leerAdministradorJSON() {
+		try {			
+			AdministradorJSON administradorJSON =  new AdministradorJSON();
+			HashMap<String,Object> administradorHashMap = administradorJSON.leerJSON();	
+			return administradorHashMap;			
+		} catch (IOException e1) {
+			mensajeLeer(e1.toString());
+			return null;
+			
+		} catch (ParseException e1) {
+			mensajeLeer(e1.toString());
+			return null;
+		}
+	}
+	
+	public HashMap<String,Object> leerProfesionalJSON() {
+		return null;
+	}
+	
+	public HashMap<String,Object> leerPacienteJSON() {
+		return null;
+	}
+	
+	public boolean iniciarSesion(String cuenta, String clave){		
+		Usuario usuario = buscarUsuario(cuenta, clave);	
+		boolean flag = false;
+		if (usuario != null) {
+			if (usuario instanceof Administrador) {
+				usuarioActivo = usuario;
+				this.configMenuAdministrador();
+				flag = true;				
+			} else if (usuario instanceof Profesional){
+				usuarioActivo = usuario;
+				this.configMenuProfesional();
+				flag = true;				
+			} else if (usuario instanceof Paciente) {
+				usuarioActivo = usuario;
+				this.configMenuPaciente();
+				flag = true;
+			} else {
+				mensajeLeer("Lo siento, algo salió mal.");
+			}
+		}
+		return flag;		
+	}
+			
+	public Usuario buscarUsuario(String cuenta, String clave){
+		Usuario usuario = null;
+		if (this.usuariosHashMap.containsKey(cuenta)) {				
+			if (this.usuariosHashMap.get(cuenta).getClave().compareTo(clave) == 0) {
+				usuario = this.usuariosHashMap.get(cuenta);					
+			} else {
+				mensajeLeer("La clave es incorrecta.");
+			}
+		} else {
+			mensajeLeer("No se encontró coincidencias.");
+		}	
+		return usuario;
+	}
+	
+	public void mensajeLeer(String mensaje) {
+		System.out.println(mensaje);
+	}
 }
