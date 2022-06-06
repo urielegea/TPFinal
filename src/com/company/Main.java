@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		cargarAdministradorJSON();
-		leerAdministradorJSON();
+		//leerAdministradorJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -32,15 +32,15 @@ public class Main {
 		ArrayList<Object> administradorLista = new ArrayList<Object>();		
 		
 		Administrador uri = new Administrador("Uriel", "Egea","42901369","223 7834651",
-				"egeauriel@gmail.com","1234", "03-06-2022");	
+				"uriel@gmail.com","1234", "03-06-2022");	
 		administradorLista.add(uri);	
 		
 		Administrador mati = new Administrador("Matias", "Valenzisi","42000000","223 0303456", 
-				"matiasvalenzisi@gmail.com","1234", "03-06-2022");		
+				"matias@gmail.com","1234", "03-06-2022");		
 		administradorLista.add(mati);		
 		
 		Administrador gas = new Administrador("Gaspar", "Almaraz","42345603","223 42345603",
-				"gasparalmaraz@gmail.com","1234", "03-06-2022");		
+				"gaspar@gmail.com","1234", "03-06-2022");		
 		administradorLista.add(gas);
 		
 		try {
@@ -51,15 +51,14 @@ public class Main {
 			e.printStackTrace();
 		} catch (java.text.ParseException e) {
 			System.out.print(e.toString());
-		}
-		
+		}		
 	}
 	
 	public static void leerAdministradorJSON() {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
-			HashMap<String,Object> administradorLista = administradorJSON.leerJSON();				
-			for (HashMap.Entry<String, Object> obj : administradorLista.entrySet()) {
+			HashMap<String,Object> administradorHashMap = administradorJSON.leerJSON();				
+			for (HashMap.Entry<String, Object> obj : administradorHashMap.entrySet()) {
 			    Administrador administrador = (Administrador)obj.getValue();
 				System.out.println(administrador.toString());
 			}			
