@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public abstract class Usuario extends Persona {
     
-    protected String token;
+
     protected String cuenta;
     protected String clave;
     protected String fechaAlta;
@@ -13,31 +13,22 @@ public abstract class Usuario extends Persona {
     public Usuario(String nombre, String apellido, String dni, String telefono, String cuenta, 
     String clave, String fechaAlta){        
     	super(nombre, apellido, dni, telefono);
-        UUID auxUUID = UUID.randomUUID();
-        this.token = auxUUID.toString();
+
         this.cuenta = cuenta;
         this.clave = clave;
         this.fechaAlta = fechaAlta;
         this.ultimaSesion = null;  
     }
     
-    public Usuario(String nombre, String apellido, String dni, String telefono, String token, String cuenta, 
+    public Usuario(String nombre, String apellido, String dni, String telefono,  String cuenta,
     String clave, String fechaAlta, String ultimaSesion){        
     	super(nombre, apellido, dni, telefono);        
-        this.token = token;
+
         this.cuenta = cuenta;
         this.clave = clave;
         this.fechaAlta = fechaAlta;
         this.ultimaSesion = ultimaSesion;  
     }
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public String getCuenta() {
 		return cuenta;

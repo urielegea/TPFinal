@@ -37,15 +37,14 @@ public class AdministradorJSON implements InterfazJSON {
 			String apellido = (String)administradorJSON.get("apellido");
 			String dni = (String)administradorJSON.get("dni");
 			String telefono = (String)administradorJSON.get("telefono");
-			String token = (String)administradorJSON.get("token");
 			String cuenta = (String)administradorJSON.get("cuenta");
 			String clave = (String)administradorJSON.get("clave");
 			String fechaAlta = (String)administradorJSON.get("fechaAlta");
 			String ultimaSesion = (String)administradorJSON.get("ultimaSesion");
 			 
-			Administrador administrador = new Administrador(nombre, apellido, dni, telefono, token, cuenta, 
-					 clave, fechaAlta, ultimaSesion);			 
-			administradorHashMap.put(token, administrador);	
+			Administrador administrador = new Administrador(nombre, apellido, dni, telefono, cuenta,
+					 clave, fechaAlta, ultimaSesion);
+			administradorHashMap.put(cuenta ,administrador);
 		}			 
 		return administradorHashMap;
 	}

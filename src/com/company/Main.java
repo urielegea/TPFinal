@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		cargarAdministradorJSON();
-		//leerAdministradorJSON();
+		leerAdministradorJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

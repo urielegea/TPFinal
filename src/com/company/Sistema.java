@@ -297,15 +297,11 @@ public class Sistema extends JFrame {
 	public HashMap<String,Object> leerAdministradorJSON() {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
-			HashMap<String,Object> administradorHashMap = administradorJSON.leerJSON();	
-			return administradorHashMap;			
-		} catch (IOException e1) {
+			return administradorJSON.leerJSON();
+		} catch (IOException | ParseException e1) {
 			mensajeLeer(e1.toString());
 			return null;
 			
-		} catch (ParseException e1) {
-			mensajeLeer(e1.toString());
-			return null;
 		}
 	}
 	

@@ -12,9 +12,9 @@ public class Paciente extends Usuario{
         this.numeroHistorial = numeroHistorial;
     }
     
-    public Paciente(String nombre, String apellido, String dni, String telefono, String token, String cuenta, 
+    public Paciente(String nombre, String apellido, String dni, String telefono, String cuenta,
     String clave, String fechaAlta, String ultimaSesion, String numeroHistorial) {
-        super(nombre, apellido, dni, telefono, token, cuenta, clave, fechaAlta, ultimaSesion);
+        super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta, ultimaSesion);
         this.numeroHistorial = numeroHistorial;
     }
 
@@ -24,16 +24,24 @@ public class Paciente extends Usuario{
 
     public void setNumeroHistorial(String numeroHistorial) {
         this.numeroHistorial = numeroHistorial;
-    }  
+    }
 
     @Override
-	public String toString() {
-		return "Paciente [numeroHistorial=" + numeroHistorial + ", token=" + token + ", cuenta=" + cuenta + ", clave="
-				+ clave + ", fechaAlta=" + fechaAlta + ", ultimaSesion=" + ultimaSesion + ", nombre=" + nombre
-				+ ", apellido=" + apellido + ", dni=" + dni + ", telefono=" + telefono + "]";
-	}
+    public String toString() {
+        return "Paciente{" +
+                "numeroHistorial='" + numeroHistorial + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni='" + dni + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", cuenta='" + cuenta + '\'' +
+                ", clave='" + clave + '\'' +
+                ", fechaAlta='" + fechaAlta + '\'' +
+                ", ultimaSesion='" + ultimaSesion + '\'' +
+                "} " + super.toString();
+    }
 
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
