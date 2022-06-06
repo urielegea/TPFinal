@@ -13,8 +13,8 @@ public class Profesional extends Usuario{
         this.pacienteLista = pacienteLista;
     }
     
-    public Profesional(String nombre, String apellido, String dni, String telefono, String token, String cuenta, 
-    String clave, String fechaAlta, String ultimaSesion, HashMap<String, Paciente> pacienteLista) {
+    public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta,
+    String clave, String fechaAlta, String ultimaSesion, String pacienteLista) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta, ultimaSesion);
         this.pacienteLista = pacienteLista;
     }
