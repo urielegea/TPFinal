@@ -1,7 +1,5 @@
 package com.company.Class;
 
-import java.util.Scanner;
-
 public interface AdministrarTareaDeControl {
 
     public default EnteroTDC crearEnteroTDC(String texto){

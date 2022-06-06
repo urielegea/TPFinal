@@ -1,7 +1,5 @@
 package com.company.Class;
 
-import java.util.UUID;
-
 public abstract class Usuario extends Persona {
     
 

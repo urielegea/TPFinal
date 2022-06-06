@@ -27,6 +27,10 @@ public class Tratamiento {
     public String getToken() {
 		return token;
 	}
+    
+	public void setToken(String token) {
+		this.token = token;
+	}  
 
 	public String getEnfermedadNombre() {
 		return enfermedadNombre;
@@ -66,5 +70,13 @@ public class Tratamiento {
 
 	public void setControlDiarioLista(ArrayList<ControlDiario> controlDiarioLista) {
 		this.controlDiarioLista = controlDiarioLista;
-	}    
+	}
+
+	public String getProfesionalCuenta() {
+		return profesionalCuenta;
+	}
+
+	public void setProfesionalCuenta(String profesionalCuenta) {
+		this.profesionalCuenta = profesionalCuenta;
+	}	
 }
