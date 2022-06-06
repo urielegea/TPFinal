@@ -14,13 +14,14 @@ public class Tratamiento {
 	private String profesionalCuenta;
 
     public Tratamiento(String token, String enfermedadNombre, int duracionDias, LocalDate diaInicial,
-			LocalDate diaFinal, ArrayList<ControlDiario> controlDiarioLista) {
+					   LocalDate diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta) {
 		this.token = token;
 		this.enfermedadNombre = enfermedadNombre;
 		this.duracionDias = duracionDias;
 		this.diaInicial = diaInicial;
 		this.diaFinal = diaFinal;
 		this.controlDiarioLista = controlDiarioLista;
+		this.profesionalCuenta = profesionalCuenta;
 	}
 
     public String getToken() {
