@@ -5,10 +5,12 @@ public abstract class EstructuraTDC {
     //Atributos
     protected String textoDescriptivo;
 
+    //Constructor
     public EstructuraTDC(String textoDescriptivo){
         this.textoDescriptivo=textoDescriptivo;
     }
 
+    //Metodos
     public String getTextoDescriptivo() {
         return textoDescriptivo;
     }
