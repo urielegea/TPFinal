@@ -1,5 +1,6 @@
 package com.company.Class;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface NuevoProfesional {
@@ -12,7 +13,7 @@ public interface NuevoProfesional {
             String cuenta,
             String clave,
             String fechaAlta,
-            HashMap<String, Paciente> pacienteLista,
+            ArrayList<String> pacienteLista,
             HashMap<String, Usuario> usuariosHashMap){
 
         if(!buscarProfesionalConstructor(usuariosHashMap, cuenta)){

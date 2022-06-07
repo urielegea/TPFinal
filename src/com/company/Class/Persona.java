@@ -65,4 +65,14 @@ public abstract class Persona {
 	public int hashCode() {
 		return Objects.hash(apellido, dni, nombre, telefono);
 	}
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni='" + dni + '\'' +
+                ", telefono='" + telefono + '\'' +
+                '}';
+    }
 }
