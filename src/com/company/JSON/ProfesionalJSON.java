@@ -29,7 +29,7 @@ public class ProfesionalJSON implements InterfazJSON {
 
         Object objectJSON = new JSONParser().parse(new FileReader(this.getUbicacion()));
         JSONArray arrayJSON = (JSONArray) objectJSON;
-        Iterator i = arrayJSON.iterator();
+        Iterator<?> i = arrayJSON.iterator();
 
         while (i.hasNext()) {
 
@@ -47,7 +47,7 @@ public class ProfesionalJSON implements InterfazJSON {
 
             JSONArray pacienteArrayJSON = (JSONArray) profesionalJSON.get("pacienteLista");
             if(pacienteArrayJSON != null){
-                Iterator p = pacienteArrayJSON.iterator();
+                Iterator<?> p = pacienteArrayJSON.iterator();
                 boolean flag = false;
                 while (p.hasNext()) {
                     if(!flag){

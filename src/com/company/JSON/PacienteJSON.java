@@ -29,7 +29,7 @@ public class PacienteJSON implements InterfazJSON {
 
         Object objectJSON = new JSONParser().parse(new FileReader(this.getUbicacion()));
         JSONArray arrayJSON = (JSONArray) objectJSON;
-        Iterator i = arrayJSON.iterator();
+        Iterator<?> i = arrayJSON.iterator();
 
         while (i.hasNext()) {
             JSONObject pacienteJSON = (JSONObject) i.next();

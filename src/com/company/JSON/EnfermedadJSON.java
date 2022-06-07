@@ -1,13 +1,10 @@
 package com.company.JSON;
 
 import com.company.Class.Enfermedad;
-import com.company.Class.Paciente;
-import com.company.Class.Profesional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,7 +29,7 @@ public class EnfermedadJSON implements InterfazJSON{
 
         Object objectJSON = new JSONParser().parse(new FileReader(this.getUbicacion()));
         JSONArray arrayJSON = (JSONArray) objectJSON;
-        Iterator i = arrayJSON.iterator();
+        Iterator<?> i = arrayJSON.iterator();
 
         while (i.hasNext()) {
 
@@ -46,7 +43,7 @@ public class EnfermedadJSON implements InterfazJSON{
 
             JSONArray enfermedadArrayJSON = (JSONArray) enfermedadJSON.get("pacienteLista");
             if(enfermedadArrayJSON != null){
-                Iterator p = enfermedadArrayJSON.iterator();
+                Iterator<?> p = enfermedadArrayJSON.iterator();
                 boolean flag = false;
                 while (p.hasNext()) {
                     if(!flag){
