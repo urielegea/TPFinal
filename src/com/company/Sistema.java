@@ -71,10 +71,7 @@ public class Sistema extends JFrame {
 		setLocationRelativeTo(null);
 		setTitle("Centro de salud");		
 		this.configContentPane();
-		this.configLoginPane();
-		
-
-		//this.configGenerarPacienteJPanel();
+		this.configLoginPane();		
 		
 		// =======================================	
 		
@@ -137,7 +134,7 @@ public class Sistema extends JFrame {
 		nuevoPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	configGenerarProfesionalJPanel();
+            	configGenerarPacienteJPanel();
         		menuAdministradorPane.setVisible(false);
             }
         }); 
@@ -366,7 +363,7 @@ public class Sistema extends JFrame {
 				this.configMenuPaciente();
 				flag = true;
 			} else {
-				mensajeLeer("Lo siento, algo saliÃ³ mal.");
+				mensajeLeer("Lo siento, algo saliÃƒÂ³ mal.");
 			}
 		}
 		return flag;		
@@ -381,7 +378,7 @@ public class Sistema extends JFrame {
 				mensajeLeer("La clave es incorrecta.");
 			}
 		} else {
-			mensajeLeer("No se encontrÃ³ coincidencias.");
+			mensajeLeer("No se encontraron coincidencias.");
 		}	
 		return usuario;
 	}

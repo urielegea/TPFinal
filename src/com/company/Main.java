@@ -17,11 +17,12 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		//cargarAdministradorJSON();
-		/*leerAdministradorJSON();
-		leerProfesionalJSON();*/
+		cargarAdministradorJSON();
+		//leerAdministradorJSON();
+		cargarProfesionalJSON();
+		//leerProfesionalJSON();
 		cargarEnfermedadJSON();
-		leerEnfermedadJSON();
+		//leerEnfermedadJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -62,6 +63,29 @@ public class Main {
 		}		
 	}
 	
+	public static void cargarProfesionalJSON() {	
+		
+		ArrayList<Object> profesionalLista = new ArrayList<Object>();		
+		
+		Profesional roberto = new Profesional("Roberto", "Perez","265630","222 6748532",
+				"roberto@gmail.com","1234", "07-06-2022", null);	
+		profesionalLista.add(roberto);	
+		
+		Profesional emilio = new Profesional("Emilio", "Sanchez","546478","223 9688328",
+				"emilio@gmail.com","1234", "07-06-2022", null);	
+		profesionalLista.add(emilio);	
+		
+		try {
+			ProfesionalJSON profesionalJSON =  new ProfesionalJSON();
+			profesionalJSON.cargarJSON(profesionalLista);
+		} catch (IOException e) {
+			System.out.print(e.toString());
+			e.printStackTrace();
+		} catch (java.text.ParseException e) {
+			System.out.print(e.toString());
+		}		
+	}
+	
 	public static void leerAdministradorJSON() {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
@@ -94,11 +118,10 @@ public class Main {
 
 		ArrayList<Object> enfermedadLista = new ArrayList<>();
 
-		Enfermedad tos = new Enfermedad("Tos comun", null,"una simple tos",2);
+		Enfermedad tos = new Enfermedad("Tos comun", null, "una simple tos", 2);
 		enfermedadLista.add(tos);
 
-		Enfermedad fiebre = new Enfermedad("Fiebre", null,"Fiebre de mas de 38 grados",
-				6);
+		Enfermedad fiebre = new Enfermedad("Fiebre", null, "Fiebre de mas de 38 grados", 6);
 		enfermedadLista.add(fiebre);
 
 		try {
