@@ -35,6 +35,7 @@ public class ProfesionalJSON implements InterfazJSON {
 
             ArrayList<String> pacienteLista = null;
             JSONObject profesionalJSON = (JSONObject) i.next();
+
             String nombre = (String) profesionalJSON.get("nombre");
             String apellido = (String) profesionalJSON.get("apellido");
             String dni = (String) profesionalJSON.get("dni");
@@ -44,9 +45,7 @@ public class ProfesionalJSON implements InterfazJSON {
             String fechaAlta = (String) profesionalJSON.get("fechaAlta");
             String ultimaSesion = (String) profesionalJSON.get("ultimaSesion");
 
-
             JSONArray pacienteArrayJSON = (JSONArray) profesionalJSON.get("pacienteLista");
-
             if(pacienteArrayJSON != null){
                 Iterator p = pacienteArrayJSON.iterator();
                 boolean flag = false;
@@ -59,7 +58,6 @@ public class ProfesionalJSON implements InterfazJSON {
                 }
 
             }
-
             Profesional profesional = new Profesional(nombre, apellido, dni, telefono, cuenta,
                                                     clave, fechaAlta, ultimaSesion, pacienteLista);
             profesionalHashMap.put(cuenta, profesional);

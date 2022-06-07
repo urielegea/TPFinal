@@ -17,6 +17,7 @@ public class Enfermedad {
 		this.duracionDias = duracionDias;
 	}
 
+
     public String getNombre() {
 		return nombre;
 	}
@@ -43,5 +44,15 @@ public class Enfermedad {
 
 	public void setDuracionDias(int duracionDias) {
 		this.duracionDias = duracionDias;
+	}
+
+	@Override
+	public String toString() {
+		return "Enfermedad{" +
+				"nombre='" + nombre + '\'' +
+				", tareaDeControlLista=" + tareaDeControlLista +
+				", descripcion='" + descripcion + '\'' +
+				", duracionDias=" + duracionDias +
+				'}';
 	}
 }
