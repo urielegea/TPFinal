@@ -53,6 +53,12 @@ public class Sistema extends JFrame {
 	private ButtonEdit buttonGenerarPaciente;
 	private ButtonEdit buttonGenerarPacienteCancelar;	
 	
+	// Perfil administrador.
+	private AdministrarEnfermedadesJPanel administrarEnfermedadesJPanel;
+	private ButtonEdit nuevaEnfermedadButton;	
+	private ButtonEdit editarEnfermedadButton;
+	private ButtonEdit atrasEnfermedadButton;
+	
 	// ================================================
 	
 	private HashMap<String,Usuario> usuariosHashMap; 
@@ -139,7 +145,8 @@ public class Sistema extends JFrame {
 		administrarEnfermedadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("administrarEnfermedadButton...");
+            	configAdministrarEnfermedades();
+            	menuAdministradorPane.setVisible(false);
             }
         }); 		
 		administrarTareaDeControlButton = menuAdministradorPane.getAdministrarTareaDeControlButton();
@@ -264,6 +271,35 @@ public class Sistema extends JFrame {
 		generarPacienteJPanel.setVisible(true);			
 	}
 	
+	public void configAdministrarEnfermedades() {
+		administrarEnfermedadesJPanel = new AdministrarEnfermedadesJPanel();
+		administrarEnfermedadesJPanel.setBounds(0, 0, 484, 461);		
+		nuevaEnfermedadButton = administrarEnfermedadesJPanel.getNuevaEnfermedadButton();
+		nuevaEnfermedadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("nuevaEnfermedadButton...");
+            }
+        }); 		
+		editarEnfermedadButton = administrarEnfermedadesJPanel.getEditarEnfermedadButton();
+		editarEnfermedadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("editarEnfermedadButton...");
+            }
+        }); 
+		atrasEnfermedadButton = administrarEnfermedadesJPanel.getAtrasEnfermedadButton();
+		atrasEnfermedadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		menuAdministradorPane.setVisible(true);
+        		administrarEnfermedadesJPanel.setVisible(false);
+            }
+        }); 		
+		contentPane.add(administrarEnfermedadesJPanel);
+		administrarEnfermedadesJPanel.setVisible(true);		
+	}
+	
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
@@ -330,7 +366,7 @@ public class Sistema extends JFrame {
 				this.configMenuPaciente();
 				flag = true;
 			} else {
-				mensajeLeer("Lo siento, algo salió mal.");
+				mensajeLeer("Lo siento, algo saliÃ³ mal.");
 			}
 		}
 		return flag;		
@@ -345,7 +381,7 @@ public class Sistema extends JFrame {
 				mensajeLeer("La clave es incorrecta.");
 			}
 		} else {
-			mensajeLeer("No se encontró coincidencias.");
+			mensajeLeer("No se encontrÃ³ coincidencias.");
 		}	
 		return usuario;
 	}
@@ -353,5 +389,4 @@ public class Sistema extends JFrame {
 	public void mensajeLeer(String mensaje) {
 		System.out.println(mensaje);
 	}
-
 }
