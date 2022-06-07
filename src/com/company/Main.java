@@ -55,12 +55,10 @@ public class Main {
 		try {
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
 			administradorJSON.cargarJSON(administradorLista);
-		} catch (IOException e) {
+		} catch (IOException | java.text.ParseException e) {
 			System.out.print(e.toString());
 			e.printStackTrace();
-		} catch (java.text.ParseException e) {
-			System.out.print(e.toString());
-		}		
+		} 		
 	}
 	
 	public static void cargarProfesionalJSON() {	
@@ -78,12 +76,10 @@ public class Main {
 		try {
 			ProfesionalJSON profesionalJSON =  new ProfesionalJSON();
 			profesionalJSON.cargarJSON(profesionalLista);
-		} catch (IOException e) {
+		} catch (IOException | java.text.ParseException e) {
 			System.out.print(e.toString());
 			e.printStackTrace();
-		} catch (java.text.ParseException e) {
-			System.out.print(e.toString());
-		}		
+		} 		
 	}
 	
 	public static void leerAdministradorJSON() {
@@ -127,12 +123,10 @@ public class Main {
 		try {
 			EnfermedadJSON enfermedadJSON = new EnfermedadJSON();
 			enfermedadJSON.cargarJSON(enfermedadLista);
-		} catch (IOException e) {
+		} catch (IOException | java.text.ParseException e) {
 			System.out.print(e.toString());
 			e.printStackTrace();
-		} catch (java.text.ParseException e) {
-			System.out.print(e.toString());
-		}
+		} 
 	}
 
 	public static void leerEnfermedadJSON() {
