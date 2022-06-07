@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class ButtonEdit extends JButton {
 	
     private Color hoverBackgroundColor;

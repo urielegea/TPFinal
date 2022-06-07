@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class AdministrarEnfermedadesJPanel extends JPanel {
 	
 	private ButtonEdit nuevaEnfermedadButton;	

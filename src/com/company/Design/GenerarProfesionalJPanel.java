@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class GenerarProfesionalJPanel extends JPanel {
 	
 	private JPanel panel_1;	
