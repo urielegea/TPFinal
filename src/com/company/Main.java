@@ -119,7 +119,7 @@ public class Main {
 		pacienteLista.add(jaime);
 		
 		Paciente romina = new Paciente("Romina", "Sanchez","567466","223 342765",
-				"Romina@gmail.com","1234", "07-06-2022", null);	
+				"romina@gmail.com","1234", "07-06-2022", null);	
 		pacienteLista.add(romina);
 		
 		try {

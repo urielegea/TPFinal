@@ -12,6 +12,8 @@ import org.json.simple.parser.ParseException;
 
 import com.company.Design.*;
 import com.company.JSON.AdministradorJSON;
+import com.company.JSON.PacienteJSON;
+import com.company.JSON.ProfesionalJSON;
 import com.company.Class.*;
 
 public class Sistema extends JFrame {
@@ -217,7 +219,7 @@ public class Sistema extends JFrame {
             }
         }); 		
 		contentPane.add(menuPacientePane);
-		menuPacientePane.setVisible(false);			
+		menuPacientePane.setVisible(true);			
 	}	
 	
 	public void configGenerarProfesionalJPanel() {
@@ -334,11 +336,23 @@ public class Sistema extends JFrame {
 	}
 	
 	public HashMap<String,Profesional> leerProfesionalJSON() {
-		return null;
+		try {			
+			ProfesionalJSON profesionalJSON =  new ProfesionalJSON();
+			return profesionalJSON.leerJSON();
+		} catch (IOException | ParseException e1) {
+			mensajeLeer(e1.toString());
+			return null;			
+		}
 	}
 	
 	public HashMap<String,Paciente> leerPacienteJSON() {
-		return null;
+		try {			
+			PacienteJSON pacienteJSON =  new PacienteJSON();
+			return pacienteJSON.leerJSON();
+		} catch (IOException | ParseException e1) {
+			mensajeLeer(e1.toString());
+			return null;			
+		}
 	}
 	
 	public boolean iniciarSesion(String cuenta, String clave){		
@@ -358,7 +372,7 @@ public class Sistema extends JFrame {
 				this.configMenuPaciente();
 				flag = true;
 			} else {
-				mensajeLeer("Lo siento, algo saliÃƒÂ³ mal.");
+				mensajeLeer("Lo siento, algo salido mal.");
 			}
 		}
 		return flag;		

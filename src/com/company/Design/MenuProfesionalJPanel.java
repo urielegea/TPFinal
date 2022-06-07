@@ -3,7 +3,6 @@ package com.company.Design;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -49,7 +48,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		finalizarPlanesDeControl.setBounds(60, 230, 360, 40);
 		add(finalizarPlanesDeControl);	
 		
-		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesiï¿½n");
+		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesión");
 		cerrarMenuProfesionalButton.setForeground(Color.WHITE);
 		cerrarMenuProfesionalButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuProfesionalButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
