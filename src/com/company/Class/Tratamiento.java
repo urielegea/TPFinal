@@ -11,20 +11,26 @@ public class Tratamiento {
     private LocalDate diaInicial;
     private LocalDate diaFinal;
     private ArrayList<ControlDiario> controlDiarioLista;
+	private String profesionalCuenta;
 
     public Tratamiento(String token, String enfermedadNombre, int duracionDias, LocalDate diaInicial,
-			LocalDate diaFinal, ArrayList<ControlDiario> controlDiarioLista) {
+					   LocalDate diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta) {
 		this.token = token;
 		this.enfermedadNombre = enfermedadNombre;
 		this.duracionDias = duracionDias;
 		this.diaInicial = diaInicial;
 		this.diaFinal = diaFinal;
 		this.controlDiarioLista = controlDiarioLista;
+		this.profesionalCuenta = profesionalCuenta;
 	}
 
     public String getToken() {
 		return token;
 	}
+    
+	public void setToken(String token) {
+		this.token = token;
+	}  
 
 	public String getEnfermedadNombre() {
 		return enfermedadNombre;
@@ -64,5 +70,13 @@ public class Tratamiento {
 
 	public void setControlDiarioLista(ArrayList<ControlDiario> controlDiarioLista) {
 		this.controlDiarioLista = controlDiarioLista;
-	}    
+	}
+
+	public String getProfesionalCuenta() {
+		return profesionalCuenta;
+	}
+
+	public void setProfesionalCuenta(String profesionalCuenta) {
+		this.profesionalCuenta = profesionalCuenta;
+	}	
 }

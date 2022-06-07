@@ -1,6 +1,6 @@
 package com.company.Class;
 
-public class Administrador extends Usuario{
+public class Administrador extends Usuario implements NuevoPaciente, NuevoProfesional, AdministrarEnfermedades, AdministrarTareaDeControl{
 
     public Administrador(String nombre, String apellido, String dni, String telefono, String cuenta, 
     String clave, String fechaAlta){

@@ -11,11 +11,13 @@ public class ButtonEdit extends JButton {
 
     public ButtonEdit() {
         this(null);
+        setFocusable(false);
     }
 
     public ButtonEdit(String text) {
         super(text);
         super.setContentAreaFilled(false);
+        setFocusable(false);
     }
 
     @Override

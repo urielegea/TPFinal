@@ -57,7 +57,7 @@ public class MenuAdministradorJPanel extends JPanel {
 		administrarTareaDeControlButton.setBounds(60, 290, 360, 40);
 		add(administrarTareaDeControlButton);
 		
-		cerrarMenuAdministradorButton = new ButtonEdit("Cerrar sesiï¿½n");
+		cerrarMenuAdministradorButton = new ButtonEdit("Cerrar sesión");
 		cerrarMenuAdministradorButton.setForeground(Color.WHITE);
 		cerrarMenuAdministradorButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuAdministradorButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
