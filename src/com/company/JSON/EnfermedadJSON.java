@@ -13,19 +13,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class EnfermedadJSON implements InterfazJSON{
+public class EnfermedadJSON implements InterfazJSON <Enfermedad>{
 
     @Override
-    public void cargarJSON(ArrayList<Object> objList) throws IOException, ParseException {
+    public void cargarJSON(ArrayList<Enfermedad> objList) throws IOException, ParseException {
         File file = new File(this.getUbicacion());
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, objList);
     }
 
     @Override
-    public HashMap<String, Object> leerJSON() throws IOException, org.json.simple.parser.ParseException {
+    public HashMap<String, Enfermedad> leerJSON() throws IOException, org.json.simple.parser.ParseException {
 
-        HashMap<String,Object> enfermedadHashMap = new HashMap<String,Object>();
+        HashMap<String,Enfermedad> enfermedadHashMap = new HashMap<String,Enfermedad>();
 
         Object objectJSON = new JSONParser().parse(new FileReader(this.getUbicacion()));
         JSONArray arrayJSON = (JSONArray) objectJSON;
@@ -40,7 +40,6 @@ public class EnfermedadJSON implements InterfazJSON{
             String descripcion = (String)enfermedadJSON.get("descripcion");
             long duracionDias = (long) enfermedadJSON.get("duracionDias");
 
-
             JSONArray enfermedadArrayJSON = (JSONArray) enfermedadJSON.get("pacienteLista");
             if(enfermedadArrayJSON != null){
                 Iterator<?> p = enfermedadArrayJSON.iterator();
@@ -52,9 +51,7 @@ public class EnfermedadJSON implements InterfazJSON{
                     }
                     tareaDeControlLista.add(p.next().toString());
                 }
-
             }
-
             Enfermedad enfermedad = new Enfermedad(nombre,tareaDeControlLista,descripcion,(int)duracionDias);
             enfermedadHashMap.put(nombre,enfermedad);
         }

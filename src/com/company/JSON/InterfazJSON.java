@@ -5,11 +5,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public interface InterfazJSON {	
+public interface InterfazJSON <T>{	
 	
-	public void cargarJSON(ArrayList<Object> objList) throws IOException, ParseException;
+	public void cargarJSON(ArrayList<T> objList) throws IOException, ParseException;
 	
-	public HashMap<String,Object> leerJSON() throws IOException, org.json.simple.parser.ParseException;   
+	public HashMap<String,T> leerJSON() throws IOException, org.json.simple.parser.ParseException;   
 	
 	public String getUbicacion();	
 }

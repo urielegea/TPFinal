@@ -74,12 +74,8 @@ public class Sistema extends JFrame {
 		this.configLoginPane();		
 		
 		// =======================================	
-		
-		try {
-			cargarUsuarios();
-		} catch (ParseException e) {
-			mensajeLeer(e.toString());
-		}
+
+		cargarUsuarios();
 	}
 	
 	// Inicializacion y configuracion del panel contenedor.
@@ -301,48 +297,47 @@ public class Sistema extends JFrame {
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
 	
-	public void cargarUsuarios() throws ParseException {		
+	public void cargarUsuarios() {		
 		HashMap<String,Usuario> usuariosHashMap = new HashMap<String,Usuario>();
-		HashMap<String,Object> administradorHashMap = leerAdministradorJSON();
+		HashMap<String,Administrador> administradorHashMap = leerAdministradorJSON();
 		if (administradorHashMap != null) {
-			for (HashMap.Entry<String, Object> obj : administradorHashMap.entrySet()) {
-			    Administrador administrador = (Administrador)obj.getValue();
-				usuariosHashMap.put(administrador.getCuenta(),administrador);
+			for (HashMap.Entry<String, Administrador> obj : administradorHashMap.entrySet()) {
+			    Administrador administrador = obj.getValue();
+				usuariosHashMap.put(administrador.getCuenta(), administrador);
 			}
 		}
-		HashMap<String,Object> profesionalHashMap = leerProfesionalJSON();
+		HashMap<String,Profesional> profesionalHashMap = leerProfesionalJSON();
 		if (profesionalHashMap != null) {
-			for (HashMap.Entry<String, Object> obj : profesionalHashMap.entrySet()) {
-			    Profesional profesional = (Profesional)obj.getValue();
-				usuariosHashMap.put(profesional.getCuenta(),profesional);
+			for (HashMap.Entry<String, Profesional> obj : profesionalHashMap.entrySet()) {
+			    Profesional profesional = obj.getValue();
+				usuariosHashMap.put(profesional.getCuenta(), profesional);
 			}
 		}
-		HashMap<String,Object> pacienteHashMap = leerProfesionalJSON();
+		HashMap<String,Paciente> pacienteHashMap = leerPacienteJSON();
 		if (pacienteHashMap != null) {
-			for (HashMap.Entry<String, Object> obj : pacienteHashMap.entrySet()) {
-			    Paciente paciente = (Paciente)obj.getValue();
-				usuariosHashMap.put(paciente.getCuenta(),paciente);
+			for (HashMap.Entry<String, Paciente> obj : pacienteHashMap.entrySet()) {
+			    Paciente paciente = obj.getValue();
+				usuariosHashMap.put(paciente.getCuenta(), paciente);
 			}
 		}
 		this.usuariosHashMap = usuariosHashMap;
 	}
 	
-	public HashMap<String,Object> leerAdministradorJSON() {
+	public HashMap<String,Administrador> leerAdministradorJSON() {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
 			return administradorJSON.leerJSON();
 		} catch (IOException | ParseException e1) {
 			mensajeLeer(e1.toString());
-			return null;
-			
+			return null;			
 		}
 	}
 	
-	public HashMap<String,Object> leerProfesionalJSON() {
+	public HashMap<String,Profesional> leerProfesionalJSON() {
 		return null;
 	}
 	
-	public HashMap<String,Object> leerPacienteJSON() {
+	public HashMap<String,Paciente> leerPacienteJSON() {
 		return null;
 	}
 	

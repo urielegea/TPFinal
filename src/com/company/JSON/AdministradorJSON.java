@@ -13,19 +13,19 @@ import java.text.ParseException;
 import com.company.Class.Administrador;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AdministradorJSON implements InterfazJSON {
+public class AdministradorJSON implements InterfazJSON<Administrador> {
 
 	@Override
-	public void cargarJSON(ArrayList<Object> objList) throws IOException, ParseException {
+	public void cargarJSON(ArrayList<Administrador> objList) throws IOException, ParseException {
 		File file = new File(this.getUbicacion());
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(file, objList);		
 	} 
 
 	@Override
-	public HashMap<String, Object> leerJSON() throws IOException, org.json.simple.parser.ParseException {
+	public HashMap<String, Administrador> leerJSON() throws IOException, org.json.simple.parser.ParseException {
 		 
-		HashMap<String,Object> administradorHashMap = new HashMap<String,Object>();
+		HashMap<String,Administrador> administradorHashMap = new HashMap<String,Administrador>();
 		
 		Object objectJSON = new JSONParser().parse(new FileReader(this.getUbicacion()));
 		JSONArray arrayJSON = (JSONArray) objectJSON;

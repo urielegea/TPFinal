@@ -38,7 +38,7 @@ public class Main {
 	
 	public static void cargarAdministradorJSON() {	
 		
-		ArrayList<Object> administradorLista = new ArrayList<Object>();		
+		ArrayList<Administrador> administradorLista = new ArrayList<Administrador>();		
 		
 		Administrador uri = new Administrador("Uriel", "Egea","42901369","223 7834651",
 				"uriel@gmail.com","1234", "03-06-2022");	
@@ -57,13 +57,12 @@ public class Main {
 			administradorJSON.cargarJSON(administradorLista);
 		} catch (IOException | java.text.ParseException e) {
 			System.out.print(e.toString());
-			e.printStackTrace();
 		} 		
 	}
 	
 	public static void cargarProfesionalJSON() {	
 		
-		ArrayList<Object> profesionalLista = new ArrayList<Object>();		
+		ArrayList<Profesional> profesionalLista = new ArrayList<Profesional>();		
 		
 		Profesional roberto = new Profesional("Roberto", "Perez","265630","222 6748532",
 				"roberto@gmail.com","1234", "07-06-2022", null);	
@@ -78,41 +77,38 @@ public class Main {
 			profesionalJSON.cargarJSON(profesionalLista);
 		} catch (IOException | java.text.ParseException e) {
 			System.out.print(e.toString());
-			e.printStackTrace();
 		} 		
 	}
 	
 	public static void leerAdministradorJSON() {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
-			HashMap<String,Object> administradorHashMap = administradorJSON.leerJSON();				
-			for (HashMap.Entry<String, Object> obj : administradorHashMap.entrySet()) {
-			    Administrador administrador = (Administrador)obj.getValue();
+			HashMap<String,Administrador> administradorHashMap = administradorJSON.leerJSON();				
+			for (HashMap.Entry<String, Administrador> obj : administradorHashMap.entrySet()) {
+			    Administrador administrador = obj.getValue();
 				System.out.println(administrador.toString());
 			}			
 		} catch (IOException | ParseException e1) {
-			System.out.print(e1.toString());
-			
+			System.out.print(e1.toString());			
 		}
 	}
 
     public static void leerProfesionalJSON() {
         try {
             ProfesionalJSON profesionalJSON =  new ProfesionalJSON();
-            HashMap<String,Object> profesionalHashMap = profesionalJSON.leerJSON();
-            for (HashMap.Entry<String, Object> obj : profesionalHashMap.entrySet()) {
-                Profesional profesional = (Profesional) obj.getValue();
+            HashMap<String,Profesional> profesionalHashMap = profesionalJSON.leerJSON();
+            for (HashMap.Entry<String, Profesional> obj : profesionalHashMap.entrySet()) {
+                Profesional profesional = obj.getValue();
                 System.out.println(profesional.toString());
             }
         } catch (IOException | ParseException e1) {
             System.out.print(e1.toString());
-
         }
     }
 
 	public static void cargarEnfermedadJSON() {
 
-		ArrayList<Object> enfermedadLista = new ArrayList<>();
+		ArrayList<Enfermedad> enfermedadLista = new ArrayList<>();
 
 		Enfermedad tos = new Enfermedad("Tos comun", null, "una simple tos", 2);
 		enfermedadLista.add(tos);
@@ -125,21 +121,19 @@ public class Main {
 			enfermedadJSON.cargarJSON(enfermedadLista);
 		} catch (IOException | java.text.ParseException e) {
 			System.out.print(e.toString());
-			e.printStackTrace();
 		} 
 	}
 
 	public static void leerEnfermedadJSON() {
 		try {
 			EnfermedadJSON enfermedadJSON =  new EnfermedadJSON();
-			HashMap<String,Object> enfermedadHashMap = enfermedadJSON.leerJSON();
-			for (HashMap.Entry<String, Object> obj : enfermedadHashMap.entrySet()) {
-				Enfermedad enfermedad = (Enfermedad) obj.getValue();
+			HashMap<String,Enfermedad> enfermedadHashMap = enfermedadJSON.leerJSON();
+			for (HashMap.Entry<String, Enfermedad> obj : enfermedadHashMap.entrySet()) {
+				Enfermedad enfermedad = obj.getValue();
 				System.out.println(enfermedad.toString());
 			}
 		} catch (IOException | ParseException e1) {
 			System.out.print(e1.toString());
-
 		}
 	}
 }
