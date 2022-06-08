@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class MenuProfesionalJPanel extends JPanel {
 	
 	private ButtonEdit asignarPlanesDeControl;	

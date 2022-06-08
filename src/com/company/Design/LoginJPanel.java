@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class LoginJPanel extends JPanel {
 	
 	private JTextField userField;
@@ -64,6 +65,9 @@ public class LoginJPanel extends JPanel {
 		resetButton.setPressedBackgroundColor(Color.BLACK);
 		resetButton.setBounds(257, 340, 180, 40);
 		add(resetButton);
+		
+		userField.setText("matias@gmail.com");
+		passwordField.setText("1234");
 	}
 
 	public JTextField getUserField() {

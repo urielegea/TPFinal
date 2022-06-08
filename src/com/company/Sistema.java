@@ -3,6 +3,7 @@ package com.company;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
@@ -229,7 +230,26 @@ public class Sistema extends JFrame {
 		buttonGenerarProfesional.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("buttonGenerarProfesional...");
+            	
+            	if (!generarProfesionalJPanel.getNombre().isEmpty() && !generarProfesionalJPanel.getApellido().isEmpty() && 
+            			!generarProfesionalJPanel.getDni().isEmpty() && !generarProfesionalJPanel.getTelefono().isEmpty() &&
+            			!generarProfesionalJPanel.getCuenta().isEmpty() && !generarProfesionalJPanel.getClave().isEmpty()) {
+            		
+                	String fechaAlta = "07-06-2022";
+                	
+                	if (nuevoProfesional(generarProfesionalJPanel.getNombre(), generarProfesionalJPanel.getApellido(), generarProfesionalJPanel.getDni(), 
+                			generarProfesionalJPanel.getTelefono(), generarProfesionalJPanel.getCuenta(), generarProfesionalJPanel.getClave(), fechaAlta)) {  
+                		
+                		menuAdministradorPane.setVisible(true);
+                		generarProfesionalJPanel.setVisible(false);
+                		
+                	} else {
+                		mensajeLeer("No se pudo generar el nuevo profesional.");
+                	}    
+                	
+            	} else {
+            		mensajeLeer("Faltan datos obligatorios para generar el nuevo profesional.");
+            	}
             }
         }); 
 		buttonGenerarProfesionalCancelar = generarProfesionalJPanel.getButtonGenerarProfesionalCancelar();
@@ -251,7 +271,25 @@ public class Sistema extends JFrame {
 		buttonGenerarPaciente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("buttonGenerarPaciente...");
+            	if (!generarPacienteJPanel.getNombre().isEmpty() && !generarPacienteJPanel.getApellido().isEmpty() && 
+            			!generarPacienteJPanel.getDni().isEmpty() && !generarPacienteJPanel.getTelefono().isEmpty() &&
+            			!generarPacienteJPanel.getCuenta().isEmpty() && !generarPacienteJPanel.getClave().isEmpty()) {
+            		
+                	String fechaAlta = "07-06-2022";
+                	
+                	if (nuevoPaciente(generarPacienteJPanel.getNombre(), generarPacienteJPanel.getApellido(), generarPacienteJPanel.getDni(), 
+                			generarPacienteJPanel.getTelefono(), generarPacienteJPanel.getCuenta(), generarPacienteJPanel.getClave(), fechaAlta)) {  
+                		
+                		menuAdministradorPane.setVisible(true);
+                		generarPacienteJPanel.setVisible(false);
+                		
+                	} else {
+                		mensajeLeer("No se pudo generar el nuevo paciente.");
+                	}    
+                	
+            	} else {
+            		mensajeLeer("Faltan datos obligatorios para generar el nuevo paciente.");
+            	}
             }
         }); 
 		buttonGenerarPacienteCancelar = generarPacienteJPanel.getButtonGenerarPacienteCancelar();
@@ -390,6 +428,60 @@ public class Sistema extends JFrame {
 			mensajeLeer("No se encontraron coincidencias.");
 		}	
 		return usuario;
+	}
+	
+	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, String fechaAlta) {
+		boolean flag = false;
+		if (usuarioActivo instanceof Administrador) {			
+			Administrador administrador = (Administrador) usuarioActivo;
+	    	Profesional nuevoProfesional = administrador.crearProfesional(nombre, apellido, dni, telefono, cuenta, clave, 
+	    			fechaAlta, null, this.usuariosHashMap);	    	
+	    	if (nuevoProfesional != null) {
+	    		try {
+		    		ArrayList <Profesional> profesionalLista = new ArrayList<Profesional>();
+		    		for (Usuario usuario : this.usuariosHashMap.values()) {
+		    			if (usuario instanceof Profesional) {
+		    				Profesional profesional = (Profesional) usuario;
+		    				profesionalLista.add(profesional);
+		    			}
+		    		}
+		    		profesionalLista.add(nuevoProfesional);	   		    	
+		    		ProfesionalJSON profesionalJSON = new ProfesionalJSON();
+					profesionalJSON.cargarJSON(profesionalLista);
+					flag = true;					
+				} catch (IOException | java.text.ParseException e) {
+					mensajeLeer(e.toString());
+				}
+	    	} 
+		}
+		return flag;
+	}
+	
+	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, String fechaAlta) {
+		boolean flag = false;
+		if (usuarioActivo instanceof Administrador) {			
+			Administrador administrador = (Administrador) usuarioActivo;
+	    	Paciente nuevoPaciente = administrador.crearPaciente(nombre, apellido, dni, telefono, cuenta, clave, 
+	    			fechaAlta, null, this.usuariosHashMap);	    	
+	    	if (nuevoPaciente != null) {
+	    		try {
+		    		ArrayList <Paciente> pacienteLista = new ArrayList<Paciente>();
+		    		for (Usuario usuario : this.usuariosHashMap.values()) {
+		    			if (usuario instanceof Paciente) {
+		    				Paciente paciente = (Paciente) usuario;
+		    				pacienteLista.add(paciente);
+		    			}
+		    		}
+		    		pacienteLista.add(nuevoPaciente);	   		    	
+		    		PacienteJSON pacienteJSON = new PacienteJSON();
+		    		pacienteJSON.cargarJSON(pacienteLista);
+					flag = true;					
+				} catch (IOException | java.text.ParseException e) {
+					mensajeLeer(e.toString());
+				}
+	    	} 
+		}
+		return flag;
 	}
 	
 	public void mensajeLeer(String mensaje) {
