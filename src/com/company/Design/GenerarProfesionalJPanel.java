@@ -135,27 +135,27 @@ public class GenerarProfesionalJPanel extends JPanel {
 		return buttonGenerarProfesionalCancelar;
 	}
 
-	public JTextField getCuentaTextField() {
-		return cuentaTextField;
+	public String getCuenta() {
+		return cuentaTextField.getText();
 	}
 
-	public JTextField getNombreTextField() {
-		return NombreTextField;
+	public String getNombre() {
+		return NombreTextField.getText();
 	}
 
-	public JTextField getApellidoTextField() {
-		return ApellidoTextField;
+	public String getApellido() {
+		return ApellidoTextField.getText();
 	}
 
-	public JTextField getDniTextField() {
-		return dniTextField;
+	public String getDni() {
+		return dniTextField.getText();
 	}
 
-	public JTextField getTelefonoTextField() {
-		return telefonoTextField;
+	public String getTelefono() {
+		return telefonoTextField.getText();
 	}
 
-	public JPasswordField getPasswordField() {
-		return passwordField;
+	public String getClave() {
+		return String.valueOf(passwordField.getPassword());
 	}	
 }

@@ -10,13 +10,13 @@ public interface NuevoProfesional {
     	Profesional nuevoProfesional = null;    	
     	if(!buscarProfesionalConstructor(usuariosHashMap, cuenta)){
             nuevoProfesional = new Profesional(nombre,apellido,dni,telefono,cuenta,clave,fechaAlta,pacienteLista);
-        }     	
+        } 
     	return nuevoProfesional;
     }
 
     public default boolean buscarProfesionalConstructor(HashMap<String, Usuario> usuariosHashMap, String cuenta){
         boolean flag = false;
-        if(!usuariosHashMap.containsKey(cuenta)){
+        if(usuariosHashMap.containsKey(cuenta)){
             flag = true;
         }
         return flag;

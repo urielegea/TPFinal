@@ -5,17 +5,17 @@ import java.util.HashMap;
 public interface NuevoPaciente {
 
     public default Paciente crearPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, 
-    		String fechaAlta, String numeroHistorial, HashMap<String, Usuario> usuarioHashMap){    	
+    		String fechaAlta, String numeroHistorial, HashMap<String, Usuario> usuariosHashMap){    	
     	Paciente nuevoPaciente = null;
-        if(!buscarPacienteConstructor(usuarioHashMap,cuenta)){
+        if(!buscarPacienteConstructor(usuariosHashMap,cuenta)){
             nuevoPaciente = new Paciente(nombre,apellido,dni,telefono,cuenta,clave,fechaAlta,numeroHistorial);
         }
         return nuevoPaciente;
     }
 
-    public default boolean buscarPacienteConstructor(HashMap<String, Usuario> usuarioHashMap, String cuenta){
+    public default boolean buscarPacienteConstructor(HashMap<String, Usuario> usuariosHashMap, String cuenta){
         boolean flag = false;
-        if(usuarioHashMap.containsKey(cuenta)){
+        if(usuariosHashMap.containsKey(cuenta)){
             flag = true;
         }
         return flag;
