@@ -12,6 +12,7 @@ public class MenuAdministradorJPanel extends JPanel {
 	
 	private ButtonEdit nuevoProfesionalButton;	
 	private ButtonEdit nuevoPacienteButton;
+	private ButtonEdit asignarProfesional;
 	private ButtonEdit administrarEnfermedadButton;
 	private ButtonEdit administrarTareaDeControlButton;
 	private ButtonEdit cerrarMenuAdministradorButton;
@@ -39,31 +40,39 @@ public class MenuAdministradorJPanel extends JPanel {
 		nuevoPacienteButton.setBackground(new Color(3, 59, 90));
 		nuevoPacienteButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		nuevoPacienteButton.setPressedBackgroundColor(Color.BLACK);
-		nuevoPacienteButton.setBounds(60, 170, 360, 40);
+		nuevoPacienteButton.setBounds(60, 160, 360, 40);
 		add(nuevoPacienteButton);	
+		
+		asignarProfesional = new ButtonEdit("Asignar profesional");
+		asignarProfesional.setForeground(Color.WHITE);
+		asignarProfesional.setBackground(new Color(3, 59, 90));
+		asignarProfesional.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
+		asignarProfesional.setPressedBackgroundColor(Color.BLACK);
+		asignarProfesional.setBounds(60, 210, 360, 40);
+		add(asignarProfesional);	
 		
 		administrarEnfermedadButton = new ButtonEdit("Administrar enfermedades");
 		administrarEnfermedadButton.setForeground(Color.WHITE);
 		administrarEnfermedadButton.setBackground(new Color(3, 59, 90));
 		administrarEnfermedadButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		administrarEnfermedadButton.setPressedBackgroundColor(Color.BLACK);
-		administrarEnfermedadButton.setBounds(60, 230, 360, 40);
+		administrarEnfermedadButton.setBounds(60, 260, 360, 40);
 		add(administrarEnfermedadButton);	
 		
-		administrarTareaDeControlButton = new ButtonEdit("Administrar tratamientos");
+		administrarTareaDeControlButton = new ButtonEdit("Administrar tarea de control");
 		administrarTareaDeControlButton.setForeground(Color.WHITE);
 		administrarTareaDeControlButton.setBackground(new Color(3, 59, 90));
 		administrarTareaDeControlButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		administrarTareaDeControlButton.setPressedBackgroundColor(Color.BLACK);
-		administrarTareaDeControlButton.setBounds(60, 290, 360, 40);
+		administrarTareaDeControlButton.setBounds(60, 310, 360, 40);
 		add(administrarTareaDeControlButton);
 		
-		cerrarMenuAdministradorButton = new ButtonEdit("Cerrar sesiÃ³n");
+		cerrarMenuAdministradorButton = new ButtonEdit("Cerrar sesión");
 		cerrarMenuAdministradorButton.setForeground(Color.WHITE);
 		cerrarMenuAdministradorButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuAdministradorButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cerrarMenuAdministradorButton.setPressedBackgroundColor(Color.BLACK);
-		cerrarMenuAdministradorButton.setBounds(60, 350, 360, 40);
+		cerrarMenuAdministradorButton.setBounds(60, 360, 360, 40);
 		add(cerrarMenuAdministradorButton);
 	}
 
@@ -75,6 +84,10 @@ public class MenuAdministradorJPanel extends JPanel {
 		return nuevoProfesionalButton;
 	}
 
+	public ButtonEdit getAsignarProfesionalButton() {
+		return asignarProfesional;
+	}
+	
 	public ButtonEdit getAdministrarEnfermedadButton() {
 		return administrarEnfermedadButton;
 	}
