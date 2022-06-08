@@ -19,13 +19,13 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		//cargarAdministradorJSON();
+		cargarAdministradorJSON();
 		//leerAdministradorJSON();
-		//cargarProfesionalJSON();
+		cargarProfesionalJSON();
 		//leerProfesionalJSON();
-		//cargarPacienteJSON();
+		cargarPacienteJSON();
 		//leerPacienteJSON();
-		//cargarEnfermedadJSON();
+		cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -44,15 +44,15 @@ public class Main {
 		
 		ArrayList<Administrador> administradorLista = new ArrayList<Administrador>();		
 		
-		Administrador uri = new Administrador("Uriel", "Egea","42901369","223 7834651",
+		Administrador uri = new Administrador("Uriel", "Egea","42.901.369","223 783-4651",
 				"uriel@gmail.com","1234", "03-06-2022");	
 		administradorLista.add(uri);	
 		
-		Administrador mati = new Administrador("Matias", "Valenzisi","42000000","223 0303456", 
+		Administrador mati = new Administrador("Matias", "Valenzisi","40.060.005","251 030-3456", 
 				"matias@gmail.com","1234", "03-06-2022");		
 		administradorLista.add(mati);		
 		
-		Administrador gas = new Administrador("Gaspar", "Almaraz","42345603","223 42345603",
+		Administrador gas = new Administrador("Gaspar", "Almaraz","42345603","239 423-45603",
 				"gaspar@gmail.com","1234", "03-06-2022");		
 		administradorLista.add(gas);
 		
@@ -81,11 +81,11 @@ public class Main {
 		
 		ArrayList<Profesional> profesionalLista = new ArrayList<Profesional>();		
 		
-		Profesional roberto = new Profesional("Roberto", "Perez","265630","222 6748532",
+		Profesional roberto = new Profesional("Roberto", "Perez","18.365.560","222 674-8532",
 				"roberto@gmail.com","1234", "07-06-2022", null);	
 		profesionalLista.add(roberto);	
 		
-		Profesional emilio = new Profesional("Emilio", "Sanchez","546478","223 9688328",
+		Profesional emilio = new Profesional("Emilio", "Sanchez","22.001.258","110 968-8328",
 				"emilio@gmail.com","1234", "07-06-2022", null);	
 		profesionalLista.add(emilio);	
 		
@@ -114,11 +114,11 @@ public class Main {
 		
 		ArrayList<Paciente> pacienteLista = new ArrayList<Paciente>();		
 		
-		Paciente jaime = new Paciente("Jaime", "Lopez","622982","222 565656",
+		Paciente jaime = new Paciente("Jaime", "Lopez","27.528.562","112 565-2825",
 				"jaime@gmail.com","1234", "07-06-2022", null);	
 		pacienteLista.add(jaime);
 		
-		Paciente romina = new Paciente("Romina", "Sanchez","567466","223 342765",
+		Paciente romina = new Paciente("Romina", "Sanchez","18.902.120","223 542-7565",
 				"romina@gmail.com","1234", "07-06-2022", null);	
 		pacienteLista.add(romina);
 		

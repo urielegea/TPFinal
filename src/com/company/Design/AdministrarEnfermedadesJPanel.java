@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 public class AdministrarEnfermedadesJPanel extends JPanel {
 	
 	private ButtonEdit nuevaEnfermedadButton;	
-	private ButtonEdit editarEnfermedadButton;
+	private ButtonEdit asignarTareaDeControlButton;
 	private ButtonEdit atrasEnfermedadButton;
 
 	public AdministrarEnfermedadesJPanel() {
@@ -32,20 +32,20 @@ public class AdministrarEnfermedadesJPanel extends JPanel {
 		nuevaEnfermedadButton.setBounds(60, 110, 360, 40);
 		add(nuevaEnfermedadButton);	
 		
-		editarEnfermedadButton = new ButtonEdit("Editar enfermedad");
-		editarEnfermedadButton.setForeground(Color.WHITE);
-		editarEnfermedadButton.setBackground(new Color(3, 59, 90));
-		editarEnfermedadButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
-		editarEnfermedadButton.setPressedBackgroundColor(Color.BLACK);
-		editarEnfermedadButton.setBounds(60, 170, 360, 40);
-		add(editarEnfermedadButton);	
+		asignarTareaDeControlButton = new ButtonEdit("Asignar tarea de control");
+		asignarTareaDeControlButton.setForeground(Color.WHITE);
+		asignarTareaDeControlButton.setBackground(new Color(3, 59, 90));
+		asignarTareaDeControlButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
+		asignarTareaDeControlButton.setPressedBackgroundColor(Color.BLACK);
+		asignarTareaDeControlButton.setBounds(60, 160, 360, 40);
+		add(asignarTareaDeControlButton);	
 		
 		atrasEnfermedadButton = new ButtonEdit("Volver al menu");
 		atrasEnfermedadButton.setForeground(Color.WHITE);
 		atrasEnfermedadButton.setBackground(new Color(3, 59, 90));
 		atrasEnfermedadButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		atrasEnfermedadButton.setPressedBackgroundColor(Color.BLACK);
-		atrasEnfermedadButton.setBounds(60, 230, 360, 40);
+		atrasEnfermedadButton.setBounds(60, 210, 360, 40);
 		add(atrasEnfermedadButton);	
 	}
 
@@ -53,8 +53,8 @@ public class AdministrarEnfermedadesJPanel extends JPanel {
 		return nuevaEnfermedadButton;
 	}
 
-	public ButtonEdit getEditarEnfermedadButton() {
-		return editarEnfermedadButton;
+	public ButtonEdit getAsignarTareaDeControlButton() {
+		return asignarTareaDeControlButton;
 	}
 
 	public ButtonEdit getAtrasEnfermedadButton() {

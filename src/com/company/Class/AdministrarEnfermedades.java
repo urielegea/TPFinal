@@ -8,7 +8,4 @@ public interface AdministrarEnfermedades {
                                               String descripcion, int duracionDias){
         return new Enfermedad(nombre,tareaDeControlLista,descripcion,duracionDias);
     }
-
-
-
 }

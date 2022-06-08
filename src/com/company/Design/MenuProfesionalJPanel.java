@@ -38,7 +38,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		controlRegistroDePacientes.setBackground(new Color(3, 59, 90));
 		controlRegistroDePacientes.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		controlRegistroDePacientes.setPressedBackgroundColor(Color.BLACK);
-		controlRegistroDePacientes.setBounds(60, 170, 360, 40);
+		controlRegistroDePacientes.setBounds(60, 160, 360, 40);
 		add(controlRegistroDePacientes);	
 		
 		finalizarPlanesDeControl = new ButtonEdit("Administrar enfermedades");
@@ -46,7 +46,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		finalizarPlanesDeControl.setBackground(new Color(3, 59, 90));
 		finalizarPlanesDeControl.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		finalizarPlanesDeControl.setPressedBackgroundColor(Color.BLACK);
-		finalizarPlanesDeControl.setBounds(60, 230, 360, 40);
+		finalizarPlanesDeControl.setBounds(60, 210, 360, 40);
 		add(finalizarPlanesDeControl);	
 		
 		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesión");
@@ -54,7 +54,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		cerrarMenuProfesionalButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuProfesionalButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cerrarMenuProfesionalButton.setPressedBackgroundColor(Color.BLACK);
-		cerrarMenuProfesionalButton.setBounds(60, 290, 360, 40);
+		cerrarMenuProfesionalButton.setBounds(60, 260, 360, 40);
 		add(cerrarMenuProfesionalButton);
 	}
 

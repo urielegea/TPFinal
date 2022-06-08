@@ -37,7 +37,7 @@ public class MenuPacienteJPanel extends JPanel {
 		cerrarMenuPacienteButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuPacienteButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cerrarMenuPacienteButton.setPressedBackgroundColor(Color.BLACK);
-		cerrarMenuPacienteButton.setBounds(60, 170, 360, 40);
+		cerrarMenuPacienteButton.setBounds(60, 160, 360, 40);
 		add(cerrarMenuPacienteButton);
 	}
 

@@ -17,6 +17,7 @@ import com.company.JSON.PacienteJSON;
 import com.company.JSON.ProfesionalJSON;
 import com.company.Class.*;
 
+@SuppressWarnings("serial")
 public class Sistema extends JFrame {
 
 	private JPanel contentPane;
@@ -30,6 +31,7 @@ public class Sistema extends JFrame {
 	private MenuAdministradorJPanel menuAdministradorPane;
 	private ButtonEdit nuevoProfesionalButton;
 	private ButtonEdit nuevoPacienteButton;
+	private ButtonEdit asignarProfesionalButton;
 	private ButtonEdit administrarEnfermedadButton;
 	private ButtonEdit administrarTareaDeControlButton;
 	private ButtonEdit cerrarMenuAdministradorButton;
@@ -47,19 +49,29 @@ public class Sistema extends JFrame {
 	private ButtonEdit cerrarMenuPacienteButton;
 	
 	// Perfil administrador.
-	private GenerarProfesionalJPanel generarProfesionalJPanel;
+	private GenerarProfesionalJPanel generarProfesionalJPane;
 	private ButtonEdit buttonGenerarProfesional;
 	private ButtonEdit buttonGenerarProfesionalCancelar;	
 	
 	// Perfil administrador.
-	private GenerarPacienteJPanel generarPacienteJPanel;
+	private GenerarPacienteJPanel generarPacienteJPane;
 	private ButtonEdit buttonGenerarPaciente;
-	private ButtonEdit buttonGenerarPacienteCancelar;	
+	private ButtonEdit buttonGenerarPacienteCancelar;
 	
 	// Perfil administrador.
-	private AdministrarEnfermedadesJPanel administrarEnfermedadesJPanel;
+	private MenuAsignarPacienteJPanel menuAsignarPacienteJPane;
+	private ArrayList<ButtonPaciente> pacienteListaButton;
+	private ButtonEdit volverMenuButtonPaciente;
+	
+	// Perfil administrador.
+	private MenuAsignarProfesionalJPanel menuAsignarProfesionalJPane;
+	private ArrayList<ButtonProfesional> profesionalListaButton;
+	private ButtonEdit volverMenuButtonProfesional;
+	
+	// Perfil administrador.
+	private AdministrarEnfermedadesJPanel administrarEnfermedadesJPane;
 	private ButtonEdit nuevaEnfermedadButton;	
-	private ButtonEdit editarEnfermedadButton;
+	private ButtonEdit asignarTareaDeControlButton;
 	private ButtonEdit atrasEnfermedadButton;
 	
 	// ================================================
@@ -136,12 +148,20 @@ public class Sistema extends JFrame {
             	configGenerarPacienteJPanel();
         		menuAdministradorPane.setVisible(false);
             }
-        }); 
+        });		
+		asignarProfesionalButton = menuAdministradorPane.getAsignarProfesionalButton();
+		asignarProfesionalButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	configMenuAsignarPacienteJPanel();
+        		menuAdministradorPane.setVisible(false);
+            }
+        });
 		administrarEnfermedadButton = menuAdministradorPane.getAdministrarEnfermedadButton();
 		administrarEnfermedadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	configAdministrarEnfermedades();
+            	configAdministrarEnfermedadesJPanel();
             	menuAdministradorPane.setVisible(false);
             }
         }); 		
@@ -224,24 +244,24 @@ public class Sistema extends JFrame {
 	}	
 	
 	public void configGenerarProfesionalJPanel() {
-		generarProfesionalJPanel = new GenerarProfesionalJPanel();
-		generarProfesionalJPanel.setBounds(0, 0, 484, 461);				
-		buttonGenerarProfesional = generarProfesionalJPanel.getButtonGenerarProfesional();
+		generarProfesionalJPane = new GenerarProfesionalJPanel();
+		generarProfesionalJPane.setBounds(0, 0, 484, 461);				
+		buttonGenerarProfesional = generarProfesionalJPane.getButtonGenerarProfesional();
 		buttonGenerarProfesional.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-            	if (!generarProfesionalJPanel.getNombre().isEmpty() && !generarProfesionalJPanel.getApellido().isEmpty() && 
-            			!generarProfesionalJPanel.getDni().isEmpty() && !generarProfesionalJPanel.getTelefono().isEmpty() &&
-            			!generarProfesionalJPanel.getCuenta().isEmpty() && !generarProfesionalJPanel.getClave().isEmpty()) {
+            	if (!generarProfesionalJPane.getNombre().isEmpty() && !generarProfesionalJPane.getApellido().isEmpty() && 
+            			!generarProfesionalJPane.getDni().isEmpty() && !generarProfesionalJPane.getTelefono().isEmpty() &&
+            			!generarProfesionalJPane.getCuenta().isEmpty() && !generarProfesionalJPane.getClave().isEmpty()) {
             		
                 	String fechaAlta = "07-06-2022";
                 	
-                	if (nuevoProfesional(generarProfesionalJPanel.getNombre(), generarProfesionalJPanel.getApellido(), generarProfesionalJPanel.getDni(), 
-                			generarProfesionalJPanel.getTelefono(), generarProfesionalJPanel.getCuenta(), generarProfesionalJPanel.getClave(), fechaAlta)) {  
+                	if (nuevoProfesional(generarProfesionalJPane.getNombre(), generarProfesionalJPane.getApellido(), generarProfesionalJPane.getDni(), 
+                			generarProfesionalJPane.getTelefono(), generarProfesionalJPane.getCuenta(), generarProfesionalJPane.getClave(), fechaAlta)) {  
                 		
                 		menuAdministradorPane.setVisible(true);
-                		generarProfesionalJPanel.setVisible(false);
+                		generarProfesionalJPane.setVisible(false);
                 		
                 	} else {
                 		mensajeLeer("No se pudo generar el nuevo profesional.");
@@ -252,36 +272,36 @@ public class Sistema extends JFrame {
             	}
             }
         }); 
-		buttonGenerarProfesionalCancelar = generarProfesionalJPanel.getButtonGenerarProfesionalCancelar();
+		buttonGenerarProfesionalCancelar = generarProfesionalJPane.getButtonGenerarProfesionalCancelar();
 		buttonGenerarProfesionalCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
         		menuAdministradorPane.setVisible(true);
-        		generarProfesionalJPanel.setVisible(false);
+        		generarProfesionalJPane.setVisible(false);
             }
         }); 
-		contentPane.add(generarProfesionalJPanel);
-		generarProfesionalJPanel.setVisible(true);			
+		contentPane.add(generarProfesionalJPane);
+		generarProfesionalJPane.setVisible(true);			
 	}
 	
 	public void configGenerarPacienteJPanel() {
-		generarPacienteJPanel = new GenerarPacienteJPanel();
-		generarPacienteJPanel.setBounds(0, 0, 484, 461);				
-		buttonGenerarPaciente = generarPacienteJPanel.getButtonGenerarPaciente();
+		generarPacienteJPane = new GenerarPacienteJPanel();
+		generarPacienteJPane.setBounds(0, 0, 484, 461);				
+		buttonGenerarPaciente = generarPacienteJPane.getButtonGenerarPaciente();
 		buttonGenerarPaciente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (!generarPacienteJPanel.getNombre().isEmpty() && !generarPacienteJPanel.getApellido().isEmpty() && 
-            			!generarPacienteJPanel.getDni().isEmpty() && !generarPacienteJPanel.getTelefono().isEmpty() &&
-            			!generarPacienteJPanel.getCuenta().isEmpty() && !generarPacienteJPanel.getClave().isEmpty()) {
+            	if (!generarPacienteJPane.getNombre().isEmpty() && !generarPacienteJPane.getApellido().isEmpty() && 
+            			!generarPacienteJPane.getDni().isEmpty() && !generarPacienteJPane.getTelefono().isEmpty() &&
+            			!generarPacienteJPane.getCuenta().isEmpty() && !generarPacienteJPane.getClave().isEmpty()) {
             		
                 	String fechaAlta = "07-06-2022";
                 	
-                	if (nuevoPaciente(generarPacienteJPanel.getNombre(), generarPacienteJPanel.getApellido(), generarPacienteJPanel.getDni(), 
-                			generarPacienteJPanel.getTelefono(), generarPacienteJPanel.getCuenta(), generarPacienteJPanel.getClave(), fechaAlta)) {  
+                	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
+                			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
                 		
                 		menuAdministradorPane.setVisible(true);
-                		generarPacienteJPanel.setVisible(false);
+                		generarPacienteJPane.setVisible(false);
                 		
                 	} else {
                 		mensajeLeer("No se pudo generar el nuevo paciente.");
@@ -292,47 +312,100 @@ public class Sistema extends JFrame {
             	}
             }
         }); 
-		buttonGenerarPacienteCancelar = generarPacienteJPanel.getButtonGenerarPacienteCancelar();
+		buttonGenerarPacienteCancelar = generarPacienteJPane.getButtonGenerarPacienteCancelar();
 		buttonGenerarPacienteCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
         		menuAdministradorPane.setVisible(true);
-        		generarPacienteJPanel.setVisible(false);
+        		generarPacienteJPane.setVisible(false);
             }
         }); 
-		contentPane.add(generarPacienteJPanel);
-		generarPacienteJPanel.setVisible(true);			
+		contentPane.add(generarPacienteJPane);
+		generarPacienteJPane.setVisible(true);			
 	}
 	
-	public void configAdministrarEnfermedades() {
-		administrarEnfermedadesJPanel = new AdministrarEnfermedadesJPanel();
-		administrarEnfermedadesJPanel.setBounds(0, 0, 484, 461);		
-		nuevaEnfermedadButton = administrarEnfermedadesJPanel.getNuevaEnfermedadButton();
+	public void configMenuAsignarPacienteJPanel() {
+		menuAsignarPacienteJPane = new MenuAsignarPacienteJPanel(getListaPaciente());
+		menuAsignarPacienteJPane.setBounds(0, 0, 484, 461);			
+		pacienteListaButton = menuAsignarPacienteJPane.getPacienteListaButton();		
+		for (ButtonPaciente buttonPaciente : pacienteListaButton) {
+			buttonPaciente.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	menuAsignarPacienteJPane.setVisible(false);
+	            	configMenuAsignarProfesionalJPanel(buttonPaciente.getPaciente().getCuenta());
+	            }
+	        }); 
+		}		
+		volverMenuButtonPaciente = menuAsignarPacienteJPane.getVolverMenuButton();
+		volverMenuButtonPaciente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		menuAdministradorPane.setVisible(true);
+        		menuAsignarPacienteJPane.setVisible(false);
+            }
+        }); 		
+		contentPane.add(menuAsignarPacienteJPane);
+		menuAsignarPacienteJPane.setVisible(true);
+	}
+	
+	public void configMenuAsignarProfesionalJPanel(String cuenta){
+		menuAsignarProfesionalJPane = new MenuAsignarProfesionalJPanel(getListaProfesional(),cuenta);
+		menuAsignarProfesionalJPane.setBounds(0, 0, 484, 461);			
+		profesionalListaButton = menuAsignarProfesionalJPane.getProfesionalListaButton();		
+		for (ButtonProfesional buttonProfesional : profesionalListaButton) {
+			buttonProfesional.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	if(asignarProfesional(cuenta, buttonProfesional.getProfesional().getCuenta())) {
+	            		mensajeLeer("Se asigno el paciente con éxito.");
+	            		menuAsignarProfesionalJPane.setVisible(false);
+	            		menuAdministradorPane.setVisible(true);
+	            	}      	
+	            }
+	        }); 
+		}		
+		volverMenuButtonProfesional = menuAsignarProfesionalJPane.getVolverMenuButton();
+		volverMenuButtonProfesional.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	configMenuAsignarPacienteJPanel();
+        		menuAsignarProfesionalJPane.setVisible(false);
+            }
+        }); 		
+		contentPane.add(menuAsignarProfesionalJPane);
+		menuAsignarProfesionalJPane.setVisible(true);
+	}
+	
+	public void configAdministrarEnfermedadesJPanel() {
+		administrarEnfermedadesJPane = new AdministrarEnfermedadesJPanel();
+		administrarEnfermedadesJPane.setBounds(0, 0, 484, 461);		
+		nuevaEnfermedadButton = administrarEnfermedadesJPane.getNuevaEnfermedadButton();
 		nuevaEnfermedadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	System.out.println("nuevaEnfermedadButton...");
             }
         }); 		
-		editarEnfermedadButton = administrarEnfermedadesJPanel.getEditarEnfermedadButton();
-		editarEnfermedadButton.addActionListener(new ActionListener() {
+		asignarTareaDeControlButton = administrarEnfermedadesJPane.getAsignarTareaDeControlButton();
+		asignarTareaDeControlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("editarEnfermedadButton...");
+            	System.out.println("asignarTareaDeControlButton...");
             }
         }); 
-		atrasEnfermedadButton = administrarEnfermedadesJPanel.getAtrasEnfermedadButton();
+		atrasEnfermedadButton = administrarEnfermedadesJPane.getAtrasEnfermedadButton();
 		atrasEnfermedadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
         		menuAdministradorPane.setVisible(true);
-        		administrarEnfermedadesJPanel.setVisible(false);
+        		administrarEnfermedadesJPane.setVisible(false);
             }
         }); 		
-		contentPane.add(administrarEnfermedadesJPanel);
-		administrarEnfermedadesJPanel.setVisible(true);		
+		contentPane.add(administrarEnfermedadesJPane);
+		administrarEnfermedadesJPane.setVisible(true);		
 	}
-	
+		
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
@@ -430,6 +503,17 @@ public class Sistema extends JFrame {
 		return usuario;
 	}
 	
+	public ArrayList<Profesional> getListaProfesional(){
+		ArrayList<Profesional> profesionalLista = new ArrayList<Profesional>();
+		for (Usuario usuario : this.usuariosHashMap.values()) {
+			if (usuario instanceof Profesional) {
+				Profesional profesional = (Profesional) usuario;
+				profesionalLista.add(profesional);
+			}
+		}
+		return profesionalLista;
+	}
+	
 	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, String fechaAlta) {
 		boolean flag = false;
 		if (usuarioActivo instanceof Administrador) {			
@@ -438,13 +522,7 @@ public class Sistema extends JFrame {
 	    			fechaAlta, null, this.usuariosHashMap);	    	
 	    	if (nuevoProfesional != null) {
 	    		try {
-		    		ArrayList <Profesional> profesionalLista = new ArrayList<Profesional>();
-		    		for (Usuario usuario : this.usuariosHashMap.values()) {
-		    			if (usuario instanceof Profesional) {
-		    				Profesional profesional = (Profesional) usuario;
-		    				profesionalLista.add(profesional);
-		    			}
-		    		}
+		    		ArrayList <Profesional> profesionalLista = getListaProfesional();
 		    		profesionalLista.add(nuevoProfesional);	   		    	
 		    		ProfesionalJSON profesionalJSON = new ProfesionalJSON();
 					profesionalJSON.cargarJSON(profesionalLista);
@@ -457,6 +535,17 @@ public class Sistema extends JFrame {
 		return flag;
 	}
 	
+	public ArrayList<Paciente> getListaPaciente(){
+		ArrayList<Paciente> pacienteLista = new ArrayList<Paciente>();
+		for (Usuario usuario : this.usuariosHashMap.values()) {
+			if (usuario instanceof Paciente) {
+				Paciente paciente = (Paciente) usuario;
+				pacienteLista.add(paciente);
+			}
+		}
+		return pacienteLista;
+	}
+	
 	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, String fechaAlta) {
 		boolean flag = false;
 		if (usuarioActivo instanceof Administrador) {			
@@ -465,13 +554,7 @@ public class Sistema extends JFrame {
 	    			fechaAlta, null, this.usuariosHashMap);	    	
 	    	if (nuevoPaciente != null) {
 	    		try {
-		    		ArrayList <Paciente> pacienteLista = new ArrayList<Paciente>();
-		    		for (Usuario usuario : this.usuariosHashMap.values()) {
-		    			if (usuario instanceof Paciente) {
-		    				Paciente paciente = (Paciente) usuario;
-		    				pacienteLista.add(paciente);
-		    			}
-		    		}
+		    		ArrayList <Paciente> pacienteLista = getListaPaciente();
 		    		pacienteLista.add(nuevoPaciente);	   		    	
 		    		PacienteJSON pacienteJSON = new PacienteJSON();
 		    		pacienteJSON.cargarJSON(pacienteLista);
@@ -482,6 +565,11 @@ public class Sistema extends JFrame {
 	    	} 
 		}
 		return flag;
+	}
+	
+	public boolean asignarProfesional(String cuentaPaciente, String cuentaProfesional) {
+		// True en caso que se haya asignado con extio, en caso contrario un mensaje por consola y retorna false
+		return true;
 	}
 	
 	public void mensajeLeer(String mensaje) {
