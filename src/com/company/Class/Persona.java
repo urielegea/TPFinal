@@ -8,6 +8,10 @@ public abstract class Persona {
     protected String apellido;
     protected String dni;
     protected String telefono;
+    
+    public Persona() {
+    	
+    }
 
     public Persona(String nombre, String apellido, String dni, String telefono){
         this.nombre = nombre;

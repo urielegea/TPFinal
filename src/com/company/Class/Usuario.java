@@ -1,15 +1,20 @@
 package com.company.Class;
 
+import java.util.Date;
+
 public abstract class Usuario extends Persona {
     
-
     protected String cuenta;
     protected String clave;
-    protected String fechaAlta;
-    protected String ultimaSesion;
+    protected Date fechaAlta;
+    protected Date ultimaSesion;
+    
+    public Usuario() {
+    	super();
+    }
     
     public Usuario(String nombre, String apellido, String dni, String telefono, String cuenta, 
-    String clave, String fechaAlta){        
+    String clave, Date fechaAlta){        
     	super(nombre, apellido, dni, telefono);
 
         this.cuenta = cuenta;
@@ -19,7 +24,7 @@ public abstract class Usuario extends Persona {
     }
     
     public Usuario(String nombre, String apellido, String dni, String telefono,  String cuenta,
-    String clave, String fechaAlta, String ultimaSesion){        
+    String clave, Date fechaAlta, Date ultimaSesion){        
     	super(nombre, apellido, dni, telefono);        
 
         this.cuenta = cuenta;
@@ -44,19 +49,19 @@ public abstract class Usuario extends Persona {
 		this.clave = clave;
 	}
 
-	public String getFechaAlta() {
+	public Date getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(String fechaAlta) {
+	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public String getUltimaSesion() {
+	public Date getUltimaSesion() {
 		return ultimaSesion;
 	}
 
-	public void setUltimaSesion(String ultimaSesion) {
+	public void setUltimaSesion(Date ultimaSesion) {
 		this.ultimaSesion = ultimaSesion;
 	}
 }

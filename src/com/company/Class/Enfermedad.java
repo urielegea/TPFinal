@@ -9,6 +9,10 @@ public class Enfermedad {
     private ArrayList<String> tareaDeControlLista;
     private String descripcion;
     private int duracionDias;
+    
+    public Enfermedad() {
+    	
+    }
 
     public Enfermedad(String nombre, ArrayList<String> tareaDeControlLista, String descripcion, int duracionDias) {
         this.nombre = nombre;
@@ -16,7 +20,6 @@ public class Enfermedad {
 		this.descripcion = descripcion;
 		this.duracionDias = duracionDias;
 	}
-
 
     public String getNombre() {
 		return nombre;

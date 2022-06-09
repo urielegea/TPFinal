@@ -1,19 +1,24 @@
 package com.company.Class;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Paciente extends Usuario{
 
     private String numeroHistorial;
+    
+    public Paciente() {
+    	super();
+    }
 
     public Paciente(String nombre, String apellido, String dni, String telefono, String cuenta, 
-    String clave, String fechaAlta, String numeroHistorial) {
+    String clave, Date fechaAlta, String numeroHistorial) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta);
         this.numeroHistorial = numeroHistorial;
     }
     
     public Paciente(String nombre, String apellido, String dni, String telefono, String cuenta,
-    String clave, String fechaAlta, String ultimaSesion, String numeroHistorial) {
+    String clave, Date fechaAlta, Date ultimaSesion, String numeroHistorial) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta, ultimaSesion);
         this.numeroHistorial = numeroHistorial;
     }

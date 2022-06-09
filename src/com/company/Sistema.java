@@ -3,7 +3,11 @@ package com.company;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -257,11 +261,11 @@ public class Sistema extends JFrame {
             			!generarProfesionalJPane.getDni().isEmpty() && !generarProfesionalJPane.getTelefono().isEmpty() &&
             			!generarProfesionalJPane.getCuenta().isEmpty() && !generarProfesionalJPane.getClave().isEmpty()) {
             		
-                	String fechaAlta = "07-06-2022";
+            		Date fechaAlta = new Date();
                 	
                 	if (nuevoProfesional(generarProfesionalJPane.getNombre(), generarProfesionalJPane.getApellido(), generarProfesionalJPane.getDni(), 
                 			generarProfesionalJPane.getTelefono(), generarProfesionalJPane.getCuenta(), generarProfesionalJPane.getClave(), fechaAlta)) {  
-                		
+                		mensajeLeer("Se ha generado el profesional con éxito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarProfesionalJPane.setVisible(false);
                 		
@@ -296,12 +300,12 @@ public class Sistema extends JFrame {
             	if (!generarPacienteJPane.getNombre().isEmpty() && !generarPacienteJPane.getApellido().isEmpty() && 
             			!generarPacienteJPane.getDni().isEmpty() && !generarPacienteJPane.getTelefono().isEmpty() &&
             			!generarPacienteJPane.getCuenta().isEmpty() && !generarPacienteJPane.getClave().isEmpty()) {
+            		               	
+            		Date fechaAlta = new Date();
             		
-                	String fechaAlta = "07-06-2022";
-                	
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		
+                		mensajeLeer("Se ha generado el paciente con éxito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -484,7 +488,7 @@ public class Sistema extends JFrame {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
 			return administradorJSON.leerJSON();
-		} catch (IOException | ParseException e1) {
+		} catch (IOException e1) {
 			mensajeLeer(e1.toString());
 			return null;			
 		}
@@ -494,7 +498,7 @@ public class Sistema extends JFrame {
 		try {			
 			ProfesionalJSON profesionalJSON =  new ProfesionalJSON();
 			return profesionalJSON.leerJSON();
-		} catch (IOException | ParseException e1) {
+		} catch (IOException e1) {
 			mensajeLeer(e1.toString());
 			return null;			
 		}
@@ -504,7 +508,7 @@ public class Sistema extends JFrame {
 		try {			
 			PacienteJSON pacienteJSON =  new PacienteJSON();
 			return pacienteJSON.leerJSON();
-		} catch (IOException | ParseException e1) {
+		} catch (IOException e1) {
 			mensajeLeer(e1.toString());
 			return null;			
 		}
@@ -558,7 +562,7 @@ public class Sistema extends JFrame {
 		return profesionalLista;
 	}
 	
-	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, String fechaAlta) {
+	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
 		if (usuarioActivo instanceof Administrador) {			
 			Administrador administrador = (Administrador) usuarioActivo;
@@ -571,7 +575,7 @@ public class Sistema extends JFrame {
 		    		ProfesionalJSON profesionalJSON = new ProfesionalJSON();
 					profesionalJSON.cargarJSON(profesionalLista);
 					flag = true;					
-				} catch (IOException | java.text.ParseException e) {
+				} catch (IOException e) {
 					mensajeLeer(e.toString());
 				}
 	    	} 
@@ -590,7 +594,7 @@ public class Sistema extends JFrame {
 		return pacienteLista;
 	}
 	
-	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, String fechaAlta) {
+	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
 		if (usuarioActivo instanceof Administrador) {			
 			Administrador administrador = (Administrador) usuarioActivo;
@@ -603,7 +607,7 @@ public class Sistema extends JFrame {
 		    		PacienteJSON pacienteJSON = new PacienteJSON();
 		    		pacienteJSON.cargarJSON(pacienteLista);
 					flag = true;					
-				} catch (IOException | java.text.ParseException e) {
+				} catch (IOException e) {
 					mensajeLeer(e.toString());
 				}
 	    	} 
@@ -623,7 +627,7 @@ public class Sistema extends JFrame {
 					ProfesionalJSON profesionalJSON = new ProfesionalJSON();
 					profesionalJSON.cargarJSON(profesionalLista);
 					flag = true;
-				}catch(IOException | java.text.ParseException e){
+				}catch(IOException e){
 					mensajeLeer(e.toString());
 				}
 			}
