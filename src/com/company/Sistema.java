@@ -587,6 +587,17 @@ public class Sistema extends JFrame {
 		return profesionalLista;
 	}
 
+	public ArrayList<Administrador> getListaAdministrador(){
+		ArrayList<Administrador> adminLista = new ArrayList<Administrador>();
+		for (Usuario usuario : this.usuariosHashMap.values()){
+			if(usuario instanceof Administrador){
+				Administrador admin = (Administrador) usuario;
+				adminLista.add(admin);
+			}
+		}
+		return adminLista;
+	}
+
 	public ArrayList<Enfermedad> getListaEnfermedad(){
 		ArrayList<Enfermedad> enfermedadLista = new ArrayList<Enfermedad>();
 		for(Enfermedad enfermedad : this.enfermedadesHashMap.values()){
@@ -702,15 +713,44 @@ public class Sistema extends JFrame {
 	}
 
 	public void actualizarUltimaSesionAdministrador(){
-
+		if(usuarioActivo!=null){
+			try{
+				usuariosHashMap.put(usuarioActivo.getCuenta(),usuarioActivo);
+				ArrayList<Administrador> adminLista = getListaAdministrador();
+				AdministradorJSON administradorJSON = new AdministradorJSON();
+				administradorJSON.cargarJSON(adminLista);
+			} catch (IOException e) {
+				mensajeLeer(e.toString());
+			}
+		}
 	}
 
 	public void actualizarUltimaSesionProfesional(){
-		
+		if(usuarioActivo!=null){
+			try{
+				usuariosHashMap.put(usuarioActivo.getCuenta(),usuarioActivo);
+				ArrayList<Profesional> profesionalLista = getListaProfesional();
+				ProfesionalJSON profesionalJSON = new ProfesionalJSON();
+				profesionalJSON.cargarJSON(profesionalLista);
+			} catch (IOException e) {
+				mensajeLeer(e.toString());
+			}
+		}
 	}
 
+
+
 	public void actualizarUltimaSesionPaciente(){
-		
+		if(usuarioActivo!=null){
+			try{
+				usuariosHashMap.put(usuarioActivo.getCuenta(),usuarioActivo);
+				ArrayList<Paciente> pacienteLista = getListaPaciente();
+				PacienteJSON pacienteJSON = new PacienteJSON();
+				pacienteJSON.cargarJSON(pacienteLista);
+			} catch (IOException e) {
+				mensajeLeer(e.toString());
+			}
+		}
 	}
 	
 	public int controEntero(String str){
