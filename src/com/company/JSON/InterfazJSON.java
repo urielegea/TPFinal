@@ -9,7 +9,7 @@ public interface InterfazJSON <T>{
 	
 	public void cargarJSON(ArrayList<T> objList) throws IOException, ParseException;
 	
-	public HashMap<String,T> leerJSON() throws IOException, org.json.simple.parser.ParseException;   
+	public HashMap<String,T> leerJSON() throws IOException;   
 	
 	public String getUbicacion();	
 }
