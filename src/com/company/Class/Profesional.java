@@ -1,20 +1,25 @@
 package com.company.Class;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Profesional extends Usuario{
 
     private ArrayList<String> pacienteLista;
+    
+    public Profesional() {
+    	super();
+    }
 
     public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta, 
-    String clave, String fechaAlta, ArrayList<String> pacienteLista) {
+    String clave, Date fechaAlta, ArrayList<String> pacienteLista) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta);
         this.pacienteLista = pacienteLista;
     }
     
     public Profesional(String nombre, String apellido, String dni, String telefono, String cuenta,
-    String clave, String fechaAlta, String ultimaSesion, ArrayList<String> pacienteLista) {
+    String clave, Date fechaAlta, Date ultimaSesion, ArrayList<String> pacienteLista) {
         super(nombre, apellido, dni, telefono, cuenta, clave, fechaAlta, ultimaSesion);
         this.pacienteLista = pacienteLista;
     }
