@@ -20,8 +20,7 @@ import com.company.Class.*;
 public class Sistema extends JFrame {
 
 	private JPanel contentPane;
-	private Date sesionAnterior;
-	
+
 	// Perfil todos
 	private LoginJPanel loginPane;
 	private ButtonEdit loginButton;
@@ -84,6 +83,7 @@ public class Sistema extends JFrame {
 	private HashMap<String,Usuario> usuariosHashMap;
 	private HashMap<String,Enfermedad> enfermedadesHashMap;
 	private Usuario usuarioActivo = null;
+	private Date sesionAnterior;
 	
 	public Sistema() {				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -120,6 +120,8 @@ public class Sistema extends JFrame {
         		if (!loginPane.getUserField().getText().isEmpty() && !loginPane.getPasswordField().getText().isEmpty()) {        			
         			if (iniciarSesion(loginPane.getUserField().getText(),loginPane.getPasswordField().getText())) {
         				loginPane.setVisible(false);
+						sesionAnterior = usuarioActivo.getUltimaSesion();
+						actualizarUltimaSesion();
         			}
         		}            	
             }
@@ -685,6 +687,30 @@ public class Sistema extends JFrame {
 			}
  		}
 		return flag;
+	}
+
+	public void actualizarUltimaSesion(){
+		if (usuarioActivo instanceof Administrador){
+			actualizarUltimaSesionAdministrador();
+		} else if (usuarioActivo instanceof Profesional){
+			actualizarUltimaSesionProfesional();
+		} else if (usuarioActivo instanceof Paciente){
+			actualizarUltimaSesionPaciente();
+		} else {
+			mensajeLeer("Error al buscar la instancia del usuario activo.");
+		}
+	}
+
+	public void actualizarUltimaSesionAdministrador(){
+
+	}
+
+	public void actualizarUltimaSesionProfesional(){
+		
+	}
+
+	public void actualizarUltimaSesionPaciente(){
+		
 	}
 	
 	public int controEntero(String str){
