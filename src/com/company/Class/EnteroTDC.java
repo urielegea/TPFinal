@@ -6,6 +6,10 @@ public class EnteroTDC extends EstructuraTDC{
     private Integer entero;
 
     //Constructor
+
+    public EnteroTDC() {
+    }
+
     public EnteroTDC(String texto){
         super(texto);
         this.entero=null;
