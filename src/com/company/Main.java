@@ -19,13 +19,13 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		cargarAdministradorJSON();
+		//cargarAdministradorJSON();
 		//leerAdministradorJSON();
-		cargarProfesionalJSON();
+		//cargarProfesionalJSON();
 		//leerProfesionalJSON();
-		cargarPacienteJSON();
+		//cargarPacienteJSON();
 		//leerPacienteJSON();
-		cargarEnfermedadJSON();
+		//cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
 		
 		EventQueue.invokeLater(new Runnable() {

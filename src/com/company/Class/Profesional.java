@@ -22,6 +22,9 @@ public class Profesional extends Usuario{
     public ArrayList<String> getPacienteLista() {
         return pacienteLista;
     }
+    public void setPacienteLista(ArrayList<String> lista){
+        this.pacienteLista = lista;
+    }
 
     @Override
     public String toString() {
