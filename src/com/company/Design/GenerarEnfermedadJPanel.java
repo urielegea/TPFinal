@@ -52,7 +52,7 @@ public class GenerarEnfermedadJPanel extends JPanel {
 		nombreTextField.setBounds(182, 10, 201, 30);
 		panel_1.add(nombreTextField);
 		
-		duracionDiasLabel = new JLabel("Dias de duración:");
+		duracionDiasLabel = new JLabel("Dias de duraci\u00F3n");
 		duracionDiasLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		duracionDiasLabel.setBounds(50, 60, 172, 30);
 		panel_1.add(duracionDiasLabel);
@@ -63,7 +63,7 @@ public class GenerarEnfermedadJPanel extends JPanel {
 		duracionDiasTextField.setBounds(221, 60, 160, 30);
 		panel_1.add(duracionDiasTextField);
 		
-		descripcionLabel = new JLabel("Descripción:");
+		descripcionLabel = new JLabel("Descripci\u00F3n:");
 		descripcionLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		descripcionLabel.setBounds(50, 110, 116, 30);
 		panel_1.add(descripcionLabel);
