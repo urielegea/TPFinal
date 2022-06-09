@@ -1,6 +1,6 @@
 package com.company.Class;
 
-public abstract class EstructuraTDC {
+public class EstructuraTDC {
 
     //Atributos
     protected String textoDescriptivo;
