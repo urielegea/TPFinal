@@ -5,12 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import org.json.simple.parser.ParseException;
-
 import com.company.Design.*;
 import com.company.JSON.AdministradorJSON;
 import com.company.JSON.PacienteJSON;
@@ -73,6 +70,11 @@ public class Sistema extends JFrame {
 	private ButtonEdit nuevaEnfermedadButton;	
 	private ButtonEdit asignarTareaDeControlButton;
 	private ButtonEdit atrasEnfermedadButton;
+		
+	// Perfil Administrador.
+	private GenerarEnfermedadJPanel generarEnfermedadJPane;
+	private ButtonEdit buttonGenerarEnfermedad;
+	private ButtonEdit buttonGenerarEnfermedadCancelar;
 	
 	// ================================================
 	
@@ -358,10 +360,10 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	if(asignarProfesional(cuenta, buttonProfesional.getProfesional().getCuenta())) {
-	            		mensajeLeer("Se asigno el paciente con �xito.");
+	            		mensajeLeer("Se asigno el paciente con éxito.");
 	            		menuAsignarProfesionalJPane.setVisible(false);
 	            		menuAdministradorPane.setVisible(true);
-	            	}      	
+	            	} 	
 	            }
 	        }); 
 		}		
@@ -384,7 +386,8 @@ public class Sistema extends JFrame {
 		nuevaEnfermedadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("nuevaEnfermedadButton...");
+            	configGenerarEnfermedadJPanel();
+            	administrarEnfermedadesJPane.setVisible(false);
             }
         }); 		
 		asignarTareaDeControlButton = administrarEnfermedadesJPane.getAsignarTareaDeControlButton();
@@ -404,6 +407,47 @@ public class Sistema extends JFrame {
         }); 		
 		contentPane.add(administrarEnfermedadesJPane);
 		administrarEnfermedadesJPane.setVisible(true);		
+	}
+	
+	public void configGenerarEnfermedadJPanel() {
+		generarEnfermedadJPane = new GenerarEnfermedadJPanel();
+		generarEnfermedadJPane.setBounds(0, 0, 484, 461);		
+		buttonGenerarEnfermedad = generarEnfermedadJPane.getButtonGenerarEnfermedad();
+		buttonGenerarEnfermedad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	if (!generarEnfermedadJPane.getNombre().isEmpty() && !generarEnfermedadJPane.getDescripcion().isEmpty() && 
+            			!generarEnfermedadJPane.getDuracionDias().isEmpty()) {
+            		
+            		int duracionDias = controEntero(generarEnfermedadJPane.getDuracionDias());
+            		
+            		if (duracionDias < 1){
+            			mensajeLeer("Error al cargar los dias de duración de la enfermedad.");
+            		} else {
+    	            	if(nuevaEnfermedad(generarEnfermedadJPane.getNombre(), generarEnfermedadJPane.getDescripcion(), duracionDias)) {
+    	            		mensajeLeer("Se genero una nueva enfermedad con éxito.");
+    	            		generarEnfermedadJPane.setVisible(false);
+    	            		administrarEnfermedadesJPane.setVisible(true);
+    	            	} else {
+    	            		mensajeLeer("No se pudo generar la nueva enfermedad.");
+    	            	}
+            		}            		
+            	} else {
+            		mensajeLeer("Faltan datos obligatorios para generar una nueva enfermedad.");
+            	}
+            }
+        }); 
+		buttonGenerarEnfermedadCancelar = generarEnfermedadJPane.getButtonGenerarEnfermedadCancelar();
+		buttonGenerarEnfermedadCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		generarEnfermedadJPane.setVisible(false);
+        		administrarEnfermedadesJPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(generarEnfermedadJPane);
+		generarEnfermedadJPane.setVisible(true);	
 	}
 		
 	/* ============================================================================================================================== */
@@ -565,11 +609,23 @@ public class Sistema extends JFrame {
 	    	} 
 		}
 		return flag;
-	}
+	}	
 	
 	public boolean asignarProfesional(String cuentaPaciente, String cuentaProfesional) {
-		// True en caso que se haya asignado con extio, en caso contrario un mensaje por consola y retorna false
 		return true;
+	}
+	
+	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
+		return true;
+	}
+	
+	public int controEntero(String str){
+		try {
+			int integer = Integer.parseInt(str);	
+	        return integer;
+	    } catch(NumberFormatException nfe) {  
+	        return 0;
+	    }	      
 	}
 	
 	public void mensajeLeer(String mensaje) {
