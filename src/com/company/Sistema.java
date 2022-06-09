@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.company.Design.*;
 import com.company.JSON.AdministradorJSON;
+import com.company.JSON.EnfermedadJSON;
 import com.company.JSON.PacienteJSON;
 import com.company.JSON.ProfesionalJSON;
 import com.company.Class.*;
@@ -79,7 +81,8 @@ public class Sistema extends JFrame {
 	
 	// ================================================
 	
-	private HashMap<String,Usuario> usuariosHashMap; 
+	private HashMap<String,Usuario> usuariosHashMap;
+	private HashMap<String,Enfermedad> enfermedadesHashMap;
 	private Usuario usuarioActivo = null;
 	
 	public Sistema() {				
@@ -94,6 +97,7 @@ public class Sistema extends JFrame {
 		// =======================================	
 
 		cargarUsuarios();
+		cargarEnfermedades();
 	}
 	
 	// Inicializacion y configuracion del panel contenedor.
@@ -262,7 +266,7 @@ public class Sistema extends JFrame {
                 	
                 	if (nuevoProfesional(generarProfesionalJPane.getNombre(), generarProfesionalJPane.getApellido(), generarProfesionalJPane.getDni(), 
                 			generarProfesionalJPane.getTelefono(), generarProfesionalJPane.getCuenta(), generarProfesionalJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el profesional con �xito.");
+                		mensajeLeer("Se ha generado el profesional con ?xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarProfesionalJPane.setVisible(false);
                 		
@@ -302,7 +306,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con �xito.");
+                		mensajeLeer("Se ha generado el paciente con ?xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -361,7 +365,7 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	if(asignarProfesional(cuenta, buttonProfesional.getProfesional().getCuenta())) {
-	            		mensajeLeer("Se asigno el paciente con �xito.");
+	            		mensajeLeer("Se asigno el paciente con ?xito.");
 	            		menuAsignarProfesionalJPane.setVisible(false);
 	            		menuAdministradorPane.setVisible(true);
 	            	} 	
@@ -424,10 +428,10 @@ public class Sistema extends JFrame {
             		int duracionDias = controEntero(generarEnfermedadJPane.getDuracionDias());
             		
             		if (duracionDias < 1){
-            			mensajeLeer("Error al cargar los dias de duraci�n de la enfermedad.");
+            			mensajeLeer("Error al cargar los dias de duraci?n de la enfermedad.");
             		} else {
     	            	if(nuevaEnfermedad(generarEnfermedadJPane.getNombre(), generarEnfermedadJPane.getDescripcion(), duracionDias)) {
-    	            		mensajeLeer("Se genero una nueva enfermedad con �xito.");
+    	            		mensajeLeer("Se genero una nueva enfermedad con ?xito.");
     	            		generarEnfermedadJPane.setVisible(false);
     	            		administrarEnfermedadesJPane.setVisible(true);
     	            	} else {
@@ -510,7 +514,29 @@ public class Sistema extends JFrame {
 			return null;			
 		}
 	}
-	
+
+
+	public void cargarEnfermedades(){
+		HashMap<String,Enfermedad> enfermedadesHashMap = leerEnfermedadJSON();
+		if(enfermedadesHashMap != null){
+			for(HashMap.Entry<String,Enfermedad> obj : enfermedadesHashMap.entrySet()){
+				Enfermedad enfermedad = obj.getValue();
+				enfermedadesHashMap.put(enfermedad.getNombre(),enfermedad);
+			}
+		}
+		this.enfermedadesHashMap = enfermedadesHashMap;
+	}
+
+	public HashMap<String, Enfermedad> leerEnfermedadJSON(){
+		try{
+			EnfermedadJSON enfermedadJSON = new EnfermedadJSON();
+			return enfermedadJSON.leerJSON();
+		}catch (IOException e1){
+			mensajeLeer(e1.toString());
+			return null;
+		}
+	}
+
 	public boolean iniciarSesion(String cuenta, String clave){		
 		Usuario usuario = buscarUsuario(cuenta, clave);	
 		boolean flag = false;
@@ -558,6 +584,14 @@ public class Sistema extends JFrame {
 		}
 		return profesionalLista;
 	}
+
+	public ArrayList<Enfermedad> getListaEnfermedad(){
+		ArrayList<Enfermedad> enfermedadLista = new ArrayList<Enfermedad>();
+		for(Enfermedad enfermedad : this.enfermedadesHashMap.values()){
+			enfermedadLista.add(enfermedad);
+		}
+		return enfermedadLista;
+	}
 	
 	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
@@ -567,8 +601,8 @@ public class Sistema extends JFrame {
 	    			fechaAlta, null, this.usuariosHashMap);	    	
 	    	if (nuevoProfesional != null) {
 	    		try {
+					usuariosHashMap.put(cuenta, nuevoProfesional);
 		    		ArrayList <Profesional> profesionalLista = getListaProfesional();
-		    		profesionalLista.add(nuevoProfesional);	   		    	
 		    		ProfesionalJSON profesionalJSON = new ProfesionalJSON();
 					profesionalJSON.cargarJSON(profesionalLista);
 					flag = true;					
@@ -590,7 +624,7 @@ public class Sistema extends JFrame {
 		}
 		return pacienteLista;
 	}
-	
+
 	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
 		if (usuarioActivo instanceof Administrador) {			
@@ -599,8 +633,8 @@ public class Sistema extends JFrame {
 	    			fechaAlta, null, this.usuariosHashMap);	    	
 	    	if (nuevoPaciente != null) {
 	    		try {
+					usuariosHashMap.put(cuenta, nuevoPaciente);
 		    		ArrayList <Paciente> pacienteLista = getListaPaciente();
-		    		pacienteLista.add(nuevoPaciente);	   		    	
 		    		PacienteJSON pacienteJSON = new PacienteJSON();
 		    		pacienteJSON.cargarJSON(pacienteLista);
 					flag = true;					
@@ -633,8 +667,24 @@ public class Sistema extends JFrame {
 	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
-
-		return true;
+		boolean flag = false;
+		if(usuarioActivo instanceof Administrador){
+			Administrador admin = (Administrador) usuarioActivo;
+			ArrayList<Enfermedad> enfermedadLista = getListaEnfermedad();
+			Enfermedad enfermedadNueva = admin.crearEnfermedad(nombre, null, descripcion, duracionDias, enfermedadLista);
+			if(enfermedadNueva != null){
+				try{
+					enfermedadesHashMap.put(nombre, enfermedadNueva);
+					enfermedadLista = getListaEnfermedad();
+					EnfermedadJSON enfermedadJSON = new EnfermedadJSON();
+					enfermedadJSON.cargarJSON(enfermedadLista);
+					flag = true;
+ 				} catch (IOException e){
+					mensajeLeer(e.toString());
+				}
+			}
+ 		}
+		return flag;
 	}
 	
 	public int controEntero(String str){
