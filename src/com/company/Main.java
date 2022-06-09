@@ -8,23 +8,22 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.company.Class.*;
-import com.company.JSON.EnfermedadJSON;
-import com.company.JSON.PacienteJSON;
-import com.company.JSON.ProfesionalJSON;
-import com.company.JSON.AdministradorJSON;
+import com.company.JSON.*;
 
 public class Main {	
 	
 	public static void main(String[] args) {
 		
 		//cargarAdministradorJSON();
-		leerAdministradorJSON();
+		//leerAdministradorJSON();
 		//cargarProfesionalJSON();
-		leerProfesionalJSON();
+		//leerProfesionalJSON();
 		//cargarPacienteJSON();
-		leerPacienteJSON();
+		//leerPacienteJSON();
 		//cargarEnfermedadJSON();
-		leerEnfermedadJSON();
+		//leerEnfermedadJSON();
+		//cargarTareaDeControlJSON();
+		leerTareaDeControlJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -194,10 +193,32 @@ public class Main {
 		}
 	}
 
-	public static void cargarEstructuraTDCJSON(){
+	public static void cargarTareaDeControlJSON(){
 
-		ArrayList<EstructuraTDC> estructuraTDCLista = new ArrayList<>();
+		ArrayList<TareaDeControl> tdcLista = new ArrayList<>();
+		DecimalTDC decimal1 = new DecimalTDC("Tomar Temperatura:");
+		TareaDeControl tareaDeControl = new TareaDeControl("Temperatura",false,
+													"Observacion de temperatura", decimal1);
+		tdcLista.add(tareaDeControl);
 
+		try {
+			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
+			tareaDeControlJSON.cargarJSON(tdcLista);
+		} catch (IOException e) {
+			System.out.print(e.toString());
+		}
+	}
 
+	public static void leerTareaDeControlJSON(){
+		try {
+			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
+			HashMap<String,TareaDeControl> tareaDeControlHashMap = tareaDeControlJSON.leerJSON();
+			for (HashMap.Entry<String, TareaDeControl> obj : tareaDeControlHashMap.entrySet()) {
+				TareaDeControl tareaDeControl = obj.getValue();
+				System.out.println(tareaDeControl.toString());
+			}
+		} catch (IOException e1) {
+			System.out.print(e1.toString());
+		}
 	}
 }

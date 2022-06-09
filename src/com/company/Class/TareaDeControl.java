@@ -2,7 +2,7 @@ package com.company.Class;
 
 public class TareaDeControl {
 
-    protected String token;
+    protected String nombre;
     protected boolean accion;
     protected String observacion;
     protected EstructuraTDC estructura;
@@ -10,15 +10,15 @@ public class TareaDeControl {
     public TareaDeControl() {
     }
 
-    public TareaDeControl(String token, boolean accion, String observacion, EstructuraTDC estruc){
-        this.token = token;
+    public TareaDeControl(String nombre, boolean accion, String observacion, EstructuraTDC estruc){
+        this.nombre = nombre;
         this.accion = accion;
         this.observacion = observacion;
         this.estructura=estruc;
     }  
     
-    public String getToken() {
-        return token;
+    public String getNombre() {
+        return nombre;
     }
 
     public boolean getAccion() {
@@ -38,7 +38,7 @@ public class TareaDeControl {
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.nombre = token;
     }
 
     public boolean isAccion() {
@@ -56,7 +56,7 @@ public class TareaDeControl {
     @Override
     public String toString() {
         return "TareaDeControl{" +
-                "token='" + token + '\'' +
+                "nombre='" + nombre + '\'' +
                 ", accion=" + accion +
                 ", observacion='" + observacion + '\'' +
                 ", estructura=" + estructura +

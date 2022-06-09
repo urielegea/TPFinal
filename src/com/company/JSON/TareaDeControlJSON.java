@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TareaDeControlJSON implements InterfazJSON <TareaDeControl>{
 
 	@Override
-	public void cargarJSON(ArrayList<TareaDeControl> objList) throws IOException, ParseException {
+	public void cargarJSON(ArrayList<TareaDeControl> objList) throws IOException {
         File file = new File(this.getUbicacion());
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, objList);		
@@ -25,13 +25,18 @@ public class TareaDeControlJSON implements InterfazJSON <TareaDeControl>{
 		ObjectMapper mapper = new ObjectMapper();		
 		List<TareaDeControl> tareaList = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, TareaDeControl.class));		
         for (TareaDeControl t : tareaList) {
-        	tareaDeControlHashMap.put(t.toString(), t); // toString temporal.
-        }	
+        	tareaDeControlHashMap.put(t.getNombre(), t);
+        }
         return tareaDeControlHashMap;
 	}
 	
 	@Override
 	public String getUbicacion() {
-		return "EstructuraTDC.json";
+		return "TareaDeControlTDC.json";
+	}
+
+	@Override
+	public String toString() {
+		return "TareaDeControlJSON{}";
 	}
 }
