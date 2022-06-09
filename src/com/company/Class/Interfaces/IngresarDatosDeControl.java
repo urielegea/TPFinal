@@ -1,4 +1,4 @@
-package com.company.Class;
+package com.company.Class.Interfaces;
 
 public interface IngresarDatosDeControl {
 }

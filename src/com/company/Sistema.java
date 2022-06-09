@@ -22,6 +22,7 @@ import com.company.Class.*;
 public class Sistema extends JFrame {
 
 	private JPanel contentPane;
+	private Date sesionAnterior;
 	
 	// Perfil todos
 	private LoginJPanel loginPane;

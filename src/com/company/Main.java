@@ -20,14 +20,14 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		cargarAdministradorJSON();
-		//leerAdministradorJSON();
-		cargarProfesionalJSON();
-		//leerProfesionalJSON();
-		cargarPacienteJSON();
-		//leerPacienteJSON();
-		cargarEnfermedadJSON();
-		//leerEnfermedadJSON();
+		//cargarAdministradorJSON();
+		leerAdministradorJSON();
+		//cargarProfesionalJSON();
+		leerProfesionalJSON();
+		//cargarPacienteJSON();
+		leerPacienteJSON();
+		//cargarEnfermedadJSON();
+		leerEnfermedadJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

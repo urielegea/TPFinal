@@ -1,4 +1,6 @@
-package com.company.Class;
+package com.company.Class.Interfaces;
+
+import com.company.Class.*;
 
 public interface AdministrarTareaDeControl {
 
