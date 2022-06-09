@@ -593,7 +593,7 @@ public class Sistema extends JFrame {
 		}
 		return pacienteLista;
 	}
-	
+
 	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
 		if (usuarioActivo instanceof Administrador) {			
@@ -602,8 +602,8 @@ public class Sistema extends JFrame {
 	    			fechaAlta, null, this.usuariosHashMap);	    	
 	    	if (nuevoPaciente != null) {
 	    		try {
+					usuariosHashMap.put(cuenta, nuevoPaciente);
 		    		ArrayList <Paciente> pacienteLista = getListaPaciente();
-		    		pacienteLista.add(nuevoPaciente);	   		    	
 		    		PacienteJSON pacienteJSON = new PacienteJSON();
 		    		pacienteJSON.cargarJSON(pacienteLista);
 					flag = true;					
@@ -636,6 +636,7 @@ public class Sistema extends JFrame {
 	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
+
 
 		return true;
 	}
