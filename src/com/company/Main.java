@@ -7,13 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.company.Class.Enfermedad;
-import com.company.Class.Paciente;
-import com.company.Class.Profesional;
+import com.company.Class.*;
 import com.company.JSON.EnfermedadJSON;
 import com.company.JSON.PacienteJSON;
 import com.company.JSON.ProfesionalJSON;
-import com.company.Class.Administrador;
 import com.company.JSON.AdministradorJSON;
 
 public class Main {	
@@ -21,12 +18,12 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//cargarAdministradorJSON();
-		//leerAdministradorJSON();
+		leerAdministradorJSON();
 		//cargarProfesionalJSON();
-		//leerProfesionalJSON();
+		leerProfesionalJSON();
 		//cargarPacienteJSON();
-		//leerPacienteJSON();
-		cargarEnfermedadJSON();
+		leerPacienteJSON();
+		//cargarEnfermedadJSON();
 		leerEnfermedadJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -195,5 +192,12 @@ public class Main {
 		} catch (IOException e1) {
 			System.out.print(e1.toString());
 		}
+	}
+
+	public static void cargarEstructuraTDCJSON(){
+
+		ArrayList<EstructuraTDC> estructuraTDCLista = new ArrayList<>();
+
+
 	}
 }

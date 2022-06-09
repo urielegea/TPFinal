@@ -7,6 +7,10 @@ public class NotaTDC extends EstructuraTDC{
     private String nota;
 
     //Constructor
+
+    public NotaTDC() {
+    }
+
     public NotaTDC(String texto){
         super(texto);
         this.nota=null;

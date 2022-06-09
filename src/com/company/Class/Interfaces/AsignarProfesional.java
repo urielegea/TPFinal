@@ -1,4 +1,7 @@
-package com.company.Class;
+package com.company.Class.Interfaces;
+
+import com.company.Class.Profesional;
+import com.company.Class.Usuario;
 
 import java.util.ArrayList;
 import java.util.HashMap;

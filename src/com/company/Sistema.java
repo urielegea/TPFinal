@@ -3,15 +3,11 @@ package com.company;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.json.simple.parser.ParseException;
 import com.company.Design.*;
 import com.company.JSON.AdministradorJSON;
 import com.company.JSON.PacienteJSON;
@@ -22,6 +18,7 @@ import com.company.Class.*;
 public class Sistema extends JFrame {
 
 	private JPanel contentPane;
+	private Date sesionAnterior;
 	
 	// Perfil todos
 	private LoginJPanel loginPane;
@@ -265,7 +262,7 @@ public class Sistema extends JFrame {
                 	
                 	if (nuevoProfesional(generarProfesionalJPane.getNombre(), generarProfesionalJPane.getApellido(), generarProfesionalJPane.getDni(), 
                 			generarProfesionalJPane.getTelefono(), generarProfesionalJPane.getCuenta(), generarProfesionalJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el profesional con éxito.");
+                		mensajeLeer("Se ha generado el profesional con ï¿½xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarProfesionalJPane.setVisible(false);
                 		
@@ -305,7 +302,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con éxito.");
+                		mensajeLeer("Se ha generado el paciente con ï¿½xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -364,7 +361,7 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	if(asignarProfesional(cuenta, buttonProfesional.getProfesional().getCuenta())) {
-	            		mensajeLeer("Se asigno el paciente con éxito.");
+	            		mensajeLeer("Se asigno el paciente con ï¿½xito.");
 	            		menuAsignarProfesionalJPane.setVisible(false);
 	            		menuAdministradorPane.setVisible(true);
 	            	} 	
@@ -427,10 +424,10 @@ public class Sistema extends JFrame {
             		int duracionDias = controEntero(generarEnfermedadJPane.getDuracionDias());
             		
             		if (duracionDias < 1){
-            			mensajeLeer("Error al cargar los dias de duración de la enfermedad.");
+            			mensajeLeer("Error al cargar los dias de duraciï¿½n de la enfermedad.");
             		} else {
     	            	if(nuevaEnfermedad(generarEnfermedadJPane.getNombre(), generarEnfermedadJPane.getDescripcion(), duracionDias)) {
-    	            		mensajeLeer("Se genero una nueva enfermedad con éxito.");
+    	            		mensajeLeer("Se genero una nueva enfermedad con ï¿½xito.");
     	            		generarEnfermedadJPane.setVisible(false);
     	            		administrarEnfermedadesJPane.setVisible(true);
     	            	} else {

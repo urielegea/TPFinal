@@ -7,6 +7,10 @@ public class DecimalTDC extends EstructuraTDC{
     private Double decimal;
 
     //Constructor
+
+    public DecimalTDC() {
+    }
+
     public DecimalTDC(String texto){
         super(texto);
         this.decimal=null;
