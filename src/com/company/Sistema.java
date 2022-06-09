@@ -360,7 +360,7 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	if(asignarProfesional(cuenta, buttonProfesional.getProfesional().getCuenta())) {
-	            		mensajeLeer("Se asigno el paciente con Ã©xito.");
+	            		mensajeLeer("Se asigno el paciente con éxito.");
 	            		menuAsignarProfesionalJPane.setVisible(false);
 	            		menuAdministradorPane.setVisible(true);
 	            	} 	
@@ -423,10 +423,10 @@ public class Sistema extends JFrame {
             		int duracionDias = controEntero(generarEnfermedadJPane.getDuracionDias());
             		
             		if (duracionDias < 1){
-            			mensajeLeer("Error al cargar los dias de duraciÃ³n de la enfermedad.");
+            			mensajeLeer("Error al cargar los dias de duración de la enfermedad.");
             		} else {
     	            	if(nuevaEnfermedad(generarEnfermedadJPane.getNombre(), generarEnfermedadJPane.getDescripcion(), duracionDias)) {
-    	            		mensajeLeer("Se genero una nueva enfermedad con Ã©xito.");
+    	            		mensajeLeer("Se genero una nueva enfermedad con éxito.");
     	            		generarEnfermedadJPane.setVisible(false);
     	            		administrarEnfermedadesJPane.setVisible(true);
     	            	} else {
@@ -612,10 +612,27 @@ public class Sistema extends JFrame {
 	}	
 	
 	public boolean asignarProfesional(String cuentaPaciente, String cuentaProfesional) {
-		return true;
+		boolean flag = false;
+		if(usuarioActivo instanceof Administrador){
+			Administrador admin = (Administrador) usuarioActivo;
+			Profesional profesionalEditado = admin.asignarProfesional(cuentaProfesional, cuentaPaciente, usuariosHashMap);
+			if(profesionalEditado != null){
+				try {
+					usuariosHashMap.put(cuentaProfesional, profesionalEditado);
+					ArrayList<Profesional> profesionalLista = getListaProfesional();
+					ProfesionalJSON profesionalJSON = new ProfesionalJSON();
+					profesionalJSON.cargarJSON(profesionalLista);
+					flag = true;
+				}catch(IOException | java.text.ParseException e){
+					mensajeLeer(e.toString());
+				}
+			}
+		}
+		return flag;
 	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
+
 		return true;
 	}
 	
