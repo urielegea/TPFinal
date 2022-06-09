@@ -7,6 +7,9 @@ public class TareaDeControl {
     protected String observacion;
     protected EstructuraTDC estructura;
 
+    public TareaDeControl() {
+    }
+
     public TareaDeControl(String token, boolean accion, String observacion, EstructuraTDC estruc){
         this.token = token;
         this.accion = accion;
@@ -32,5 +35,31 @@ public class TareaDeControl {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isAccion() {
+        return accion;
+    }
+
+    public EstructuraTDC getEstructura() {
+        return estructura;
+    }
+
+    public void setEstructura(EstructuraTDC estructura) {
+        this.estructura = estructura;
+    }
+
+    @Override
+    public String toString() {
+        return "TareaDeControl{" +
+                "token='" + token + '\'' +
+                ", accion=" + accion +
+                ", observacion='" + observacion + '\'' +
+                ", estructura=" + estructura +
+                '}';
     }
 }

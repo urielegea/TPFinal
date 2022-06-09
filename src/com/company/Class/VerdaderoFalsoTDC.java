@@ -6,6 +6,10 @@ public class VerdaderoFalsoTDC extends EstructuraTDC{
     private Boolean vof;
 
     //Constructor
+
+    public VerdaderoFalsoTDC() {
+    }
+
     public VerdaderoFalsoTDC(String texto){
         super(texto);
         this.vof=null;

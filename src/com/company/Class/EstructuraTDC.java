@@ -6,6 +6,9 @@ public abstract class EstructuraTDC {
     protected String textoDescriptivo;
 
     //Constructor
+    public EstructuraTDC() {
+    }
+
     public EstructuraTDC(String textoDescriptivo){
         this.textoDescriptivo=textoDescriptivo;
     }
