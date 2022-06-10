@@ -750,6 +750,14 @@ public class Sistema extends JFrame {
 			}
 		}
 	}
+
+	public boolean asignarTareaDeControlEnfermedad(String nombreEnfermedad, ArrayList<String> nombreTareaDeControl) {
+		return true;
+	}
+	
+	public boolean nuevaTareaDeControl(String nombre, boolean accion, String observacion, EstructuraTDC estructuraTDC) {
+		return true;
+	}
 	
 	public int controEntero(String str){
 		try {
