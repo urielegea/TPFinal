@@ -781,8 +781,23 @@ public class Sistema extends JFrame {
 	}
 
 	public boolean asignarTareaDeControlEnfermedad(String nombreEnfermedad, ArrayList<String> nombreTareaDeControl) {
-
-		return true;
+		boolean flag = false;
+		if(usuarioActivo instanceof Administrador){
+			Administrador admin = (Administrador) usuarioActivo;
+			Enfermedad enfermedadEditada = admin.asignarTareaDeControlEnfermedad(nombreTareaDeControl, nombreEnfermedad, enfermedadesHashMap);
+			if(enfermedadEditada != null){
+				try {
+					enfermedadesHashMap.put(nombreEnfermedad, enfermedadEditada);
+					ArrayList<Enfermedad> enfermedadLista = getListaEnfermedad();
+					EnfermedadJSON enfermedadJSON = new EnfermedadJSON();
+					enfermedadJSON.cargarJSON(enfermedadLista);
+					flag = true;
+				}catch (IOException e){
+					mensajeLeer(e.toString());
+				}
+			}
+		}
+		return flag;
 	}
 	
 	public boolean nuevaTareaDeControl(String nombre, boolean accion, String observacion, EstructuraTDC estructuraTDC) {
