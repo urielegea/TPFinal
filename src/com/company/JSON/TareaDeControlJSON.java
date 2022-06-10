@@ -34,9 +34,4 @@ public class TareaDeControlJSON implements InterfazJSON <TareaDeControl>{
 	public String getUbicacion() {
 		return "TareaDeControlTDC.json";
 	}
-
-	@Override
-	public String toString() {
-		return "TareaDeControlJSON{}";
-	}
 }

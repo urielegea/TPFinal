@@ -5,7 +5,6 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import com.company.Class.Administrador;
 import com.company.Class.Paciente;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

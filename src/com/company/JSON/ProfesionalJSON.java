@@ -5,7 +5,6 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.text.ParseException;
 import com.company.Class.Profesional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

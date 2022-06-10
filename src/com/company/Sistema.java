@@ -736,9 +736,7 @@ public class Sistema extends JFrame {
 			}
 		}
 	}
-
-
-
+	
 	public void actualizarUltimaSesionPaciente(){
 		if(usuarioActivo!=null){
 			try{
