@@ -700,6 +700,7 @@ public class Sistema extends JFrame {
 	}
 
 	public void actualizarUltimaSesion(){
+		usuarioActivo.setUltimaSesion(new Date());
 		if (usuarioActivo instanceof Administrador){
 			actualizarUltimaSesionAdministrador();
 		} else if (usuarioActivo instanceof Profesional){
