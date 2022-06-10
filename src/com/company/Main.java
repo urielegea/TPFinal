@@ -25,40 +25,9 @@ public class Main {
 		//leerPacienteJSON();
 		//cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
-		cargarTareaDeControlJSON();
-		leerTareaDeControlJSON();
-
-		/*String path = "C:\\Users\\usuario\\Documents\\GitHub\\TPFinal\\";
-
-		ObjectMapper mapper = new ObjectMapper();
-		File file = new File(path + "TareaDeControlTDC.json");
-
-		/*ArrayList<TareaDeControl> tareaDeControlArrayList = new ArrayList<>();
-
-		TareaDeControl tdc1 = new TareaDeControl()
-
-		try {
-			//Serializo
-			//mapper.writeValue(file, tareaDeControlArrayList);
-
-			//Deserializo
-			List<TareaDeControl> myObjects = mapper.readValue(file,
-																mapper.getTypeFactory().constructCollectionType
-																					(List.class, TareaDeControl.class));
-
-			for (TareaDeControl x : myObjects) {
-				System.out.println(x);
-			}
-			} catch (IOException e) {
-				System.out.println("No se pudo leer/escribir el archivo: " + e.getMessage());
-				e.printStackTrace();
-			}
-			finally {
-				System.out.println("Shapa la pashola");
-			}*/
-
-
-
+		//cargarTareaDeControlJSON();
+		//leerTareaDeControlJSON();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -230,16 +199,19 @@ public class Main {
 	public static void cargarTareaDeControlJSON(){
 
 		ArrayList<TareaDeControl> tdcLista = new ArrayList<>();
+		
 		DecimalTDC decimal1 = new DecimalTDC("Temperatura:");
-		EnteroTDC entero1 = new EnteroTDC("Presion");
-		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre");
+		EnteroTDC entero1 = new EnteroTDC("Presion:");
+		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre:");
 
 		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
-													"Observacion de temperatura", decimal1);
+													"Observación de temperatura.", decimal1);
+		
 		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
-														"Se toma la presion del wachin",entero1);
+														"Se toma la presión.",entero1);
+		
 		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar Fiebre",false,
-														"Se comprueba si el wachin tiene fiebre",verdaderoFalso1);
+														"Se comprueba la fiebre.",verdaderoFalso1);
 		tdcLista.add(tareaDeControl1);
 		tdcLista.add(tareaDeControl2);
 		tdcLista.add(tareaDeControl3);

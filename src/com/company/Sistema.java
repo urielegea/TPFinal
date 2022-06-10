@@ -9,7 +9,11 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.company.Design.*;
-import com.company.JSON.*;
+import com.company.JSON.AdministradorJSON;
+import com.company.JSON.EnfermedadJSON;
+import com.company.JSON.PacienteJSON;
+import com.company.JSON.ProfesionalJSON;
+import com.company.JSON.TareaDeControlJSON;
 import com.company.Class.*;
 
 @SuppressWarnings("serial")
@@ -74,6 +78,11 @@ public class Sistema extends JFrame {
 	private ButtonEdit buttonGenerarEnfermedad;
 	private ButtonEdit buttonGenerarEnfermedadCancelar;
 	
+	// Perfil Administrador.
+	private GenerarTareaDeControlJPanel generarTareaDeControlJPane;
+	private ButtonEdit buttonGenerarTDC;
+	private ButtonEdit buttonGenerarTDCCancelar;	
+	
 	// ================================================
 	
 	private HashMap<String,Usuario> usuariosHashMap;
@@ -96,7 +105,6 @@ public class Sistema extends JFrame {
 		cargarUsuarios();
 		cargarEnfermedades();
 		cargarTareasDeControl();
-
 	}
 	
 	// Inicializacion y configuracion del panel contenedor.
@@ -177,7 +185,8 @@ public class Sistema extends JFrame {
 		administrarTareaDeControlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("administrarTareaDeControlButton...");
+            	configGenerarTareaDeControlJPanel();
+        		menuAdministradorPane.setVisible(false);
             }
         }); 		
 		cerrarMenuAdministradorButton = menuAdministradorPane.getCerrarMenuAdministradorButton();
@@ -455,6 +464,69 @@ public class Sistema extends JFrame {
 		contentPane.add(generarEnfermedadJPane);
 		generarEnfermedadJPane.setVisible(true);	
 	}
+	
+	public void configGenerarTareaDeControlJPanel()	{ 
+	
+		generarTareaDeControlJPane = new GenerarTareaDeControlJPanel();
+		generarTareaDeControlJPane.setBounds(0, 0, 484, 461);		
+		buttonGenerarTDC = generarTareaDeControlJPane.getButtonGenerarTDC();
+		buttonGenerarTDC.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+            	
+            	if (!generarTareaDeControlJPane.getNombre().isEmpty() && !generarTareaDeControlJPane.getObservacion().isEmpty() && 
+            			!generarTareaDeControlJPane.getDescripcion().isEmpty() && !generarTareaDeControlJPane.getTipoAccion().isEmpty()) {
+            		
+            		EstructuraTDC estructuraTDC = null;
+            		
+            		if (generarTareaDeControlJPane.getTipoAccion().compareTo("Entero") == 0) {
+            			
+            			estructuraTDC = new EnteroTDC(generarTareaDeControlJPane.getDescripcion());
+            			
+            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo("Decimal") == 0) {
+            			
+            			estructuraTDC = new DecimalTDC(generarTareaDeControlJPane.getDescripcion());
+            			
+            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo("Nota") == 0) {
+            			
+            			estructuraTDC = new NotaTDC(generarTareaDeControlJPane.getDescripcion());
+            			
+            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo("Verdadero/Falso") == 0) {
+            			
+            			estructuraTDC = new VerdaderoFalsoTDC(generarTareaDeControlJPane.getDescripcion());
+            			
+            		} else {
+            			
+            			mensajeLeer("Algo salio mal.");
+            		}
+            		
+            		if (nuevaTareaDeControl(generarTareaDeControlJPane.getNombre(), false, generarTareaDeControlJPane.getObservacion(), estructuraTDC)) { 
+
+                		mensajeLeer("Se ha generado la tarea de control con éxito.");
+                		menuAdministradorPane.setVisible(true);
+                		generarTareaDeControlJPane.setVisible(false);
+                		
+                	} else {
+                		mensajeLeer("No se pudo generar el nuevo profesional.");
+                	}  
+            		
+            	} else {
+            		mensajeLeer("Faltan datos obligatorios para la tarea de control.");
+            	}
+            }
+        }); 
+		buttonGenerarTDCCancelar = generarTareaDeControlJPane.getButtonGenerarTDCCancelar();
+		buttonGenerarTDCCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		menuAdministradorPane.setVisible(true);
+        		generarTareaDeControlJPane.setVisible(false);
+            }
+        }); 
+		contentPane.add(generarTareaDeControlJPane);
+		generarTareaDeControlJPane.setVisible(true);		
+		
+	}	
 		
 	/* ============================================================================================================================== */
 	/* ============================================================================================================================== */
@@ -516,7 +588,6 @@ public class Sistema extends JFrame {
 		}
 	}
 
-
 	public void cargarEnfermedades(){
 		HashMap<String,Enfermedad> enfermedadesHashMap = leerEnfermedadJSON();
 		if(enfermedadesHashMap != null){
@@ -537,7 +608,7 @@ public class Sistema extends JFrame {
 			return null;
 		}
 	}
-
+	
 	public void cargarTareasDeControl(){
 		HashMap<String, TareaDeControl> tareaDeControlHashMap = leerTareaDeControlJSON();
 		if(tareaDeControlHashMap != null){
@@ -558,7 +629,7 @@ public class Sistema extends JFrame {
 			return null;
 		}
 	}
-
+	
 	public boolean iniciarSesion(String cuenta, String clave){		
 		Usuario usuario = buscarUsuario(cuenta, clave);	
 		boolean flag = false;
@@ -625,7 +696,7 @@ public class Sistema extends JFrame {
 		}
 		return enfermedadLista;
 	}
-
+	
 	public ArrayList<TareaDeControl> getListaTareaDeControl(){
 		ArrayList<TareaDeControl> tareaDeControlLista = new ArrayList<TareaDeControl>();
 		for(TareaDeControl tareaDeControl : this.tareaDeControlHashMap.values()){
@@ -729,7 +800,6 @@ public class Sistema extends JFrame {
 	}
 
 	public void actualizarUltimaSesion(){
-		usuarioActivo.setUltimaSesion(new Date());
 		if (usuarioActivo instanceof Administrador){
 			actualizarUltimaSesionAdministrador();
 		} else if (usuarioActivo instanceof Profesional){
@@ -755,6 +825,7 @@ public class Sistema extends JFrame {
 	}
 
 	public void actualizarUltimaSesionProfesional(){
+		usuarioActivo.setUltimaSesion(new Date());
 		if(usuarioActivo!=null){
 			try{
 				usuariosHashMap.put(usuarioActivo.getCuenta(),usuarioActivo);
@@ -779,7 +850,7 @@ public class Sistema extends JFrame {
 			}
 		}
 	}
-
+	
 	public boolean asignarTareaDeControlEnfermedad(String nombreEnfermedad, ArrayList<String> nombreTareaDeControl) {
 		boolean flag = false;
 		if(usuarioActivo instanceof Administrador){

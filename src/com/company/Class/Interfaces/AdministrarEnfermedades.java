@@ -20,26 +20,25 @@ public interface AdministrarEnfermedades {
         }
         return null;
     }
-
-    public default Enfermedad asignarTareaDeControlEnfermedad(ArrayList<String> listaNombreTDC, String nombreEnfermedad,
-                                                              HashMap<String, Enfermedad> enfermedadHashMap){
-        Enfermedad auxEnfermedad = enfermedadHashMap.get(nombreEnfermedad);
-        if(auxEnfermedad.getTareaDeControlLista() != null){
-            for(String t: listaNombreTDC){
-                auxEnfermedad.getTareaDeControlLista().add(t);
-            }
-        }else{
-            ArrayList<String> listaTDC = new ArrayList<String>();
-            auxEnfermedad.setTareaDeControlLista(listaTDC);
-            for(String s: listaNombreTDC) {
-                auxEnfermedad.getTareaDeControlLista().add(s);
-            }
-        }
-        if(auxEnfermedad.getTareaDeControlLista() != null) {
-            return auxEnfermedad;
-        }
-        return null;
-    }
-
-
+    
+    public default Enfermedad asignarTareaDeControlEnfermedad(ArrayList<String> listaNombreTDC, String nombreEnfermedad, 
+    		HashMap<String, Enfermedad> enfermedadHashMap){
+    	
+		Enfermedad auxEnfermedad = enfermedadHashMap.get(nombreEnfermedad);
+		if(auxEnfermedad.getTareaDeControlLista() != null){
+			for(String t: listaNombreTDC){
+				auxEnfermedad.getTareaDeControlLista().add(t);
+			}
+		}else{
+			ArrayList<String> listaTDC = new ArrayList<String>();
+			auxEnfermedad.setTareaDeControlLista(listaTDC);
+			for(String s: listaNombreTDC) {
+				auxEnfermedad.getTareaDeControlLista().add(s);
+			}
+		}
+		if(auxEnfermedad.getTareaDeControlLista() != null) {
+			return auxEnfermedad;
+		}
+		return null;
+	}
 }
