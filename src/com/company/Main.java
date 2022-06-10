@@ -17,15 +17,15 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		//cargarAdministradorJSON();
+		cargarAdministradorJSON();
 		//leerAdministradorJSON();
-		//cargarProfesionalJSON();
+		cargarProfesionalJSON();
 		//leerProfesionalJSON();
-		//cargarPacienteJSON();
+		cargarPacienteJSON();
 		//leerPacienteJSON();
-		//cargarEnfermedadJSON();
+		cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
-		//cargarTareaDeControlJSON();
+		cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -169,10 +169,10 @@ public class Main {
 
 		ArrayList<Enfermedad> enfermedadLista = new ArrayList<>();
 
-		Enfermedad tos = new Enfermedad("Tos comun", null, "una simple tos", 2);
+		Enfermedad tos = new Enfermedad("Gripe A", null, "Mucha tos", 2);
 		enfermedadLista.add(tos);
 
-		Enfermedad fiebre = new Enfermedad("Fiebre", null, "Fiebre de mas de 38 grados", 6);
+		Enfermedad fiebre = new Enfermedad("Covid", null, "Fiebre de mas de 38 grados, contagioso", 6);
 		enfermedadLista.add(fiebre);
 
 		try {

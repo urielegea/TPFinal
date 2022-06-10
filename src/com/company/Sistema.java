@@ -73,12 +73,22 @@ public class Sistema extends JFrame {
 	private ButtonEdit asignarTareaDeControlButton;
 	private ButtonEdit atrasEnfermedadButton;
 		
-	// Perfil Administrador.
+	// Perfil administrador.
 	private GenerarEnfermedadJPanel generarEnfermedadJPane;
 	private ButtonEdit buttonGenerarEnfermedad;
 	private ButtonEdit buttonGenerarEnfermedadCancelar;
 	
-	// Perfil Administrador.
+	// Perfil administrador.
+	private MenuAsignarEnfermedadJPanel menuAsignarEnfermedadJPane;
+	private ArrayList<ButtonEnfermedad> enfermedadListaButton;
+	private ButtonEdit volverMenuButtonEnfermedad;
+	
+	// Perfil administrador.
+	private MenuAsignarTDCJPanel menuAsignarTDCJPane;
+	private ButtonEdit buttonAsignarTDC;
+	private ButtonEdit buttonAsignarTDCCancelar;
+	
+	// Perfil administrador.
 	private GenerarTareaDeControlJPanel generarTareaDeControlJPane;
 	private ButtonEdit buttonGenerarTDC;
 	private ButtonEdit buttonGenerarTDCCancelar;	
@@ -107,15 +117,11 @@ public class Sistema extends JFrame {
 		cargarTareasDeControl();
 	}
 	
-	// Inicializacion y configuracion del panel contenedor.
-	
 	public void configContentPane(){
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	}
-	
-	// Inicializacion, configuracion y eventos del panel login.
 	
 	public void configLoginPane() {
 		loginPane = new LoginJPanel();
@@ -143,8 +149,6 @@ public class Sistema extends JFrame {
         }); 
 		contentPane.add(loginPane);
 	}
-	
-	// Inicializacion, configuracion y eventos del panel menu administrador.
 	
 	public void configMenuAdministrador() {		
 		menuAdministradorPane = new MenuAdministradorJPanel();
@@ -200,8 +204,6 @@ public class Sistema extends JFrame {
 		menuAdministradorPane.setVisible(true);
 	}
 	
-	// Inicializacion, configuracion y eventos del panel menu profesional.
-	
 	public void configMenuProfesional() {
 		menuProfesionalPane = new MenuProfesionalJPanel();
 		menuProfesionalPane.setBounds(0, 0, 484, 461);		
@@ -236,8 +238,6 @@ public class Sistema extends JFrame {
 		contentPane.add(menuProfesionalPane);
 		menuProfesionalPane.setVisible(true);	
 	}
-	
-	// Inicializacion, configuracion y eventos del panel menu paciente.
 	
 	public void configMenuPaciente() {
 		menuPacientePane = new MenuPacienteJPanel();
@@ -378,7 +378,9 @@ public class Sistema extends JFrame {
 	            		mensajeLeer("Se asigno el paciente con ?xito.");
 	            		menuAsignarProfesionalJPane.setVisible(false);
 	            		menuAdministradorPane.setVisible(true);
-	            	} 	
+	            	} else {
+	            		mensajeLeer("Algo salio mal.");
+	            	}
 	            }
 	        }); 
 		}		
@@ -409,7 +411,8 @@ public class Sistema extends JFrame {
 		asignarTareaDeControlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("asignarTareaDeControlButton...");
+            	configMenuAsignarEnfermedadJPanel();
+            	administrarEnfermedadesJPane.setVisible(false);
             }
         }); 
 		atrasEnfermedadButton = administrarEnfermedadesJPane.getAtrasEnfermedadButton();
@@ -465,6 +468,61 @@ public class Sistema extends JFrame {
 		generarEnfermedadJPane.setVisible(true);	
 	}
 	
+	public void configMenuAsignarEnfermedadJPanel() {
+		menuAsignarEnfermedadJPane = new MenuAsignarEnfermedadJPanel(getListaEnfermedad());
+		menuAsignarEnfermedadJPane.setBounds(0, 0, 484, 461);			
+		enfermedadListaButton = menuAsignarEnfermedadJPane.getEnfermedadListaButton();		
+		for (ButtonEnfermedad buttonEnfermedad : enfermedadListaButton) {
+			buttonEnfermedad.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	menuAsignarEnfermedadJPane.setVisible(false);
+	            	configMenuAsignarTDCJPanel(buttonEnfermedad.getEnfermedad().getNombre());
+	            }
+	        }); 
+		}		
+		volverMenuButtonEnfermedad = menuAsignarEnfermedadJPane.getVolverMenuButton();
+		volverMenuButtonEnfermedad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		menuAdministradorPane.setVisible(true);
+        		menuAsignarEnfermedadJPane.setVisible(false);
+            }
+        }); 		
+		contentPane.add(menuAsignarEnfermedadJPane);
+		menuAsignarEnfermedadJPane.setVisible(true);
+	}
+	
+	public void configMenuAsignarTDCJPanel(String nombreEnfermedad) {			
+		ArrayList<String> tareaDeControlLista = tareaDeControlLiberadas(nombreEnfermedad);		
+		menuAsignarTDCJPane = new MenuAsignarTDCJPanel(tareaDeControlLista, nombreEnfermedad);
+		menuAsignarTDCJPane.setBounds(0, 0, 484, 461);	
+		buttonAsignarTDC = menuAsignarTDCJPane.getButtonAsignarTDC();
+		buttonAsignarTDC.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {     
+            	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
+            		mensajeLeer("Se asigno la tarea de control con éxito.");
+            		menuAsignarTDCJPane.setVisible(false);
+            		administrarEnfermedadesJPane.setVisible(true);
+            	} else {
+            		mensajeLeer("Algo salio mal.");
+            	}            	
+            }
+        }); 	
+		
+		buttonAsignarTDCCancelar = menuAsignarTDCJPane.getButtonAsignarTDCCancelar();
+		buttonAsignarTDCCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {        		
+        		menuAsignarEnfermedadJPane.setVisible(true);
+        		menuAsignarTDCJPane.setVisible(false);
+            }
+        }); 		
+		contentPane.add(menuAsignarTDCJPane);
+		menuAsignarTDCJPane.setVisible(true);
+	}
+	
 	public void configGenerarTareaDeControlJPanel()	{ 
 	
 		generarTareaDeControlJPane = new GenerarTareaDeControlJPanel();
@@ -479,19 +537,19 @@ public class Sistema extends JFrame {
             		
             		EstructuraTDC estructuraTDC = null;
             		
-            		if (generarTareaDeControlJPane.getTipoAccion().compareTo("Entero") == 0) {
+            		if (generarTareaDeControlJPane.getTipoAccion().compareTo(" Entero") == 0) {
             			
             			estructuraTDC = new EnteroTDC(generarTareaDeControlJPane.getDescripcion());
             			
-            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo("Decimal") == 0) {
+            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo(" Decimal") == 0) {
             			
             			estructuraTDC = new DecimalTDC(generarTareaDeControlJPane.getDescripcion());
             			
-            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo("Nota") == 0) {
+            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo(" Nota") == 0) {
             			
             			estructuraTDC = new NotaTDC(generarTareaDeControlJPane.getDescripcion());
             			
-            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo("Verdadero/Falso") == 0) {
+            		} else if (generarTareaDeControlJPane.getTipoAccion().compareTo(" Verdadero/Falso") == 0) {
             			
             			estructuraTDC = new VerdaderoFalsoTDC(generarTareaDeControlJPane.getDescripcion());
             			
@@ -507,7 +565,7 @@ public class Sistema extends JFrame {
                 		generarTareaDeControlJPane.setVisible(false);
                 		
                 	} else {
-                		mensajeLeer("No se pudo generar el nuevo profesional.");
+                		mensajeLeer("No se pudo generar la tarea de control.");
                 	}  
             		
             	} else {
@@ -890,6 +948,16 @@ public class Sistema extends JFrame {
 			}
 		}
 		return flag;
+	}
+	
+	public ArrayList<String> tareaDeControlLiberadas(String nombreEnfermedad){
+		ArrayList<String> tareaDeControlListaLibre = new ArrayList<String>();
+		if(usuarioActivo instanceof Administrador){
+			Administrador admin = (Administrador) usuarioActivo;
+			Enfermedad enfermedad = enfermedadesHashMap.get(nombreEnfermedad);
+			tareaDeControlListaLibre = admin.retornarTareasDeControlLibre(getListaTareaDeControl(),enfermedad);
+		}
+		return tareaDeControlListaLibre;
 	}
 	
 	public int controEntero(String str){

@@ -84,7 +84,7 @@ public class GenerarTareaDeControlJPanel extends JPanel {
 		tipoAccionLabel.setBounds(10, 190, 408, 30);
 		panel_1.add(tipoAccionLabel);
 		
-		String[] optionsToChoose = {"Entero", "Decimal", "Nota", "Verdadero/Falso"};
+		String[] optionsToChoose = {" Entero", " Decimal", " Nota", " Verdadero/Falso"};
 		
 		tipoAccionJComboBox = new JComboBox<>(optionsToChoose);
 		tipoAccionJComboBox.setBounds(10, 220, 408, 30);

@@ -1,6 +1,7 @@
 package com.company.Class.Interfaces;
 
 import com.company.Class.Enfermedad;
+import com.company.Class.TareaDeControl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,5 +41,30 @@ public interface AdministrarEnfermedades {
 			return auxEnfermedad;
 		}
 		return null;
+	}
+    
+	public default ArrayList<String> retornarTareasDeControlLibre(ArrayList<TareaDeControl> tareasDeControlLista,
+			  Enfermedad enfermedad){
+		
+		ArrayList<String> TDC = new ArrayList<String>();
+		ArrayList<String> aux = new ArrayList<String>(); 
+		for (TareaDeControl t : tareasDeControlLista) {
+			aux.add(t.getNombre());
+		}
+		ArrayList<String> tareaDeControlLista = enfermedad.getTareaDeControlLista();
+		for (String s : aux) {
+			boolean flag = false;		
+			if (tareaDeControlLista != null) {
+				for (String e : tareaDeControlLista) {
+					if (e.compareToIgnoreCase(s) == 0) {
+						flag = true;
+					}
+				}				
+			}
+			if(!flag){
+				TDC.add(s);
+			}
+		}
+		return TDC;
 	}
 }
