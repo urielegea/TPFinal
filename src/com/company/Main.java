@@ -1,14 +1,17 @@
 package com.company;
 
 import java.awt.EventQueue;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import com.company.Class.*;
 import com.company.JSON.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {	
 	
@@ -22,9 +25,40 @@ public class Main {
 		//leerPacienteJSON();
 		//cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
-		//cargarTareaDeControlJSON();
+		cargarTareaDeControlJSON();
 		leerTareaDeControlJSON();
-		
+
+		/*String path = "C:\\Users\\usuario\\Documents\\GitHub\\TPFinal\\";
+
+		ObjectMapper mapper = new ObjectMapper();
+		File file = new File(path + "TareaDeControlTDC.json");
+
+		/*ArrayList<TareaDeControl> tareaDeControlArrayList = new ArrayList<>();
+
+		TareaDeControl tdc1 = new TareaDeControl()
+
+		try {
+			//Serializo
+			//mapper.writeValue(file, tareaDeControlArrayList);
+
+			//Deserializo
+			List<TareaDeControl> myObjects = mapper.readValue(file,
+																mapper.getTypeFactory().constructCollectionType
+																					(List.class, TareaDeControl.class));
+
+			for (TareaDeControl x : myObjects) {
+				System.out.println(x);
+			}
+			} catch (IOException e) {
+				System.out.println("No se pudo leer/escribir el archivo: " + e.getMessage());
+				e.printStackTrace();
+			}
+			finally {
+				System.out.println("Shapa la pashola");
+			}*/
+
+
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -196,10 +230,19 @@ public class Main {
 	public static void cargarTareaDeControlJSON(){
 
 		ArrayList<TareaDeControl> tdcLista = new ArrayList<>();
-		DecimalTDC decimal1 = new DecimalTDC("Tomar Temperatura:");
-		TareaDeControl tareaDeControl = new TareaDeControl("Temperatura",false,
+		DecimalTDC decimal1 = new DecimalTDC("Temperatura:");
+		EnteroTDC entero1 = new EnteroTDC("Presion");
+		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre");
+
+		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
 													"Observacion de temperatura", decimal1);
-		tdcLista.add(tareaDeControl);
+		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
+														"Se toma la presion del wachin",entero1);
+		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar Fiebre",false,
+														"Se comprueba si el wachin tiene fiebre",verdaderoFalso1);
+		tdcLista.add(tareaDeControl1);
+		tdcLista.add(tareaDeControl2);
+		tdcLista.add(tareaDeControl3);
 
 		try {
 			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
