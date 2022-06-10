@@ -1,8 +1,8 @@
 package com.company.Class.Interfaces;
 
-import com.company.Class.*;
-
 import java.util.ArrayList;
+
+import com.company.Class.*;
 
 public interface AdministrarTareaDeControl {
 
@@ -23,7 +23,7 @@ public interface AdministrarTareaDeControl {
     }
 
     public default TareaDeControl crearTareaDeControl(String token, boolean accion, String observacion,
-                                                      EstructuraTDC estructura, ArrayList<TareaDeControl> tareaDeControlLista){
+            EstructuraTDC estructura, ArrayList<TareaDeControl> tareaDeControlLista){
         boolean flag = false;
         for (TareaDeControl t: tareaDeControlLista){
             if(t.getNombre().compareToIgnoreCase(token)==0){
@@ -33,7 +33,6 @@ public interface AdministrarTareaDeControl {
         if (!flag){
             return new TareaDeControl(token,accion,observacion,estructura);
         }
-        return null;
+        return null;        
     }
-
 }
