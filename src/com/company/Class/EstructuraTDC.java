@@ -1,6 +1,20 @@
 package com.company.Class;
 
-public class EstructuraTDC {
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = DecimalTDC.class, name = "DecimalTDC"),
+        @JsonSubTypes.Type(value = NotaTDC.class, name = "NotaTDC"),
+        @JsonSubTypes.Type(value = VerdaderoFalsoTDC.class, name = "VerdaderoFalsoTDC"),
+        @JsonSubTypes.Type(value = EnteroTDC.class, name = "EnteroTDC") }
+)
+
+public abstract class EstructuraTDC {
 
     //Atributos
     protected String textoDescriptivo;

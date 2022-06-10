@@ -29,8 +29,8 @@ public class VerdaderoFalsoTDC extends EstructuraTDC{
     @Override
     public String toString() {
         return "VerdaderoFalsoTDC{" +
-                "textoDescriptivo='" + textoDescriptivo + '\'' +
-                ", vof=" + vof +
+                "vof=" + vof +
+                ", textoDescriptivo='" + textoDescriptivo + '\'' +
                 '}';
     }
 }
