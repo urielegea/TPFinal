@@ -9,10 +9,7 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.company.Design.*;
-import com.company.JSON.AdministradorJSON;
-import com.company.JSON.EnfermedadJSON;
-import com.company.JSON.PacienteJSON;
-import com.company.JSON.ProfesionalJSON;
+import com.company.JSON.*;
 import com.company.Class.*;
 
 @SuppressWarnings("serial")
@@ -81,6 +78,7 @@ public class Sistema extends JFrame {
 	
 	private HashMap<String,Usuario> usuariosHashMap;
 	private HashMap<String,Enfermedad> enfermedadesHashMap;
+	private HashMap<String,TareaDeControl> tareaDeControlHashMap;
 	private Usuario usuarioActivo = null;
 	private Date sesionAnterior;
 	
@@ -97,6 +95,8 @@ public class Sistema extends JFrame {
 
 		cargarUsuarios();
 		cargarEnfermedades();
+		cargarTareasDeControl();
+
 	}
 	
 	// Inicializacion y configuracion del panel contenedor.
@@ -538,6 +538,27 @@ public class Sistema extends JFrame {
 		}
 	}
 
+	public void cargarTareasDeControl(){
+		HashMap<String, TareaDeControl> tareaDeControlHashMap = leerTareaDeControlJSON();
+		if(tareaDeControlHashMap != null){
+			for(HashMap.Entry<String, TareaDeControl> obj : tareaDeControlHashMap.entrySet()){
+				TareaDeControl tareaDeControl = obj.getValue();
+				tareaDeControlHashMap.put(tareaDeControl.getNombre(), tareaDeControl);
+			}
+		}
+		this.tareaDeControlHashMap = tareaDeControlHashMap;
+	}
+
+	public HashMap<String, TareaDeControl> leerTareaDeControlJSON(){
+		try {
+			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
+			return tareaDeControlJSON.leerJSON();
+		}catch (IOException e1){
+			mensajeLeer(e1.toString());
+			return null;
+		}
+	}
+
 	public boolean iniciarSesion(String cuenta, String clave){		
 		Usuario usuario = buscarUsuario(cuenta, clave);	
 		boolean flag = false;
@@ -603,6 +624,14 @@ public class Sistema extends JFrame {
 			enfermedadLista.add(enfermedad);
 		}
 		return enfermedadLista;
+	}
+
+	public ArrayList<TareaDeControl> getListaTareaDeControl(){
+		ArrayList<TareaDeControl> tareaDeControlLista = new ArrayList<TareaDeControl>();
+		for(TareaDeControl tareaDeControl : this.tareaDeControlHashMap.values()){
+			tareaDeControlLista.add(tareaDeControl);
+		}
+		return tareaDeControlLista;
 	}
 	
 	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
@@ -752,11 +781,29 @@ public class Sistema extends JFrame {
 	}
 
 	public boolean asignarTareaDeControlEnfermedad(String nombreEnfermedad, ArrayList<String> nombreTareaDeControl) {
+
 		return true;
 	}
 	
 	public boolean nuevaTareaDeControl(String nombre, boolean accion, String observacion, EstructuraTDC estructuraTDC) {
-		return true;
+		boolean flag = false;
+		if(usuarioActivo instanceof Administrador){
+			Administrador admin = (Administrador) usuarioActivo;
+			ArrayList<TareaDeControl> tareaDeControlLista = getListaTareaDeControl();
+			TareaDeControl tareaDeControlNueva = admin.crearTareaDeControl(nombre, accion, observacion, estructuraTDC, tareaDeControlLista);
+			if(tareaDeControlNueva != null){
+				try{
+					tareaDeControlHashMap.put(nombre, tareaDeControlNueva);
+					tareaDeControlLista = getListaTareaDeControl();
+					TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
+					tareaDeControlJSON.cargarJSON(tareaDeControlLista);
+					flag = true;
+				}catch (IOException e){
+					mensajeLeer(e.toString());
+				}
+			}
+		}
+		return flag;
 	}
 	
 	public int controEntero(String str){
