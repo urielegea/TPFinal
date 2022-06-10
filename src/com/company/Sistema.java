@@ -507,7 +507,7 @@ public class Sistema extends JFrame {
                 		generarTareaDeControlJPane.setVisible(false);
                 		
                 	} else {
-                		mensajeLeer("No se pudo generar el nuevo profesional.");
+                		mensajeLeer("No se pudo generar la tarea de control.");
                 	}  
             		
             	} else {
