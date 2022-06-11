@@ -1,32 +1,27 @@
 package com.company;
 
 import java.awt.EventQueue;
-import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
 import com.company.Class.*;
 import com.company.JSON.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {	
 	
 	public static void main(String[] args) {
 		
-		//cargarAdministradorJSON();
+		cargarAdministradorJSON();		
 		//leerAdministradorJSON();
-		//cargarProfesionalJSON();
+		cargarProfesionalJSON();
 		//leerProfesionalJSON();
-		//cargarPacienteJSON();
+		cargarPacienteJSON();
 		//leerPacienteJSON();
-		//cargarEnfermedadJSON();
+		cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
-		//cargarTareaDeControlJSON();
+		cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
 		cargarTratamientoJSON();
 		

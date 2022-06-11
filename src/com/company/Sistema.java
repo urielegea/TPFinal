@@ -68,6 +68,11 @@ public class Sistema extends JFrame {
 	private ButtonEdit volverMenuButtonProfesional;
 	
 	// Perfil administrador.
+	private MenuAsignarEnfermedadTratamientoJPanel menuAsignarEnfermedadTratamientoJPanel;
+	private ArrayList<ButtonEnfermedad> enfermedadTratamientoListaButton;
+	private ButtonEdit volverMenuButtonEnfermedadTratamiento;
+	
+	// Perfil administrador.
 	private AdministrarEnfermedadesJPanel administrarEnfermedadesJPane;
 	private ButtonEdit nuevaEnfermedadButton;	
 	private ButtonEdit asignarTareaDeControlButton;
@@ -368,21 +373,16 @@ public class Sistema extends JFrame {
 		menuAsignarPacienteJPane.setVisible(true);
 	}
 	
-	public void configMenuAsignarProfesionalJPanel(String cuenta){
-		menuAsignarProfesionalJPane = new MenuAsignarProfesionalJPanel(getListaProfesional(),cuenta);
+	public void configMenuAsignarProfesionalJPanel(String cuentaPaciente){
+		menuAsignarProfesionalJPane = new MenuAsignarProfesionalJPanel(getListaProfesional());
 		menuAsignarProfesionalJPane.setBounds(0, 0, 484, 461);			
 		profesionalListaButton = menuAsignarProfesionalJPane.getProfesionalListaButton();		
 		for (ButtonProfesional buttonProfesional : profesionalListaButton) {
 			buttonProfesional.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	if(asignarProfesional(cuenta, buttonProfesional.getProfesional().getCuenta())) {
-	            		mensajeLeer("Se asigno el paciente con ?xito.");
-	            		menuAsignarProfesionalJPane.setVisible(false);
-	            		menuAdministradorPane.setVisible(true);
-	            	} else {
-	            		mensajeLeer("Algo salio mal.");
-	            	}
+	            	menuAsignarProfesionalJPane.setVisible(false);
+	            	configMenuAsignarEnfermedadTratamientoJPanel(cuentaPaciente, buttonProfesional.getProfesional().getNombre());  
 	            }
 	        }); 
 		}		
@@ -396,6 +396,42 @@ public class Sistema extends JFrame {
         }); 		
 		contentPane.add(menuAsignarProfesionalJPane);
 		menuAsignarProfesionalJPane.setVisible(true);
+	}
+	
+	public void configMenuAsignarEnfermedadTratamientoJPanel(String cuentaPaciente, String cuentaProfesional) {
+		
+		ArrayList<Enfermedad> enfermedadLista = EnfermedadLiberadas(cuentaPaciente);
+		
+		menuAsignarEnfermedadTratamientoJPanel = new MenuAsignarEnfermedadTratamientoJPanel(enfermedadLista);
+		menuAsignarEnfermedadTratamientoJPanel.setBounds(0, 0, 484, 461);			
+		enfermedadTratamientoListaButton = menuAsignarEnfermedadTratamientoJPanel.getEnfermedadTratamientoListaButton();		
+		
+		for (ButtonEnfermedad buttonEnfermedad : enfermedadTratamientoListaButton) {
+			buttonEnfermedad.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	
+	            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
+	        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
+	        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
+	        		menuAdministradorPane.setVisible(true);
+	        		} else {
+	        			mensajeLeer("Algo salio mal.");
+	        		} 
+	            }
+	        }); 
+		}			
+		volverMenuButtonEnfermedadTratamiento = menuAsignarEnfermedadTratamientoJPanel.getVolverMenuButton();
+		volverMenuButtonEnfermedadTratamiento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {            	
+            	menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
+            	configMenuAsignarProfesionalJPanel(cuentaPaciente);
+            }
+        }); 		
+		contentPane.add(menuAsignarEnfermedadTratamientoJPanel);
+		menuAsignarEnfermedadTratamientoJPanel.setVisible(true);		
+
 	}
 	
 	public void configAdministrarEnfermedadesJPanel() {
@@ -817,6 +853,20 @@ public class Sistema extends JFrame {
 		}
 		return flag;
 	}	
+		
+	public ArrayList<Enfermedad> EnfermedadLiberadas(String cuentaPaciente){
+		
+		// retorna una lista de enfermedades que no esten en la lista de tratamientos del paciente.
+		
+		return new ArrayList<Enfermedad>();
+	}
+	
+	public boolean asignarProfesionalEnfermedadTratamiento(String cuentaPaciente, String cuentaProfesional, String nombreEnfermedad){		
+		
+		// Llama a asignarProfesional() y asignarEnfermedadTratamiento(). Retorna true si todo salio bien.
+		
+		return true;
+	}
 	
 	public boolean asignarProfesional(String cuentaPaciente, String cuentaProfesional) {
 		boolean flag = false;
@@ -836,6 +886,13 @@ public class Sistema extends JFrame {
 			}
 		}
 		return flag;
+	}
+	
+	public boolean asignarEnfermedadTratamiento(String cuentaPaciente, String nombreEnfermedad) {
+		
+		// Asigna un nuevo tratamiento con su enfermedad al historialMedico del paciente, en caso de no tener historial medico se genera un nuevo automaticamente.
+		
+		return true;
 	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {

@@ -20,7 +20,7 @@ public class MenuAsignarPacienteJPanel extends JPanel {
 		setBackground(SystemColor.menu);		
 		setLayout(null);
 		
-		JLabel lblMenuPaciente = new JLabel("Paciente para asignar un profesional", SwingConstants.CENTER);
+		JLabel lblMenuPaciente = new JLabel("Seleccionar paciente del tratamiento", SwingConstants.CENTER);
 		lblMenuPaciente.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblMenuPaciente.setBounds(0, 34, 484, 46);
 		add(lblMenuPaciente);	
@@ -37,7 +37,7 @@ public class MenuAsignarPacienteJPanel extends JPanel {
 			buttonPaciente.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 			buttonPaciente.setPressedBackgroundColor(Color.BLACK);
 			buttonPaciente.setBounds(60, ubicacion, 360, 40);
-			buttonPaciente.setText("Nombre: " + paciente.getNombre() + " " + paciente.getApellido() + " - DNI: " + paciente.getDni());
+			buttonPaciente.setText("Paciente: " + paciente.getNombre() + " " + paciente.getApellido() + " - DNI: " + paciente.getDni());
 			add(buttonPaciente);			
 			pacienteListaButton.add(buttonPaciente);			
 			ubicacion = ubicacion + 50;
