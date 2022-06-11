@@ -3,6 +3,7 @@ package com.company;
 import java.awt.EventQueue;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,16 +18,17 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		cargarAdministradorJSON();
+		//cargarAdministradorJSON();
 		//leerAdministradorJSON();
-		cargarProfesionalJSON();
+		//cargarProfesionalJSON();
 		//leerProfesionalJSON();
-		cargarPacienteJSON();
+		//cargarPacienteJSON();
 		//leerPacienteJSON();
-		cargarEnfermedadJSON();
+		//cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
-		cargarTareaDeControlJSON();
+		//cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
+		cargarTratamientoJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -205,10 +207,10 @@ public class Main {
 		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre:");
 
 		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
-													"Observación de temperatura.", decimal1);
+													"Observaciï¿½n de temperatura.", decimal1);
 		
 		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
-														"Se toma la presión.",entero1);
+														"Se toma la presiï¿½n.",entero1);
 		
 		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar Fiebre",false,
 														"Se comprueba la fiebre.",verdaderoFalso1);
@@ -234,6 +236,24 @@ public class Main {
 			}
 		} catch (IOException e1) {
 			System.out.print(e1.toString());
+		}
+	}
+
+	public static void cargarTratamientoJSON(){
+
+		ArrayList<Tratamiento> tratamientoLista = new ArrayList<>();
+		Date diaInicial = new Date();
+		Date diaFinal = new Date();
+
+		Tratamiento tratamiento1 = new Tratamiento("Controlar fiebre","Covid",14,
+											diaInicial, diaFinal, null, "matias@gmail.com");
+
+		tratamientoLista.add(tratamiento1);
+		try {
+			TratamientoJSON tratamientoJSON = new TratamientoJSON();
+			tratamientoJSON.cargarJSON(tratamientoLista);
+		} catch (IOException e) {
+			System.out.print(e.toString());
 		}
 	}
 }

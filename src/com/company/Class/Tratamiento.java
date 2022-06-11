@@ -2,19 +2,20 @@ package com.company.Class;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Tratamiento {
 
     private String token;
     private String enfermedadNombre;
     private int duracionDias;
-    private LocalDate diaInicial;
-    private LocalDate diaFinal;
+    private Date diaInicial;
+    private Date diaFinal;
     private ArrayList<ControlDiario> controlDiarioLista;
 	private String profesionalCuenta;
 
-    public Tratamiento(String token, String enfermedadNombre, int duracionDias, LocalDate diaInicial,
-					   LocalDate diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta) {
+    public Tratamiento(String token, String enfermedadNombre, int duracionDias, Date diaInicial,
+					   Date diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta) {
 		this.token = token;
 		this.enfermedadNombre = enfermedadNombre;
 		this.duracionDias = duracionDias;
@@ -48,19 +49,19 @@ public class Tratamiento {
 		this.duracionDias = duracionDias;
 	}
 
-	public LocalDate getDiaInicial() {
+	public Date getDiaInicial() {
 		return diaInicial;
 	}
 
-	public void setDiaInicial(LocalDate diaInicial) {
+	public void setDiaInicial(Date diaInicial) {
 		this.diaInicial = diaInicial;
 	}
 
-	public LocalDate getDiaFinal() {
+	public Date getDiaFinal() {
 		return diaFinal;
 	}
 
-	public void setDiaFinal(LocalDate diaFinal) {
+	public void setDiaFinal(Date diaFinal) {
 		this.diaFinal = diaFinal;
 	}
 
@@ -78,5 +79,18 @@ public class Tratamiento {
 
 	public void setProfesionalCuenta(String profesionalCuenta) {
 		this.profesionalCuenta = profesionalCuenta;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Tratamiento{" +
+				"token='" + token + '\'' +
+				", profesionalCuenta='" + profesionalCuenta + '\'' +
+				", enfermedadNombre='" + enfermedadNombre + '\'' +
+				", duracionDias=" + duracionDias +
+				", diaInicial=" + diaInicial +
+				", diaFinal=" + diaFinal +
+				", controlDiarioLista=" + controlDiarioLista +
+				'}';
+	}
 }
