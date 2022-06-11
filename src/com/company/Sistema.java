@@ -952,7 +952,7 @@ public class Sistema extends JFrame {
 		return flag;
 	}
 	
-	/*public ArrayList<String> tareaDeControlLiberadas(String nombreEnfermedad){
+	public ArrayList<String> tareaDeControlLiberadas(String nombreEnfermedad){
 		ArrayList<String> tareaDeControlListaLibre = new ArrayList<String>();
 		if(usuarioActivo instanceof Administrador){
 			Administrador admin = (Administrador) usuarioActivo;
@@ -960,7 +960,7 @@ public class Sistema extends JFrame {
 			tareaDeControlListaLibre = admin.retornarTareasDeControlLibre(getListaTareaDeControl(),enfermedad);
 		}
 		return tareaDeControlListaLibre;
-	}*/
+	}
 	
 	public int controEntero(String str){
 		try {
