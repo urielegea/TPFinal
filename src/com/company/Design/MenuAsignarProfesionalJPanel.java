@@ -16,12 +16,12 @@ public class MenuAsignarProfesionalJPanel extends JPanel {
 	private ArrayList<ButtonProfesional> profesionalListaButton;	
 	private ButtonEdit volverMenuButton;
 
-	public MenuAsignarProfesionalJPanel(ArrayList<Profesional> profesionalLista, String cuenta) {
+	public MenuAsignarProfesionalJPanel(ArrayList<Profesional> profesionalLista) {
 			
 		setBackground(SystemColor.menu);		
 		setLayout(null);
 		
-		JLabel lblMenuProfesional = new JLabel("Profesional para asignarle al paciente", SwingConstants.CENTER);
+		JLabel lblMenuProfesional = new JLabel("Asignar un profesional al tratamiento", SwingConstants.CENTER);
 		lblMenuProfesional.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblMenuProfesional.setBounds(0, 34, 484, 46);
 		add(lblMenuProfesional);	
@@ -38,13 +38,13 @@ public class MenuAsignarProfesionalJPanel extends JPanel {
 			buttonProfesional.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 			buttonProfesional.setPressedBackgroundColor(Color.BLACK);
 			buttonProfesional.setBounds(60, ubicacion, 360, 40);
-			buttonProfesional.setText("Nombre: " + profesional.getNombre() + " " + profesional.getApellido() + " - DNI: " + profesional.getDni());
+			buttonProfesional.setText("Profesional: " + profesional.getNombre() + " " + profesional.getApellido() + " - DNI: " + profesional.getDni());
 			add(buttonProfesional);			
 			profesionalListaButton.add(buttonProfesional);			
 			ubicacion = ubicacion + 50;
 		}	
 		
-		volverMenuButton = new ButtonEdit("Volver al menu");
+		volverMenuButton = new ButtonEdit("Volver a seleccionar paciente del tratamiento");
 		volverMenuButton.setForeground(Color.WHITE);
 		volverMenuButton.setBackground(new Color(3, 59, 90));
 		volverMenuButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
