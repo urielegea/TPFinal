@@ -4,7 +4,7 @@ import com.company.Class.Interfaces.*;
 
 import java.util.Date;
 
-public class Administrador extends Usuario implements NuevoPaciente, NuevoProfesional, AdministrarEnfermedades, AdministrarTareaDeControl, AsignarProfesional {
+public class Administrador extends Usuario implements NuevoPaciente, NuevoProfesional, AdministrarEnfermedades, AdministrarTareaDeControl, AsignarProfesional, AsignarTratamiento {
 
 	public Administrador() {
 		super();
