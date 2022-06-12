@@ -30,19 +30,21 @@ public class MenuAsignarEnfermedadTratamientoJPanel extends JPanel {
 		
 		int ubicacion = 110; // Ubicacion inicial.	
 		
-		for (Enfermedad enfermedad : enfermedadLista) {
-			
-			ButtonEnfermedad buttonProfesional = new ButtonEnfermedad (enfermedad);
-			buttonProfesional.setForeground(Color.WHITE);
-			buttonProfesional.setBackground(new Color(3, 59, 90));
-			buttonProfesional.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
-			buttonProfesional.setPressedBackgroundColor(Color.BLACK);
-			buttonProfesional.setBounds(60, ubicacion, 360, 40);
-			buttonProfesional.setText("Enfermedad: " + enfermedad.getNombre());
-			add(buttonProfesional);			
-			enfermedadTratamientoListaButton.add(buttonProfesional);			
-			ubicacion = ubicacion + 50;
-		}	
+		if (enfermedadLista != null) {
+			for (Enfermedad enfermedad : enfermedadLista) {
+				
+				ButtonEnfermedad buttonProfesional = new ButtonEnfermedad (enfermedad);
+				buttonProfesional.setForeground(Color.WHITE);
+				buttonProfesional.setBackground(new Color(3, 59, 90));
+				buttonProfesional.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
+				buttonProfesional.setPressedBackgroundColor(Color.BLACK);
+				buttonProfesional.setBounds(60, ubicacion, 360, 40);
+				buttonProfesional.setText("Enfermedad: " + enfermedad.getNombre());
+				add(buttonProfesional);			
+				enfermedadTratamientoListaButton.add(buttonProfesional);			
+				ubicacion = ubicacion + 50;
+			}				
+		}
 		
 		volverMenuButton = new ButtonEdit("Volver a asignar un profesional al tratamiento");
 		volverMenuButton.setForeground(Color.WHITE);

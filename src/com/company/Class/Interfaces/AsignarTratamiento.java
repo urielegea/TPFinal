@@ -12,31 +12,25 @@ public interface AsignarTratamiento {
 	public default HistorialMedico asignarTratamientoHistorialMedico(String numeroHistorialPaciente,
 																	 String nombreEnfermedad,
 																	 HashMap<String, HistorialMedico> historialMedicoHashMap,
-																	 String profesionalCuenta ){
+																	 String cuentaProfesional ){
 
-		Tratamiento tratamiento = new Tratamiento(generateTokenTratamiento(historialMedicoHashMap), nombreEnfermedad, profesionalCuenta);
+		Tratamiento tratamiento = new Tratamiento(generateTokenTratamiento(historialMedicoHashMap), nombreEnfermedad, cuentaProfesional);
 		HistorialMedico historialMedico = historialMedicoHashMap.get(numeroHistorialPaciente);
 		historialMedico.getTratamientoLista().add(tratamiento);
-		if(historialMedico!=null){
-			return historialMedico;
-		}
-		return null;
+		return historialMedico;
 	}
 	
 	// Genera un nuevo tratamiento con el tipo de enfermedad y lo carga a un nuevo historial medico.
 	
 	public default HistorialMedico asignarTratamientoHistorialMedico(String nombreEnfermedad,
 																	 HashMap<String, HistorialMedico> historialMedicoHashMap,
-																	 String profesionalCuenta){
+																	 String cuentaProfesional){
 
-		Tratamiento tratamiento = new Tratamiento(generateTokenTratamiento(historialMedicoHashMap), nombreEnfermedad, profesionalCuenta);
+		Tratamiento tratamiento = new Tratamiento(generateTokenTratamiento(historialMedicoHashMap), nombreEnfermedad, cuentaProfesional);
 		ArrayList<Tratamiento> tratamientoLista = new ArrayList<Tratamiento>();
 		tratamientoLista.add(tratamiento);
 		HistorialMedico historialMedico = new HistorialMedico(generateTokenHistorialMedico(historialMedicoHashMap),tratamientoLista);
-		if(historialMedico!=null) {
-			return historialMedico;
-		}
-		return null;
+		return historialMedico;
 	}
 	
 	// Genera un token unico para el historial medico. El mismo es de 10 caracteres.
@@ -87,6 +81,5 @@ public interface AsignarTratamiento {
 			cant++;
 		}
 		return token;
-	}	
-	
+	}		
 }
