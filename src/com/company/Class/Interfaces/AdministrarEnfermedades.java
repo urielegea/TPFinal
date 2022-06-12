@@ -1,9 +1,10 @@
 package com.company.Class.Interfaces;
 
 import com.company.Class.Enfermedad;
-import com.company.Class.Paciente;
+import com.company.Class.HistorialMedico;
 import com.company.Class.TareaDeControl;
-import com.company.Class.Paciente;
+import com.company.Class.Tratamiento;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,8 +45,7 @@ public interface AdministrarEnfermedades {
 		return null;
 	}
     
-	public default ArrayList<String> retornarTareasDeControlLibre(ArrayList<TareaDeControl> tareasDeControlLista,
-			  Enfermedad enfermedad){
+	public default ArrayList<String> retornarTareasDeControlLibre(ArrayList<TareaDeControl> tareasDeControlLista, Enfermedad enfermedad){
 		
 		ArrayList<String> TDC = new ArrayList<String>();
 		ArrayList<String> aux = new ArrayList<String>(); 
@@ -69,10 +69,18 @@ public interface AdministrarEnfermedades {
 		return TDC;
 	}
 	
-	public default ArrayList<Paciente> retornarEnfermedadLibre(ArrayList<Enfermedad> enfermedadLista,Paciente paciente){	
-		
-		// Retornar las enfermedades que no esten registradas como tratamiento del paciente.
-		
-		return null;
+	public default ArrayList<Enfermedad> retornarEnfermedadesLibre(ArrayList<Enfermedad> enfermedadLista, HistorialMedico historialMedicoPaciente){			
+		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
+		for (Enfermedad enfermedad : enfermedadLista) {
+			boolean flag = false;
+			for (Tratamiento tratamiento : historialMedicoPaciente.getTratamientoLista()) {
+				if (tratamiento.getEnfermedadNombre().compareTo(enfermedad.getNombre()) == 0) {
+					flag = true;
+				}
+			} if (!flag) {
+				enfermedadListaLibre.add(enfermedad);
+			}
+		}		
+		return enfermedadListaLibre;
 	}
 }

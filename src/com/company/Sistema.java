@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import com.company.Design.*;
 import com.company.JSON.AdministradorJSON;
 import com.company.JSON.EnfermedadJSON;
+import com.company.JSON.HistorialMedicoJSON;
 import com.company.JSON.PacienteJSON;
 import com.company.JSON.ProfesionalJSON;
 import com.company.JSON.TareaDeControlJSON;
@@ -408,21 +409,23 @@ public class Sistema extends JFrame {
 		menuAsignarEnfermedadTratamientoJPanel.setBounds(0, 0, 484, 461);			
 		enfermedadTratamientoListaButton = menuAsignarEnfermedadTratamientoJPanel.getEnfermedadTratamientoListaButton();		
 		
-		for (ButtonEnfermedad buttonEnfermedad : enfermedadTratamientoListaButton) {
-			buttonEnfermedad.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	            	
-	            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
-	        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
-	        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
-	        		menuAdministradorPane.setVisible(true);
-	        		} else {
-	        			mensajeLeer("Algo salio mal.");
-	        		} 
-	            }
-	        }); 
-		}			
+		if (enfermedadLista != null) {
+			for (ButtonEnfermedad buttonEnfermedad : enfermedadTratamientoListaButton) {
+				buttonEnfermedad.addActionListener(new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) {
+		            	
+		            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
+		        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
+		        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
+		        		menuAdministradorPane.setVisible(true);
+		        		} else {
+		        			mensajeLeer("Algo salio mal.");
+		        		} 
+		            }
+		        }); 
+			}	
+		}
 		volverMenuButtonEnfermedadTratamiento = menuAsignarEnfermedadTratamientoJPanel.getVolverMenuButton();
 		volverMenuButtonEnfermedadTratamiento.addActionListener(new ActionListener() {
             @Override
@@ -857,31 +860,43 @@ public class Sistema extends JFrame {
 	}	
 	
 	public HashMap<String, HistorialMedico> leerHistorialMedicoJSON(){
+		try {			
+			HistorialMedicoJSON historialMedicoJSON =  new HistorialMedicoJSON();
+			return historialMedicoJSON.leerJSON();
+		} catch (IOException e1) {
+			mensajeLeer(e1.toString());
+			return null;			
+		}
+	}
 		
-		// LeerHistorialMedico.
-		
-		return null;
+	public void cargarHistorialMedico(){
+		HashMap<String, HistorialMedico> historialMedicoHashMap = leerHistorialMedicoJSON();
+		if(historialMedicoHashMap != null){
+			for(HashMap.Entry<String, HistorialMedico> obj : historialMedicoHashMap.entrySet()){
+				HistorialMedico historialMedico = obj.getValue();
+				historialMedicoHashMap.put(historialMedico.getNumeroHistorial(), historialMedico);
+			}
+		}
+		this.historialMedicoHashMap = historialMedicoHashMap;
 	}
 	
-	public void cargarHistorialMedico(){
-		
-		// Cargar historialmedico.
-		
-	}
-		
-	public ArrayList<Enfermedad> EnfermedadLiberadas(String cuentaPaciente){
-		
-		// retorna una lista de enfermedades que no esten en la lista de tratamientos del paciente.
-		
+	public ArrayList<Enfermedad> EnfermedadLiberadas(String cuentaPaciente){					
 		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
-
-		/*if(usuarioActivo instanceof Administrador){
+		if(usuarioActivo instanceof Administrador){
 			Administrador admin = (Administrador) usuarioActivo;
 			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
-			//enfermedadListaLibre = admin.retornarTareasDeControlLibre();
-		}*/
-
+			HistorialMedico historialMedicoPaciente =  getHistorialMedicoPaciente(paciente);
+			enfermedadListaLibre = admin.retornarEnfermedadesLibre(getListaEnfermedad(), historialMedicoPaciente);
+		}
 		return enfermedadListaLibre;	
+	}
+	
+	public HistorialMedico getHistorialMedicoPaciente(Paciente paciente) {
+		HistorialMedico historialMedico = null;		
+		if (paciente.getNumeroHistorial() != null) {
+			historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());
+		}
+		return historialMedico;
 	}
 	
 	public boolean asignarProfesionalEnfermedadTratamiento(String cuentaPaciente, String cuentaProfesional, String nombreEnfermedad){		
@@ -909,13 +924,6 @@ public class Sistema extends JFrame {
 			}
 		}
 		return flag;
-	}
-	
-	public boolean asignarEnfermedadTratamiento(String cuentaPaciente, String nombreEnfermedad) {
-		
-		// Asigna un nuevo tratamiento (generar token) con su enfermedad al historialMedico del paciente, en caso de no tener historial medico se genera un nuevo automaticamente (con su token).
-		
-		return true;
 	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
