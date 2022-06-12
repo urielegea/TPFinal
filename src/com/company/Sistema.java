@@ -3,6 +3,7 @@ package com.company;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -385,7 +386,7 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	menuAsignarProfesionalJPane.setVisible(false);
-	            	configMenuAsignarEnfermedadTratamientoJPanel(cuentaPaciente, buttonProfesional.getProfesional().getNombre());  
+	            	configMenuAsignarEnfermedadTratamientoJPanel(cuentaPaciente, buttonProfesional.getProfesional().getCuenta());  
 	            }
 	        }); 
 		}		
@@ -414,11 +415,10 @@ public class Sistema extends JFrame {
 				buttonEnfermedad.addActionListener(new ActionListener() {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
-		            	
 		            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
-		        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
-		        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
-		        		menuAdministradorPane.setVisible(true);
+			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
+			        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
+			        		menuAdministradorPane.setVisible(true);
 		        		} else {
 		        			mensajeLeer("Algo salio mal.");
 		        		} 
@@ -545,7 +545,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {     
             	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
-            		mensajeLeer("Se asigno la tarea de control con Ã©xito.");
+            		mensajeLeer("Se asigno la tarea de control con éxito.");
             		menuAsignarTDCJPane.setVisible(false);
             		administrarEnfermedadesJPane.setVisible(true);
             	} else {
@@ -900,12 +900,13 @@ public class Sistema extends JFrame {
 	}
 	
 	public boolean asignarProfesionalEnfermedadTratamiento(String cuentaPaciente, String cuentaProfesional, String nombreEnfermedad){		
-		
-		// Llama a asignarProfesional() y asignarEnfermedadTratamiento(). Retorna true si todo salio bien.
-		
-		return true;
-	}
-	
+		boolean flag = false;		
+		if (asignarProfesional(cuentaPaciente, cuentaProfesional) && asignarEnfermedadTratamiento(cuentaPaciente, nombreEnfermedad)) {
+			flag = true;
+		}		
+		return flag;
+	}		
+
 	public boolean asignarProfesional(String cuentaPaciente, String cuentaProfesional) {
 		boolean flag = false;
 		if(usuarioActivo instanceof Administrador){
@@ -925,12 +926,56 @@ public class Sistema extends JFrame {
 		}
 		return flag;
 	}
-
+	
+	// Asigna un nuevo tratamiento con su enfermedad al historialMedico del paciente. En caso de no tener historial medico se genera un nuevo automaticamente.
+	
 	public boolean asignarEnfermedadTratamiento(String cuentaPaciente, String nombreEnfermedad) {
-		
-		// Asigna un nuevo tratamiento (generar token) con su enfermedad al historialMedico del paciente, en caso de no tener historial medico se genera un nuevo automaticamente (con su token).
-		
-		return true;
+		boolean flag = false;
+		if(usuarioActivo instanceof Administrador){	
+			
+			Administrador admin = (Administrador) usuarioActivo;			
+			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente); 
+			HistorialMedico historialMedicoEditado = null;
+			
+			if (paciente.getNumeroHistorial() == null) {
+				historialMedicoEditado = admin.asignarTratamientoHistorialMedico(nombreEnfermedad, historialMedicoHashMap);
+				paciente.setNumeroHistorial(historialMedicoEditado.getNumeroHistorial());
+				try {
+					usuariosHashMap.put(cuentaPaciente, paciente);
+					ArrayList<Paciente> pacienteLista = getListaPaciente();
+					PacienteJSON pacienteJSON = new PacienteJSON();
+					pacienteJSON.cargarJSON(pacienteLista);	
+					
+				} catch(IOException e){
+					mensajeLeer(e.toString());
+				}				
+				
+			} else {				
+				historialMedicoEditado = admin.asignarTratamientoHistorialMedico(paciente.getNumeroHistorial(), nombreEnfermedad, historialMedicoHashMap);	
+			}
+			
+			if(historialMedicoEditado != null){
+				try {
+					historialMedicoHashMap.put(paciente.getNumeroHistorial(), historialMedicoEditado);
+					ArrayList<HistorialMedico> historialMedicolLista = getListaHistorialMedico();
+					HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+					historialMedicoJSON.cargarJSON(historialMedicolLista);
+					flag = true;
+					
+				} catch(IOException e){
+					mensajeLeer(e.toString());
+				}
+			}	
+		}
+		return flag;
+	}
+	
+	public ArrayList<HistorialMedico> getListaHistorialMedico(){
+		ArrayList<HistorialMedico> historialMedicoLista = new ArrayList<HistorialMedico>();
+		for (HistorialMedico historialMedico : this.historialMedicoHashMap.values()) {
+			historialMedicoLista.add(historialMedico);			
+		}
+		return historialMedicoLista;
 	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {

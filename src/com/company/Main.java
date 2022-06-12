@@ -135,7 +135,7 @@ public class Main {
 		}
 		
 		Paciente jaime = new Paciente("Jaime", "Lopez","27.528.562","112 565-2825",
-				"jaime@gmail.com","1234", fechaAlta, "00000000000");	
+				"jaime@gmail.com","1234", fechaAlta, "0000000000");	
 		pacienteLista.add(jaime);
 		
 		Paciente romina = new Paciente("Romina", "Sanchez","18.902.120","223 542-7565",
@@ -240,10 +240,10 @@ public class Main {
 		ArrayList<HistorialMedico> historialMedicoLista = new ArrayList<HistorialMedico>();
 		
 		ArrayList<Tratamiento> tratamientoLista = new ArrayList<>();
-		Tratamiento tratamiento = new Tratamiento("11111111111","Gripe A","roberto@gmail.com");
+		Tratamiento tratamiento = new Tratamiento("1111111111","Gripe A","roberto@gmail.com");
 		tratamientoLista.add(tratamiento);
 
-		HistorialMedico historialMedico = new HistorialMedico("00000000000", tratamientoLista);
+		HistorialMedico historialMedico = new HistorialMedico("0000000000", tratamientoLista);
 		historialMedicoLista.add(historialMedico);
 		
 		try {

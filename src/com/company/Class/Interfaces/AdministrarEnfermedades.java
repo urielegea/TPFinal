@@ -73,10 +73,12 @@ public interface AdministrarEnfermedades {
 		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
 		for (Enfermedad enfermedad : enfermedadLista) {
 			boolean flag = false;
-			for (Tratamiento tratamiento : historialMedicoPaciente.getTratamientoLista()) {
-				if (tratamiento.getEnfermedadNombre().compareTo(enfermedad.getNombre()) == 0) {
-					flag = true;
-				}
+			if (historialMedicoPaciente != null) {
+				for (Tratamiento tratamiento : historialMedicoPaciente.getTratamientoLista()) {
+					if (tratamiento.getEnfermedadNombre().compareTo(enfermedad.getNombre()) == 0) {
+						flag = true;
+					}
+				} 
 			} if (!flag) {
 				enfermedadListaLibre.add(enfermedad);
 			}
