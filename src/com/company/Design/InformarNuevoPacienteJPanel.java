@@ -45,7 +45,7 @@ public class InformarNuevoPacienteJPanel extends JPanel {
 			ubicacion = ubicacion + 50;
 		}	
 		
-		cerrarSesionButton = new ButtonEdit("Cerrar sesiÃ³n");
+		cerrarSesionButton = new ButtonEdit("Cerrar sesión");
 		cerrarSesionButton.setForeground(Color.WHITE);
 		cerrarSesionButton.setBackground(new Color(3, 59, 90));
 		cerrarSesionButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());

@@ -2,22 +2,23 @@ package com.company.Class;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ControlDiario {
     
-    private LocalDate fecha;
+    private Date fecha;
     private ArrayList<TareaDeControl> tareaDeControlLista;   
     
-    public ControlDiario(LocalDate fecha, ArrayList<TareaDeControl> tareaDeControlLista){
+    public ControlDiario(Date fecha, ArrayList<TareaDeControl> tareaDeControlLista){
         this.fecha = fecha;
         this.tareaDeControlLista = tareaDeControlLista;
     }  
     
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

@@ -1,8 +1,8 @@
 package com.company.Class.Interfaces;
 
 import com.company.Class.Enfermedad;
+import com.company.Class.Paciente;
 import com.company.Class.TareaDeControl;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -66,5 +66,12 @@ public interface AdministrarEnfermedades {
 			}
 		}
 		return TDC;
+	}
+	
+	public default ArrayList<Paciente> retornarEnfermedadLibre(ArrayList<Enfermedad> enfermedadLista,Paciente paciente){	
+		
+		// Retornar las enfermedades que no esten registradas como tratamiento del paciente.
+		
+		return null;
 	}
 }

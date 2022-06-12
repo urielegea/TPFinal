@@ -33,7 +33,7 @@ public class Sistema extends JFrame {
 	private ButtonEdit asignarProfesionalButton;
 	private ButtonEdit administrarEnfermedadButton;
 	private ButtonEdit administrarTareaDeControlButton;
-	private ButtonEdit cerrarMenuAdministradorButton;
+	private ButtonEdit cerrarMenuAdministradorButton;	
 	
 	// Perfil profesional.
 	private MenuProfesionalJPanel menuProfesionalPane;
@@ -41,7 +41,7 @@ public class Sistema extends JFrame {
 	private ButtonEdit controlRegistroDePacientes;
 	private ButtonEdit finalizarPlanesDeControl;
 	private ButtonEdit cerrarMenuProfesionalButton;
-	
+
 	// Perfil paciente.
 	private MenuPacienteJPanel menuPacientePane;
 	private ButtonEdit ingresarDatosDeControl;	
@@ -103,6 +103,7 @@ public class Sistema extends JFrame {
 	private HashMap<String,Usuario> usuariosHashMap;
 	private HashMap<String,Enfermedad> enfermedadesHashMap;
 	private HashMap<String,TareaDeControl> tareaDeControlHashMap;
+	private HashMap<String, HistorialMedico> historialMedicoHashMap;
 	private Usuario usuarioActivo = null;
 	private Date sesionAnterior;
 	
@@ -120,6 +121,7 @@ public class Sistema extends JFrame {
 		cargarUsuarios();
 		cargarEnfermedades();
 		cargarTareasDeControl();
+		cargarHistorialMedico();
 	}
 	
 	public void configContentPane(){
@@ -853,12 +855,31 @@ public class Sistema extends JFrame {
 		}
 		return flag;
 	}	
+	
+	public HashMap<String, HistorialMedico> leerHistorialMedicoJSON(){
+		
+		// LeerHistorialMedico.
+		
+		return null;
+	}
+	
+	public void cargarHistorialMedico(){
+		
+		// Cargar historialmedico.
+		
+	}
 		
 	public ArrayList<Enfermedad> EnfermedadLiberadas(String cuentaPaciente){
 		
 		// retorna una lista de enfermedades que no esten en la lista de tratamientos del paciente.
 		
-		return new ArrayList<Enfermedad>();
+		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
+		/*if(usuarioActivo instanceof Administrador){
+			Administrador admin = (Administrador) usuarioActivo;
+			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
+			//enfermedadListaLibre = admin.retornarTareasDeControlLibre();
+		}*/
+		return enfermedadListaLibre;	
 	}
 	
 	public boolean asignarProfesionalEnfermedadTratamiento(String cuentaPaciente, String cuentaProfesional, String nombreEnfermedad){		
@@ -890,7 +911,7 @@ public class Sistema extends JFrame {
 	
 	public boolean asignarEnfermedadTratamiento(String cuentaPaciente, String nombreEnfermedad) {
 		
-		// Asigna un nuevo tratamiento con su enfermedad al historialMedico del paciente, en caso de no tener historial medico se genera un nuevo automaticamente.
+		// Asigna un nuevo tratamiento (generar token) con su enfermedad al historialMedico del paciente, en caso de no tener historial medico se genera un nuevo automaticamente (con su token).
 		
 		return true;
 	}

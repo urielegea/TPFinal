@@ -66,7 +66,7 @@ public class LoginJPanel extends JPanel {
 		resetButton.setBounds(257, 340, 180, 40);
 		add(resetButton);
 		
-		userField.setText("matias@gmail.com");
+		userField.setText("roberto@gmail.com");
 		passwordField.setText("1234");
 	}
 

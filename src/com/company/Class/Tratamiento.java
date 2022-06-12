@@ -12,6 +12,16 @@ public class Tratamiento {
     private Date diaFinal;
     private ArrayList<ControlDiario> controlDiarioLista;
 	private String profesionalCuenta;
+	
+	public Tratamiento() {
+		
+	}
+	
+    public Tratamiento(String token, String enfermedadNombre, String profesionalCuenta) {
+		this.token = token;
+		this.enfermedadNombre = enfermedadNombre;
+		this.profesionalCuenta = profesionalCuenta;
+	}
 
     public Tratamiento(String token, String enfermedadNombre, int duracionDias, Date diaInicial,
 					   Date diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta) {

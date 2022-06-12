@@ -23,7 +23,8 @@ public class Main {
 		//leerEnfermedadJSON();
 		cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
-		cargarTratamientoJSON();
+		cargarHistorialMedicoJSON();
+		leerHistorialMedicoJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -134,7 +135,7 @@ public class Main {
 		}
 		
 		Paciente jaime = new Paciente("Jaime", "Lopez","27.528.562","112 565-2825",
-				"jaime@gmail.com","1234", fechaAlta, null);	
+				"jaime@gmail.com","1234", fechaAlta, "00000000000");	
 		pacienteLista.add(jaime);
 		
 		Paciente romina = new Paciente("Romina", "Sanchez","18.902.120","223 542-7565",
@@ -202,10 +203,10 @@ public class Main {
 		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre:");
 
 		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
-													"Observaci�n de temperatura.", decimal1);
+													"Observacion de temperatura.", decimal1);
 		
 		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
-														"Se toma la presi�n.",entero1);
+														"Se toma la presion.",entero1);
 		
 		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar Fiebre",false,
 														"Se comprueba la fiebre.",verdaderoFalso1);
@@ -234,21 +235,35 @@ public class Main {
 		}
 	}
 
-	public static void cargarTratamientoJSON(){
-
+	public static void cargarHistorialMedicoJSON(){
+		
+		ArrayList<HistorialMedico> historialMedicoLista = new ArrayList<HistorialMedico>();
+		
 		ArrayList<Tratamiento> tratamientoLista = new ArrayList<>();
-		Date diaInicial = new Date();
-		Date diaFinal = new Date();
+		Tratamiento tratamiento = new Tratamiento("11111111111","Gripe A","roberto@gmail.com");
+		tratamientoLista.add(tratamiento);
 
-		Tratamiento tratamiento1 = new Tratamiento("Controlar fiebre","Covid",14,
-											diaInicial, diaFinal, null, "matias@gmail.com");
-
-		tratamientoLista.add(tratamiento1);
+		HistorialMedico historialMedico = new HistorialMedico("00000000000", tratamientoLista);
+		historialMedicoLista.add(historialMedico);
+		
 		try {
-			TratamientoJSON tratamientoJSON = new TratamientoJSON();
-			tratamientoJSON.cargarJSON(tratamientoLista);
+			HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+			historialMedicoJSON.cargarJSON(historialMedicoLista);
 		} catch (IOException e) {
 			System.out.print(e.toString());
+		}
+	}
+	
+	public static void leerHistorialMedicoJSON(){
+		try {
+			HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+			HashMap<String,HistorialMedico> historialMedicoHashMap = historialMedicoJSON.leerJSON();
+			for (HashMap.Entry<String, HistorialMedico> obj : historialMedicoHashMap.entrySet()) {
+				HistorialMedico historialMedico = obj.getValue();
+				System.out.println(historialMedico.toString());
+			}
+		} catch (IOException e1) {
+			System.out.print(e1.toString());
 		}
 	}
 }
