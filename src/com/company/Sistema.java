@@ -414,7 +414,7 @@ public class Sistema extends JFrame {
 	            public void actionPerformed(ActionEvent e) {
 	            	
 	            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
-	        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con �xito.");
+	        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
 	        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
 	        		menuAdministradorPane.setVisible(true);
 	        		} else {
@@ -542,7 +542,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {     
             	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
-            		mensajeLeer("Se asigno la tarea de control con éxito.");
+            		mensajeLeer("Se asigno la tarea de control con Ã©xito.");
             		menuAsignarTDCJPane.setVisible(false);
             		administrarEnfermedadesJPane.setVisible(true);
             	} else {
@@ -600,7 +600,7 @@ public class Sistema extends JFrame {
             		
             		if (nuevaTareaDeControl(generarTareaDeControlJPane.getNombre(), false, generarTareaDeControlJPane.getObservacion(), estructuraTDC)) { 
 
-                		mensajeLeer("Se ha generado la tarea de control con éxito.");
+                		mensajeLeer("Se ha generado la tarea de control con Ã©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarTareaDeControlJPane.setVisible(false);
                 		
@@ -874,11 +874,13 @@ public class Sistema extends JFrame {
 		// retorna una lista de enfermedades que no esten en la lista de tratamientos del paciente.
 		
 		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
+
 		/*if(usuarioActivo instanceof Administrador){
 			Administrador admin = (Administrador) usuarioActivo;
 			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 			//enfermedadListaLibre = admin.retornarTareasDeControlLibre();
 		}*/
+
 		return enfermedadListaLibre;	
 	}
 	

@@ -3,6 +3,7 @@ package com.company.Class.Interfaces;
 import com.company.Class.Enfermedad;
 import com.company.Class.Paciente;
 import com.company.Class.TareaDeControl;
+import com.company.Class.Paciente;
 import java.util.ArrayList;
 import java.util.HashMap;
 
