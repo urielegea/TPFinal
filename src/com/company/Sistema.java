@@ -925,6 +925,13 @@ public class Sistema extends JFrame {
 		}
 		return flag;
 	}
+
+	public boolean asignarEnfermedadTratamiento(String cuentaPaciente, String nombreEnfermedad) {
+		
+		// Asigna un nuevo tratamiento (generar token) con su enfermedad al historialMedico del paciente, en caso de no tener historial medico se genera un nuevo automaticamente (con su token).
+		
+		return true;
+	}
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
 		boolean flag = false;
