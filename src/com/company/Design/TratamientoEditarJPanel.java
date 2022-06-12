@@ -37,7 +37,7 @@ public class TratamientoEditarJPanel extends JPanel {
 			buttonTratamiento.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 			buttonTratamiento.setPressedBackgroundColor(Color.BLACK);
 			buttonTratamiento.setBounds(60, ubicacion, 360, 40);
-			buttonTratamiento.setText("Tratamiento: " + tratamiento.getEnfermedadNombre());
+			buttonTratamiento.setText("Tratamiento para " + tratamiento.getEnfermedadNombre());
 			add(buttonTratamiento);			
 			tratamientoListaButton.add(buttonTratamiento);			
 			ubicacion = ubicacion + 50;

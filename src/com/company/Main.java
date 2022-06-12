@@ -94,8 +94,12 @@ public class Main {
 			e1.printStackTrace();
 		}
 		
+		ArrayList<String> pacienteLista = new ArrayList<String>();
+		pacienteLista.add("jaime@gmail.com");
+		
 		Profesional roberto = new Profesional("Roberto", "Perez","18.365.560","222 674-8532",
-				"roberto@gmail.com","1234", fechaAlta, null);	
+				"roberto@gmail.com","1234", fechaAlta, pacienteLista);		
+		
 		profesionalLista.add(roberto);	
 		
 		Profesional emilio = new Profesional("Emilio", "Sanchez","22.001.258","110 968-8328",
