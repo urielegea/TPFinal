@@ -3,7 +3,6 @@ package com.company;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -109,6 +108,9 @@ public class Sistema extends JFrame {
 	private TratamientoEditarJPanel tratamientoEditarJPane;
 	private ArrayList<ButtonTratamiento> tratamientoEditarListaButton;
 	private ButtonEdit atrasTratamientoEditarButton;
+	
+	// Perfil profesional.	
+	private CompletarTratamientoJPanel completarTratamientoJPane;
 	
 	// ================================================
 	
@@ -665,12 +667,12 @@ public class Sistema extends JFrame {
 	}
 	
 	public void iniciarSesionProfesional() {
-		ArrayList<Paciente> pacientesPendientesLista = retornarPacientesPendientes();
-		if (pacientesPendientesLista != null) {			
+		ArrayList<Paciente> pacientesPendientesLista = retornarPacientesPendientes();		
+		if (!pacientesPendientesLista.isEmpty()) {			
 			this.configInformarNuevoPaciente();			
 		} else {
 			this.configMenuProfesional();
-		}				
+		}			
 	}
 	
 	public void configTratamientoEditar(String cuentaPaciente){
@@ -702,6 +704,32 @@ public class Sistema extends JFrame {
 	
 	public void configCompletarTratamiento(String cuentaPaciente, String tokenTratamiento) {
 		
+		// Verificar que la cantidad de dias sea de tipo entero. 
+		// Verificar que todos los datos se completen.
+		// Verificar que minimamente haya una tarea de control.
+		
+		//tratamientoEditarJPane = new TratamientoEditarJPanel(retornarTratamientosPacienteProfesional(cuentaPaciente));
+		//tratamientoEditarJPane.setBounds(0, 0, 484, 461);			
+		//tratamientoEditarListaButton = tratamientoEditarJPane.getTratamientoListaButton();		
+		//for (ButtonTratamiento buttonTratamiento : tratamientoEditarListaButton) {
+			//buttonTratamiento.addActionListener(new ActionListener() {
+	           // @Override
+	            //public void actionPerformed(ActionEvent e) { 
+	            	//tratamientoEditarJPane.setVisible(false);
+	            	//configCompletarTratamiento(cuentaPaciente, buttonTratamiento.getTratamiento().getToken());
+	            //}
+	        //}); 
+		//}		
+		//atrasTratamientoEditarButton = tratamientoEditarJPane.getAtrasButton();
+		//atrasTratamientoEditarButton.addActionListener(new ActionListener() {
+           // @Override
+            //public void actionPerformed(ActionEvent e) {
+            	//tratamientoEditarJPane.setVisible(false);
+            	//iniciarSesionProfesional();
+            //}
+        //}); 		
+		//contentPane.add(tratamientoEditarJPane);
+		//tratamientoEditarJPane.setVisible(true);			
 	}
 		
 	/* ============================================================================================================================== */
@@ -1177,23 +1205,22 @@ public class Sistema extends JFrame {
 		return tareaDeControlListaLibre;
 	}
 	
-	// Retorna los pacientes asignados al profesional (usuario activo), en caso de no encontrar ninguno retorna null.
+	// Retorna los pacientes asignados al profesional (usuario activo), en caso de no encontrar ninguno retorna vacio.
 	
 	public ArrayList<Paciente> retornarPacientesPendientes() {
 		ArrayList<Paciente> pacienteLista = new ArrayList<Paciente>();
 		Profesional profesional = (Profesional) usuarioActivo;
-		for(String s: profesional.getPacienteLista()){
-			Paciente paciente = (Paciente) usuariosHashMap.get(s);
-			if(paciente.getNumeroHistorial()!=null){
-				if(historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()!=null){
-					pacienteLista.add(paciente);
+		if (profesional.getPacienteLista() != null) {
+			for(String s: profesional.getPacienteLista()){
+				Paciente paciente = (Paciente) usuariosHashMap.get(s);
+				if(paciente.getNumeroHistorial()!=null){
+					if(historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()!=null){
+						pacienteLista.add(paciente);
+					}
 				}
-			}
-		}
-		if(pacienteLista!=null) {
-			return pacienteLista;
-		}
-		return null;
+			}	
+		}		
+		return pacienteLista;		
 	}
 
 	// Retorna los tratamientos en comun de un paciente y profesional (usuario activo)
@@ -1203,12 +1230,9 @@ public class Sistema extends JFrame {
 		Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 		for(Tratamiento t: historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()){
 			tratamientoLista.add(t);
-		}
-		if(tratamientoLista!=null){
-			return tratamientoLista;
-		}
-
-		return null;
+			
+		} 
+		return tratamientoLista;		
 	}
 	
 	public int controEntero(String str){
