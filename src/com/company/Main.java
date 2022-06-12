@@ -24,7 +24,7 @@ public class Main {
 		cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
 		cargarHistorialMedicoJSON();
-		leerHistorialMedicoJSON();
+		//leerHistorialMedicoJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
