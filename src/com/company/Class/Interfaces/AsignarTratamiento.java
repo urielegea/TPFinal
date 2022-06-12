@@ -1,4 +1,5 @@
 package com.company.Class.Interfaces;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import com.company.Class.HistorialMedico;
@@ -8,20 +9,51 @@ public interface AsignarTratamiento {
 	
 	// Genera un nuevo tratamiento con el tipo de enfermedad y lo carga a un historial medico existente.
 	
-	public default HistorialMedico asignarTratamientoHistorialMedico(String numeroHistorialPaciente, String nombreEnfermedad,  HashMap<String, HistorialMedico> historialMedicoHashMap ){		
+	public default HistorialMedico asignarTratamientoHistorialMedico(String numeroHistorialPaciente,
+																	 String nombreEnfermedad,
+																	 HashMap<String, HistorialMedico> historialMedicoHashMap,
+																	 String profesionalCuenta ){
+
+		Tratamiento tratamiento = new Tratamiento(generateTokenTratamiento(historialMedicoHashMap), nombreEnfermedad, profesionalCuenta);
+		HistorialMedico historialMedico = historialMedicoHashMap.get(numeroHistorialPaciente);
+		historialMedico.getTratamientoLista().add(tratamiento);
+		if(historialMedico!=null){
+			return historialMedico;
+		}
 		return null;
 	}
 	
 	// Genera un nuevo tratamiento con el tipo de enfermedad y lo carga a un nuevo historial medico.
 	
-	public default HistorialMedico asignarTratamientoHistorialMedico(String nombreEnfermedad,  HashMap<String, HistorialMedico> historialMedicoHashMap ){		
+	public default HistorialMedico asignarTratamientoHistorialMedico(String nombreEnfermedad,
+																	 HashMap<String, HistorialMedico> historialMedicoHashMap,
+																	 String profesionalCuenta){
+
+		Tratamiento tratamiento = new Tratamiento(generateTokenTratamiento(historialMedicoHashMap), nombreEnfermedad, profesionalCuenta);
+		ArrayList<Tratamiento> tratamientoLista = new ArrayList<Tratamiento>();
+		tratamientoLista.add(tratamiento);
+		HistorialMedico historialMedico = new HistorialMedico(generateTokenHistorialMedico(historialMedicoHashMap),tratamientoLista);
+		if(historialMedico!=null) {
+			return historialMedico;
+		}
 		return null;
 	}
 	
 	// Genera un token unico para el historial medico. El mismo es de 10 caracteres.
 	
 	public default String generateTokenHistorialMedico(HashMap<String, HistorialMedico> historialMedicoHashMap) {
-		return null;
+		String tokenHistorialMedico = "";
+		boolean flag = true;
+		while (flag){
+			flag = false;
+			tokenHistorialMedico = generateToken();
+			for(HistorialMedico historialMedico : historialMedicoHashMap.values()){
+				if(historialMedico.getNumeroHistorial().compareTo(tokenHistorialMedico) == 0){
+					flag = true;
+				}
+			}
+		}
+		return tokenHistorialMedico;
 	}
 	
 	// Genera un token unico para el tratamiento. El mismo es de 10 caracteres.
