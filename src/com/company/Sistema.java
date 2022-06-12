@@ -1180,12 +1180,34 @@ public class Sistema extends JFrame {
 	// Retorna los pacientes asignados al profesional (usuario activo), en caso de no encontrar ninguno retorna null.
 	
 	public ArrayList<Paciente> retornarPacientesPendientes() {
+		ArrayList<Paciente> pacienteLista = new ArrayList<Paciente>();
+		Profesional profesional = (Profesional) usuarioActivo;
+		for(String s: profesional.getPacienteLista()){
+			Paciente paciente = (Paciente) usuariosHashMap.get(s);
+			if(paciente.getNumeroHistorial()!=null){
+				if(historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()!=null){
+					pacienteLista.add(paciente);
+				}
+			}
+		}
+		if(pacienteLista!=null) {
+			return pacienteLista;
+		}
 		return null;
 	}
 
 	// Retorna los tratamientos en comun de un paciente y profesional (usuario activo)
 	
 	public ArrayList<Tratamiento> retornarTratamientosPacienteProfesional(String cuentaPaciente) {
+		ArrayList<Tratamiento> tratamientoLista = new ArrayList<Tratamiento>();
+		Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
+		for(Tratamiento t: historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()){
+			tratamientoLista.add(t);
+		}
+		if(tratamientoLista!=null){
+			return tratamientoLista;
+		}
+
 		return null;
 	}
 	

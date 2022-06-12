@@ -10,7 +10,7 @@ public class Tratamiento {
     private int duracionDias;
     private Date diaInicial;
     private Date diaFinal;
-    private ArrayList<ControlDiario> controlDiarioLista;
+    private ArrayList<ControlDiario> controlDiarioLista; //Crear ArrayList<TareaDeControl> tdcs
 	private String profesionalCuenta;
 	
 	public Tratamiento() {
