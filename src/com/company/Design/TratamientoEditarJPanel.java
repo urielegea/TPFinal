@@ -43,7 +43,7 @@ public class TratamientoEditarJPanel extends JPanel {
 			ubicacion = ubicacion + 50;
 		}	
 		
-		atrasButton = new ButtonEdit("Cerrar sesión");
+		atrasButton = new ButtonEdit("Atras");
 		atrasButton.setForeground(Color.WHITE);
 		atrasButton.setBackground(new Color(3, 59, 90));
 		atrasButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());

@@ -40,7 +40,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		finalizarPlanesDeControl.setBounds(60, 160, 360, 40);
 		add(finalizarPlanesDeControl);	
 		
-		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesiï¿½n");
+		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesión");
 		cerrarMenuProfesionalButton.setForeground(Color.WHITE);
 		cerrarMenuProfesionalButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuProfesionalButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());

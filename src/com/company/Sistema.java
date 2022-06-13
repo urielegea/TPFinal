@@ -113,6 +113,11 @@ public class Sistema extends JFrame {
 	private ButtonEdit cancelarCompletarTratamientoButton;	
 	private ButtonEdit completarTratamientoButton;
 	
+	// Perfil profesional.	
+	private MenuControlRegistroJPanel menuControlRegistroJPane;
+	private ArrayList<ButtonPaciente> pacienteRegistroListaButton;
+	private ButtonEdit volverRegistroButton;
+	
 	// ================================================
 	
 	private HashMap<String,Usuario> usuariosHashMap;
@@ -235,7 +240,8 @@ public class Sistema extends JFrame {
 		controlRegistroDePacientes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("controlRegistroDePacientes...");
+            	configMenuControlRegistroJPanel();
+            	menuProfesionalPane.setVisible(false);   
             }
         }); 
 		finalizarPlanesDeControl = menuProfesionalPane.getFinalizarPlanesDeControl();
@@ -333,7 +339,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
+                		mensajeLeer("Se ha generado el paciente con éxito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -422,7 +428,7 @@ public class Sistema extends JFrame {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
 		            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
-			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con Ã©xito.");
+			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
 			        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
 			        		menuAdministradorPane.setVisible(true);
 		        		} else {
@@ -551,15 +557,14 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {     
             	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
-            		mensajeLeer("Se asigno la tarea de control con Ã©xito.");
+            		mensajeLeer("Se asigno la tarea de control con éxito.");
             		menuAsignarTDCJPane.setVisible(false);
             		administrarEnfermedadesJPane.setVisible(true);
             	} else {
             		mensajeLeer("Algo salio mal.");
             	}            	
             }
-        }); 	
-		
+        }); 			
 		buttonAsignarTDCCancelar = menuAsignarTDCJPane.getButtonAsignarTDCCancelar();
 		buttonAsignarTDCCancelar.addActionListener(new ActionListener() {
             @Override
@@ -608,7 +613,7 @@ public class Sistema extends JFrame {
             		
             		if (nuevaTareaDeControl(generarTareaDeControlJPane.getNombre(), false, generarTareaDeControlJPane.getObservacion(), estructuraTDC)) { 
 
-                		mensajeLeer("Se ha generado la tarea de control con ÃƒÂ©xito.");
+                		mensajeLeer("Se ha generado la tarea de control con Ã©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarTareaDeControlJPane.setVisible(false);
                 		
@@ -711,7 +716,7 @@ public class Sistema extends JFrame {
 	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();	            	
 	            	if (!tareaDeControlLista.isEmpty()) {
 						if (actualizarTratamiento(cuentaPaciente, tokenTratamiento, diasDuracion, tareaDeControlLista, new Date())) {
-	                		mensajeLeer("Se actualizo el tratamiento con Ã©xito.");
+	                		mensajeLeer("Se actualizo el tratamiento con éxito.");
 	                		completarTratamientoJPane.setVisible(false);
 	                		iniciarSesionProfesional();
 	                	} else {
@@ -721,7 +726,7 @@ public class Sistema extends JFrame {
 	            		mensajeLeer("Se debe seleciconar aunque sea una tarea de control.");
 	            	}
 	            } else {
-	            	mensajeLeer("Error al leer la duraciÃ³n de dÃ­as.");
+	            	mensajeLeer("Error al leer la duración de días.");
 	            }
 	        }
 	     }); 
@@ -736,6 +741,34 @@ public class Sistema extends JFrame {
         }); 		
 		contentPane.add(completarTratamientoJPane);
 		completarTratamientoJPane.setVisible(true);			
+	}
+	
+	public void configMenuControlRegistroJPanel(){
+		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();
+		ArrayList<String> pacienteSinCumplirLista = pacienteSinCumplirLista();
+		menuControlRegistroJPane = new MenuControlRegistroJPanel(pacienteLista, pacienteSinCumplirLista);
+		menuControlRegistroJPane.setBounds(0, 0, 484, 461);		
+		pacienteRegistroListaButton = menuControlRegistroJPane.getPacienteListaButton();		
+		for (ButtonPaciente buttonPaciente : pacienteRegistroListaButton) {
+			buttonPaciente.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	System.out.print(buttonPaciente.getPaciente().getCuenta());
+	            	//menuAsignarEnfermedadJPane.setVisible(false);
+	            	//configMenuAsignarTDCJPanel(buttonEnfermedad.getEnfermedad().getNombre());
+	            }
+	        }); 
+		}		
+		volverRegistroButton = menuControlRegistroJPane.getVolverMenuButton();
+		volverRegistroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		menuControlRegistroJPane.setVisible(false);
+        		menuProfesionalPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(menuControlRegistroJPane);
+		menuControlRegistroJPane.setVisible(true);	
 	}
 		
 	/* ============================================================================================================================== */
@@ -1278,6 +1311,33 @@ public class Sistema extends JFrame {
 		}
 
 		return flag;
+	}
+	
+	// Retorna los pacientes asignados al profesional que tengan tratamientos sin finalizar.
+	
+	public ArrayList<Paciente> pacienteTratamientolLista(){
+		ArrayList<Paciente> pacienteTratamientoLista = new ArrayList<Paciente>();
+		Profesional profesional = (Profesional) usuarioActivo;
+		if (profesional.getPacienteLista() != null) {
+			for(String cuentaPaciente: profesional.getPacienteLista()){
+				Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
+				HistorialMedico historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());
+				if (historialMedico != null) {
+					for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {
+						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null) {
+							pacienteTratamientoLista.add(paciente);
+						}
+					}
+				}				
+			}
+		}	
+		return pacienteTratamientoLista;	
+	}
+	
+	// Retorna los pacientes que tenga el tratamiento con las tareas del dia anterior sin cumplir.
+	
+	public ArrayList<String> pacienteSinCumplirLista(){
+		return new ArrayList<String>();
 	}
 		
 	public int controEntero(String str){
