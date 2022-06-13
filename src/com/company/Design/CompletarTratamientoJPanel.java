@@ -8,7 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import com.company.Class.TareaDeControl;
 
+
+@SuppressWarnings("serial")
 public class CompletarTratamientoJPanel extends JPanel{
 	
 	private JLabel duracionDiasLabel;
@@ -17,7 +20,7 @@ public class CompletarTratamientoJPanel extends JPanel{
 	private ButtonEdit cancelarCompletarTratamientoButton;
 	private ButtonEdit completarTratamientoButton;	
 	
-	public CompletarTratamientoJPanel(String nombreEnfermedad ,ArrayList<String>tareaDeControlNombreLista) {
+	public CompletarTratamientoJPanel(String nombreEnfermedad, ArrayList<TareaDeControl>tareaDeControlNombreLista) {
 		
 		setBackground(SystemColor.menu);		
 		setLayout(null);
@@ -28,34 +31,72 @@ public class CompletarTratamientoJPanel extends JPanel{
 		add(lblMenuCompletarTratamiento);			
 		int ubicacion = 110; // Ubicacion inicial.	 
 		
-		duracionDiasLabel = new JLabel("Dias de duraci\u00F3n");
+		duracionDiasLabel = new JLabel("Dias de duraci\u00F3n:");
 		duracionDiasLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		duracionDiasLabel.setBounds(50, ubicacion, 172, 30);
-		add(duracionDiasLabel);
-		
-		ubicacion = 110 + 50;
+		duracionDiasLabel.setBounds(60, 110, 164, 30);
+		add(duracionDiasLabel);		
 		
 		duracionDiasTextField = new JTextField();
 		duracionDiasTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		duracionDiasTextField.setColumns(10);
-		duracionDiasTextField.setBounds(50, 152, 385, 30);
+		duracionDiasTextField.setBounds(227, 110, 195, 30);
 		add(duracionDiasTextField);
 		
-		ubicacion = 110 + 50;
+		ubicacion = ubicacion + 50;
 		
 		jComboBoxTDCLista = new ArrayList<JCheckBoxTDC>();
 		
-		for (String nombreTDC : tareaDeControlNombreLista) {			
-			JCheckBoxTDC jCheckBoxTDC = new JCheckBoxTDC (nombreTDC);
+		for (TareaDeControl tdc : tareaDeControlNombreLista) {			
+			JCheckBoxTDC jCheckBoxTDC = new JCheckBoxTDC (tdc.getNombre());
 			jCheckBoxTDC.setForeground(Color.WHITE);
 			jCheckBoxTDC.setBackground(new Color(3, 59, 90));
 			jCheckBoxTDC.setBounds(60, ubicacion, 360, 40);
-			jCheckBoxTDC.setText(" Tarea de control: "+nombreTDC+".");
+			jCheckBoxTDC.setText(" Tarea de control: "+tdc.getNombre()+".");
 			add(jCheckBoxTDC);			
 			jComboBoxTDCLista.add(jCheckBoxTDC);			
 			ubicacion = ubicacion + 50;
-		}			
+		}		
+		
+		ubicacion = ubicacion + 10;
+		
+		completarTratamientoButton = new ButtonEdit("Completar tratamiento");
+		completarTratamientoButton.setForeground(Color.WHITE);
+		completarTratamientoButton.setBackground(new Color(3, 59, 90));
+		completarTratamientoButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
+		completarTratamientoButton.setPressedBackgroundColor(Color.BLACK);
+		completarTratamientoButton.setBounds(60, ubicacion, 180, 40);
+		add(completarTratamientoButton);
+		
+		cancelarCompletarTratamientoButton = new ButtonEdit("Cancelar");
+		cancelarCompletarTratamientoButton.setForeground(Color.WHITE);
+		cancelarCompletarTratamientoButton.setBackground(new Color(3, 59, 90));
+		cancelarCompletarTratamientoButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
+		cancelarCompletarTratamientoButton.setPressedBackgroundColor(Color.BLACK);
+		cancelarCompletarTratamientoButton.setBounds(250, ubicacion, 170, 40);
+		add(cancelarCompletarTratamientoButton);
+	}
 
+	public String getDuracionDias() {
+		return duracionDiasTextField.getText();
+	}
+
+	public ArrayList<String> tareaDeControlLista() {		
+		ArrayList<String> tareaDeControlLista = new ArrayList<String>();
+		
+		for (JCheckBoxTDC jCheckBoxTDC : jComboBoxTDCLista) {
+			if (jCheckBoxTDC.isSelected()) {
+				tareaDeControlLista.add(jCheckBoxTDC.getNombreTDC());
+			}
+		}		
+		return tareaDeControlLista;
+	}
+
+	public ButtonEdit getCancelarCompletarTratamientoButton() {
+		return cancelarCompletarTratamientoButton;
+	}
+
+	public ButtonEdit getCompletarTratamientoButton() {
+		return completarTratamientoButton;
 	}
 	
 }

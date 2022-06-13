@@ -111,6 +111,8 @@ public class Sistema extends JFrame {
 	
 	// Perfil profesional.	
 	private CompletarTratamientoJPanel completarTratamientoJPane;
+	private ButtonEdit cancelarCompletarTratamientoButton;	
+	private ButtonEdit completarTratamientoButton;
 	
 	// ================================================
 	
@@ -684,7 +686,7 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
 	            	tratamientoEditarJPane.setVisible(false);
-	            	configCompletarTratamiento(cuentaPaciente, buttonTratamiento.getTratamiento().getToken());
+	            	configCompletarTratamiento(buttonTratamiento.getTratamiento().getEnfermedadNombre(), cuentaPaciente, buttonTratamiento.getTratamiento().getToken());
 	            }
 	        }); 
 		}		
@@ -702,34 +704,45 @@ public class Sistema extends JFrame {
 	
 	// Vista para completar el tratamiento pendiente.
 	
-	public void configCompletarTratamiento(String cuentaPaciente, String tokenTratamiento) {
+	public void configCompletarTratamiento(String nombreEnfermedad, String cuentaPaciente, String tokenTratamiento) {
 		
-		// Verificar que la cantidad de dias sea de tipo entero. 
-		// Verificar que todos los datos se completen.
-		// Verificar que minimamente haya una tarea de control.
+		completarTratamientoJPane = new CompletarTratamientoJPanel(nombreEnfermedad, getListaTareaDeControl());
+		completarTratamientoJPane.setBounds(0, 0, 484, 461);			
+		completarTratamientoButton = completarTratamientoJPane.getCompletarTratamientoButton();		
+		completarTratamientoButton.addActionListener(new ActionListener() {
+			@Override
+	        public void actionPerformed(ActionEvent e) { 
+				
+				int diasDuracion = controEntero(completarTratamientoJPane.getDuracionDias());
+	            if (diasDuracion > 0) {
+	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();
+	            	if (!tareaDeControlLista.isEmpty()) {
+	                	if (actualizarTratamiento(tokenTratamiento, completarTratamientoJPane.getDuracionDias(), tareaDeControlLista, new Date())) {
+	                		mensajeLeer("Se asigno la tarea de control con éxito.");
+	                		menuAsignarTDCJPane.setVisible(false);
+	                		administrarEnfermedadesJPane.setVisible(true);
+	                	} else {
+	                		mensajeLeer("Algo salio mal.");
+	                	} 
+	            	} else {
+	            		mensajeLeer("Se debe seleciconar aunque sea una tarea de control.");
+	            	}
+	            } else {
+	            	mensajeLeer("Error al leer la duración de días.");
+	            }
+	        }
+	     }); 
 		
-		//tratamientoEditarJPane = new TratamientoEditarJPanel(retornarTratamientosPacienteProfesional(cuentaPaciente));
-		//tratamientoEditarJPane.setBounds(0, 0, 484, 461);			
-		//tratamientoEditarListaButton = tratamientoEditarJPane.getTratamientoListaButton();		
-		//for (ButtonTratamiento buttonTratamiento : tratamientoEditarListaButton) {
-			//buttonTratamiento.addActionListener(new ActionListener() {
-	           // @Override
-	            //public void actionPerformed(ActionEvent e) { 
-	            	//tratamientoEditarJPane.setVisible(false);
-	            	//configCompletarTratamiento(cuentaPaciente, buttonTratamiento.getTratamiento().getToken());
-	            //}
-	        //}); 
-		//}		
-		//atrasTratamientoEditarButton = tratamientoEditarJPane.getAtrasButton();
-		//atrasTratamientoEditarButton.addActionListener(new ActionListener() {
-           // @Override
-            //public void actionPerformed(ActionEvent e) {
-            	//tratamientoEditarJPane.setVisible(false);
-            	//iniciarSesionProfesional();
-            //}
-        //}); 		
-		//contentPane.add(tratamientoEditarJPane);
-		//tratamientoEditarJPane.setVisible(true);			
+		cancelarCompletarTratamientoButton = completarTratamientoJPane.getCancelarCompletarTratamientoButton();
+		cancelarCompletarTratamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	completarTratamientoJPane.setVisible(false);
+            	tratamientoEditarJPane.setVisible(true);
+            }
+        }); 		
+		contentPane.add(completarTratamientoJPane);
+		completarTratamientoJPane.setVisible(true);			
 	}
 		
 	/* ============================================================================================================================== */
@@ -1235,6 +1248,12 @@ public class Sistema extends JFrame {
 		return tratamientoLista;		
 	}
 	
+	// Actualizar el tratamiento con los datos nuevos ingresados por el profesional.
+	
+	public boolean actualizarTratamiento(String tokenTratamiento, String diasDuracion, ArrayList<String> tareaDeControlLista, Date diaInicial) {
+		return true;
+	}
+		
 	public int controEntero(String str){
 		try {
 			int integer = Integer.parseInt(str);	
