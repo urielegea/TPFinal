@@ -75,7 +75,7 @@ public interface AdministrarEnfermedades {
 			boolean flag = false;
 			if (historialMedicoPaciente != null) {
 				for (Tratamiento tratamiento : historialMedicoPaciente.getTratamientoLista()) {
-					if (tratamiento.getEnfermedadNombre().compareTo(enfermedad.getNombre()) == 0) {
+					if (tratamiento.getEnfermedadNombre().compareTo(enfermedad.getNombre()) == 0 && tratamiento.getDiaFinal() == null) {
 						flag = true;
 					}
 				} 

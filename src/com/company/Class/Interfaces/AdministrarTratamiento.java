@@ -28,24 +28,16 @@ public interface AdministrarTratamiento {
         tratamiento.setTareaDeControlListado(tareaDeControlLista);
         tratamiento.setDuracionDias(diasDuracion);
         tratamiento.setDiaInicial(diaInicial);
-
-
+        
         HistorialMedico historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());
         for(Tratamiento y : historialMedico.getTratamientoLista()){
             if (tratamiento.getToken().compareTo(y.getToken())==0){
                 aux.add(tratamiento);
-            }else{
+            } else{
                 aux.add(y);
             }
-
         }
-
         historialMedico.setTratamientoLista(aux);
-
         return historialMedico;
-
     }
-
-
-
 }

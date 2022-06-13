@@ -20,7 +20,7 @@ public class CompletarTratamientoJPanel extends JPanel{
 	private ButtonEdit cancelarCompletarTratamientoButton;
 	private ButtonEdit completarTratamientoButton;	
 	
-	public CompletarTratamientoJPanel(String nombreEnfermedad, ArrayList<TareaDeControl>tareaDeControlNombreLista) {
+	public CompletarTratamientoJPanel(String nombreEnfermedad, int duracionDias, ArrayList<TareaDeControl>tareaDeControlNombreLista) {
 		
 		setBackground(SystemColor.menu);		
 		setLayout(null);
@@ -36,7 +36,10 @@ public class CompletarTratamientoJPanel extends JPanel{
 		duracionDiasLabel.setBounds(60, 110, 164, 30);
 		add(duracionDiasLabel);		
 		
+		String duracionDiasString = duracionDias + "";
+		
 		duracionDiasTextField = new JTextField();
+		duracionDiasTextField.setText(duracionDiasString);
 		duracionDiasTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		duracionDiasTextField.setColumns(10);
 		duracionDiasTextField.setBounds(227, 110, 195, 30);

@@ -1,12 +1,9 @@
 package com.company.JSON;
 
-import com.company.Class.Administrador;
 import com.company.Class.Tratamiento;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

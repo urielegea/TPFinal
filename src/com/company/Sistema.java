@@ -418,7 +418,7 @@ public class Sistema extends JFrame {
 	
 	public void configMenuAsignarEnfermedadTratamientoJPanel(String cuentaPaciente, String cuentaProfesional) {
 		
-		ArrayList<Enfermedad> enfermedadLista = EnfermedadLiberadas(cuentaPaciente);
+		ArrayList<Enfermedad> enfermedadLista = enfermedadLiberadas(cuentaPaciente);
 		
 		menuAsignarEnfermedadTratamientoJPanel = new MenuAsignarEnfermedadTratamientoJPanel(enfermedadLista);
 		menuAsignarEnfermedadTratamientoJPanel.setBounds(0, 0, 484, 461);			
@@ -704,9 +704,9 @@ public class Sistema extends JFrame {
 	
 	// Vista para completar el tratamiento pendiente.
 	
-	public void configCompletarTratamiento(String nombreEnfermedad, String cuentaPaciente, String tokenTratamiento) {
-		
-		completarTratamientoJPane = new CompletarTratamientoJPanel(nombreEnfermedad, getListaTareaDeControl());
+	public void configCompletarTratamiento(String nombreEnfermedad, String cuentaPaciente, String tokenTratamiento) {		
+		int duracionDias = enfermedadesHashMap.get(nombreEnfermedad).getDuracionDias();		
+		completarTratamientoJPane = new CompletarTratamientoJPanel(nombreEnfermedad, duracionDias, getListaTareaDeControl());
 		completarTratamientoJPane.setBounds(0, 0, 484, 461);			
 		completarTratamientoButton = completarTratamientoJPane.getCompletarTratamientoButton();		
 		completarTratamientoButton.addActionListener(new ActionListener() {
@@ -996,7 +996,7 @@ public class Sistema extends JFrame {
 		this.historialMedicoHashMap = historialMedicoHashMap;
 	}
 	
-	public ArrayList<Enfermedad> EnfermedadLiberadas(String cuentaPaciente){					
+	public ArrayList<Enfermedad> enfermedadLiberadas(String cuentaPaciente){					
 		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
 		if(usuarioActivo instanceof Administrador){
 			Administrador admin = (Administrador) usuarioActivo;
@@ -1221,19 +1221,22 @@ public class Sistema extends JFrame {
 	// Retorna los pacientes asignados al profesional (usuario activo), en caso de no encontrar ninguno retorna vacio.
 	
 	public ArrayList<Paciente> retornarPacientesPendientes() {
-		ArrayList<Paciente> pacienteLista = new ArrayList<Paciente>();
+		ArrayList<Paciente> pacientePendienteLista = new ArrayList<Paciente>();
 		Profesional profesional = (Profesional) usuarioActivo;
 		if (profesional.getPacienteLista() != null) {
-			for(String s: profesional.getPacienteLista()){
-				Paciente paciente = (Paciente) usuariosHashMap.get(s);
-				if(paciente.getNumeroHistorial()!=null){
-					if(historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()!=null){
-						pacienteLista.add(paciente);
+			for(String cuentaPaciente: profesional.getPacienteLista()){
+				Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
+				HistorialMedico historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());
+				if (historialMedico != null) {
+					for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {
+						if (tratamiento.getDiaInicial() == null && tratamiento.getDuracionDias() == 0 && tratamiento.getTareaDeControlListado() == null) {
+							pacientePendienteLista.add(paciente);
+						}
 					}
-				}
-			}	
-		}		
-		return pacienteLista;		
+				}				
+			}
+		}	
+		return pacientePendienteLista;		
 	}
 
 	// Retorna los tratamientos en comun de un paciente y profesional (usuario activo)
@@ -1242,8 +1245,7 @@ public class Sistema extends JFrame {
 		ArrayList<Tratamiento> tratamientoLista = new ArrayList<Tratamiento>();
 		Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 		for(Tratamiento t: historialMedicoHashMap.get(paciente.getNumeroHistorial()).getTratamientoLista()){
-			tratamientoLista.add(t);
-			
+			tratamientoLista.add(t);			
 		} 
 		return tratamientoLista;		
 	}
@@ -1252,7 +1254,6 @@ public class Sistema extends JFrame {
 	
 	public boolean actualizarTratamiento(String cuentaPaciente, String tokenTratamiento, int diasDuracion,
 										 ArrayList<String> tareaDeControlLista, Date diaInicial) {
-
 		boolean flag = false;
 		boolean flog = false;
 		if(usuarioActivo instanceof Profesional){
