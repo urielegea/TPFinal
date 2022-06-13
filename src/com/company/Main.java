@@ -23,7 +23,7 @@ public class Main {
 		//leerEnfermedadJSON();
 		cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
-		cargarHistorialMedicoJSON();
+		//cargarHistorialMedicoJSON();
 		//leerHistorialMedicoJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
