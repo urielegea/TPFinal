@@ -207,14 +207,12 @@ public class Main {
 		
 		DecimalTDC decimal1 = new DecimalTDC("Temperatura:");
 		EnteroTDC entero1 = new EnteroTDC("Presion:");
-		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre:");
 
 		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
 													"Observacion de temperatura.", decimal1);
 		
 		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
 														"Se toma la presion.",entero1);		
-
 		tdcLista.add(tareaDeControl1);
 		tdcLista.add(tareaDeControl2);
 
