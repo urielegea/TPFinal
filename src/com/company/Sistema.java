@@ -717,9 +717,9 @@ public class Sistema extends JFrame {
 	            if (diasDuracion > 0) {
 	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();
 	            	if (!tareaDeControlLista.isEmpty()) {
-	                	if (actualizarTratamiento(tokenTratamiento, completarTratamientoJPane.getDuracionDias(), tareaDeControlLista, new Date())) {
+						if (actualizarTratamiento(cuentaPaciente, tokenTratamiento, diasDuracion, tareaDeControlLista, new Date())) {
 	                		mensajeLeer("Se actualizo el tratamiento con éxito.");
-	                		completarTratamientoButton.setVisible(false);
+	                		completarTratamientoJPane.setVisible(false);
 	                		iniciarSesionProfesional();
 	                	} else {
 	                		mensajeLeer("Algo salio mal.");
@@ -1250,8 +1250,39 @@ public class Sistema extends JFrame {
 	
 	// Actualizar el tratamiento con los datos nuevos ingresados por el profesional.
 	
-	public boolean actualizarTratamiento(String tokenTratamiento, String diasDuracion, ArrayList<String> tareaDeControlLista, Date diaInicial) {
-		return true;
+	public boolean actualizarTratamiento(String cuentaPaciente, String tokenTratamiento, int diasDuracion,
+										 ArrayList<String> tareaDeControlLista, Date diaInicial) {
+
+		boolean flag = false;
+		boolean flog = false;
+		if(usuarioActivo instanceof Profesional){
+			Profesional profesional = (Profesional) usuarioActivo;
+			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
+			ArrayList<TareaDeControl> tareaDeControlListado = new ArrayList<TareaDeControl>() ;
+			for(TareaDeControl t : getListaTareaDeControl()){
+				for(String s : tareaDeControlLista) {
+					if (t.getNombre().compareTo(s)==0){
+						flog=true;
+					}
+				}
+				if(flog){
+					tareaDeControlListado.add(t);
+				}
+			}
+			HistorialMedico historialMedico = profesional.actualizarTratamiento(paciente, tokenTratamiento, diasDuracion, tareaDeControlListado, diaInicial, historialMedicoHashMap);
+			try{
+				historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);
+				ArrayList<HistorialMedico> historialMedicoLista = getListaHistorialMedico();
+				HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+				historialMedicoJSON.cargarJSON(historialMedicoLista);
+				flag = true;
+			}catch (IOException e){
+				mensajeLeer(e.toString());
+			}
+
+		}
+
+		return flag;
 	}
 		
 	public int controEntero(String str){
