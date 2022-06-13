@@ -38,7 +38,6 @@ public class Sistema extends JFrame {
 	
 	// Perfil profesional.
 	private MenuProfesionalJPanel menuProfesionalPane;
-	private ButtonEdit asignarPlanesDeControl;	
 	private ButtonEdit controlRegistroDePacientes;
 	private ButtonEdit finalizarPlanesDeControl;
 	private ButtonEdit cerrarMenuProfesionalButton;
@@ -231,14 +230,7 @@ public class Sistema extends JFrame {
 	
 	public void configMenuProfesional() {
 		menuProfesionalPane = new MenuProfesionalJPanel();
-		menuProfesionalPane.setBounds(0, 0, 484, 461);		
-		asignarPlanesDeControl = menuProfesionalPane.getAsignarPlanesDeControl();
-		asignarPlanesDeControl.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	System.out.println("asignarPlanesDeControl...");
-            }
-        }); 		
+		menuProfesionalPane.setBounds(0, 0, 484, 461);			
 		controlRegistroDePacientes = menuProfesionalPane.getControlRegistroDePacientes();
 		controlRegistroDePacientes.addActionListener(new ActionListener() {
             @Override
@@ -715,7 +707,7 @@ public class Sistema extends JFrame {
 				
 				int diasDuracion = controEntero(completarTratamientoJPane.getDuracionDias());
 	            if (diasDuracion > 0) {
-	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();
+	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();	            	
 	            	if (!tareaDeControlLista.isEmpty()) {
 						if (actualizarTratamiento(cuentaPaciente, tokenTratamiento, diasDuracion, tareaDeControlLista, new Date())) {
 	                		mensajeLeer("Se actualizo el tratamiento con éxito.");
@@ -1261,15 +1253,16 @@ public class Sistema extends JFrame {
 			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 			ArrayList<TareaDeControl> tareaDeControlListado = new ArrayList<TareaDeControl>() ;
 			for(TareaDeControl t : getListaTareaDeControl()){
+				flog = false;
 				for(String s : tareaDeControlLista) {
 					if (t.getNombre().compareTo(s)==0){
 						flog=true;
 					}
 				}
 				if(flog){
-					tareaDeControlListado.add(t);
+					tareaDeControlListado.add(t);				
 				}
-			}
+			}			
 			HistorialMedico historialMedico = profesional.actualizarTratamiento(paciente, tokenTratamiento, diasDuracion, tareaDeControlListado, diaInicial, historialMedicoHashMap);
 			try{
 				historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);
