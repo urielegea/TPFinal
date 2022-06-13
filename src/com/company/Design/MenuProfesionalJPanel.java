@@ -32,7 +32,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		controlRegistroDePacientes.setBounds(60, 110, 360, 40);
 		add(controlRegistroDePacientes);	
 		
-		finalizarPlanesDeControl = new ButtonEdit("Finalizar tratamiento");
+		finalizarPlanesDeControl = new ButtonEdit("Finalizar planes de control");
 		finalizarPlanesDeControl.setForeground(Color.WHITE);
 		finalizarPlanesDeControl.setBackground(new Color(3, 59, 90));
 		finalizarPlanesDeControl.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
@@ -40,7 +40,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		finalizarPlanesDeControl.setBounds(60, 160, 360, 40);
 		add(finalizarPlanesDeControl);	
 		
-		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesión");
+		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesiï¿½n");
 		cerrarMenuProfesionalButton.setForeground(Color.WHITE);
 		cerrarMenuProfesionalButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuProfesionalButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
