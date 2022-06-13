@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import com.company.Class.TareaDeControl;
 
-
 @SuppressWarnings("serial")
 public class CompletarTratamientoJPanel extends JPanel{
 	
@@ -20,11 +19,11 @@ public class CompletarTratamientoJPanel extends JPanel{
 	private ButtonEdit cancelarCompletarTratamientoButton;
 	private ButtonEdit completarTratamientoButton;	
 	
-	public CompletarTratamientoJPanel(String nombreEnfermedad, int duracionDias, ArrayList<TareaDeControl>tareaDeControlNombreLista) {
+	public CompletarTratamientoJPanel(String nombreEnfermedad, int duracionDias, ArrayList<String>tareaDeControlEnfermedadNombreLista, ArrayList<TareaDeControl>tareaDeControlNombreLista) {
 		
 		setBackground(SystemColor.menu);		
 		setLayout(null);
-		
+				
 		JLabel lblMenuCompletarTratamiento = new JLabel("Tratamiento para " + nombreEnfermedad, SwingConstants.CENTER);
 		lblMenuCompletarTratamiento.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblMenuCompletarTratamiento.setBounds(0, 34, 484, 46);
@@ -49,12 +48,21 @@ public class CompletarTratamientoJPanel extends JPanel{
 		
 		jComboBoxTDCLista = new ArrayList<JCheckBoxTDC>();
 		
-		for (TareaDeControl tdc : tareaDeControlNombreLista) {			
+		for (TareaDeControl tdc : tareaDeControlNombreLista) {		
+			
 			JCheckBoxTDC jCheckBoxTDC = new JCheckBoxTDC (tdc.getNombre());
 			jCheckBoxTDC.setForeground(Color.WHITE);
 			jCheckBoxTDC.setBackground(new Color(3, 59, 90));
 			jCheckBoxTDC.setBounds(60, ubicacion, 360, 40);
 			jCheckBoxTDC.setText(" Tarea de control: "+tdc.getNombre()+".");
+			
+			boolean flag = false;			
+			for(String tareaDeControl : tareaDeControlEnfermedadNombreLista) {				
+				if (tareaDeControl.compareTo(tdc.getNombre()) == 0) {
+					flag = true;
+				}				
+			}				
+			jCheckBoxTDC.setSelected(flag);
 			add(jCheckBoxTDC);			
 			jComboBoxTDCLista.add(jCheckBoxTDC);			
 			ubicacion = ubicacion + 50;

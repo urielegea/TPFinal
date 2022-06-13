@@ -170,12 +170,15 @@ public class Main {
 	public static void cargarEnfermedadJSON() {
 
 		ArrayList<Enfermedad> enfermedadLista = new ArrayList<>();
+		
+		ArrayList<String> tareaDeControlLista = new ArrayList<String>();
+		tareaDeControlLista.add("Tomar Presion");
 
-		Enfermedad tos = new Enfermedad("Gripe A", null, "Mucha tos", 2);
-		enfermedadLista.add(tos);
+		Enfermedad enfermedad1 = new Enfermedad("Gripe A", tareaDeControlLista, "Mucha tos", 2);
+		enfermedadLista.add(enfermedad1);
 
-		Enfermedad fiebre = new Enfermedad("Covid", null, "Fiebre de mas de 38 grados, contagioso", 6);
-		enfermedadLista.add(fiebre);
+		Enfermedad enfermedad2 = new Enfermedad("Covid", null, "Fiebre de mas de 38 grados, contagioso", 6);
+		enfermedadLista.add(enfermedad2);
 
 		try {
 			EnfermedadJSON enfermedadJSON = new EnfermedadJSON();
@@ -210,13 +213,10 @@ public class Main {
 													"Observacion de temperatura.", decimal1);
 		
 		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
-														"Se toma la presion.",entero1);
-		
-		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar Fiebre",false,
-														"Se comprueba la fiebre.",verdaderoFalso1);
+														"Se toma la presion.",entero1);		
+
 		tdcLista.add(tareaDeControl1);
 		tdcLista.add(tareaDeControl2);
-		tdcLista.add(tareaDeControl3);
 
 		try {
 			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
