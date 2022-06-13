@@ -1254,9 +1254,11 @@ public class Sistema extends JFrame {
 				Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 				HistorialMedico historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());
 				if (historialMedico != null) {
+					boolean flag = false;
 					for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {
-						if (tratamiento.getDiaInicial() == null && tratamiento.getDuracionDias() == 0 && tratamiento.getTareaDeControlListado() == null) {
+						if (tratamiento.getDiaInicial() == null && tratamiento.getDuracionDias() == 0 && tratamiento.getTareaDeControlListado() == null && !flag) {
 							pacientePendienteLista.add(paciente);
+							flag = true;
 						}
 					}
 				}				
@@ -1323,9 +1325,11 @@ public class Sistema extends JFrame {
 				Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 				HistorialMedico historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());
 				if (historialMedico != null) {
+					boolean flag = false;
 					for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {
-						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null) {
+						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null && !flag) {
 							pacienteTratamientoLista.add(paciente);
+							flag = true;
 						}
 					}
 				}				
