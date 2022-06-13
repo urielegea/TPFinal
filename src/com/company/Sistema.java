@@ -341,7 +341,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con ?xito.");
+                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -430,7 +430,7 @@ public class Sistema extends JFrame {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
 		            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
-			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
+			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con Ã©xito.");
 			        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
 			        		menuAdministradorPane.setVisible(true);
 		        		} else {
@@ -559,7 +559,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {     
             	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
-            		mensajeLeer("Se asigno la tarea de control con éxito.");
+            		mensajeLeer("Se asigno la tarea de control con Ã©xito.");
             		menuAsignarTDCJPane.setVisible(false);
             		administrarEnfermedadesJPane.setVisible(true);
             	} else {
@@ -616,7 +616,7 @@ public class Sistema extends JFrame {
             		
             		if (nuevaTareaDeControl(generarTareaDeControlJPane.getNombre(), false, generarTareaDeControlJPane.getObservacion(), estructuraTDC)) { 
 
-                		mensajeLeer("Se ha generado la tarea de control con Ã©xito.");
+                		mensajeLeer("Se ha generado la tarea de control con ÃƒÂ©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarTareaDeControlJPane.setVisible(false);
                 		
@@ -718,9 +718,9 @@ public class Sistema extends JFrame {
 	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();
 	            	if (!tareaDeControlLista.isEmpty()) {
 	                	if (actualizarTratamiento(tokenTratamiento, completarTratamientoJPane.getDuracionDias(), tareaDeControlLista, new Date())) {
-	                		mensajeLeer("Se asigno la tarea de control con éxito.");
-	                		menuAsignarTDCJPane.setVisible(false);
-	                		administrarEnfermedadesJPane.setVisible(true);
+	                		mensajeLeer("Se actualizo el tratamiento con Ã©xito.");
+	                		completarTratamientoButton.setVisible(false);
+	                		iniciarSesionProfesional();
 	                	} else {
 	                		mensajeLeer("Algo salio mal.");
 	                	} 
@@ -728,7 +728,7 @@ public class Sistema extends JFrame {
 	            		mensajeLeer("Se debe seleciconar aunque sea una tarea de control.");
 	            	}
 	            } else {
-	            	mensajeLeer("Error al leer la duración de días.");
+	            	mensajeLeer("Error al leer la duraciÃ³n de dÃ­as.");
 	            }
 	        }
 	     }); 
