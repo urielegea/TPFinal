@@ -1550,7 +1550,14 @@ public class Sistema extends JFrame {
 	// Retornar una lista con tratamientos con tareas de control sin cumplir.
 	
 	public ArrayList<String> tratamientoSinCumplirLista(ArrayList<Tratamiento>tratamientoLista){
-		return new ArrayList<String>();
+
+		ArrayList<String>  nombreTratamientosSinCumplir = new ArrayList<>();
+		for (Tratamiento tratamiento : tratamientoLista) {
+			if(tratamientoSinCumplir(tratamiento)){
+				nombreTratamientosSinCumplir.add(tratamiento.getToken());
+			}
+		}
+		return nombreTratamientosSinCumplir;
 	}	
 		
 	// Verifica que el String pueda ser parseado a un entero, en caso contrario retorna 0.
