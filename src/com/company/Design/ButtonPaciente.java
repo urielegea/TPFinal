@@ -28,5 +28,5 @@ public class ButtonPaciente extends ButtonEdit{
 
 	public void setPendientes(boolean pendientes) {
 		this.pendientes = pendientes;
-	}		
+	}	
 }

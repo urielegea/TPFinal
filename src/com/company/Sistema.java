@@ -755,7 +755,11 @@ public class Sistema extends JFrame {
 			buttonPaciente.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
-	            	//System.out.print(buttonPaciente.getPaciente().getCuenta());
+	            	if (buttonPaciente.isPendientes()) {
+	            		System.out.print(buttonPaciente.getPaciente().getCuenta() + " Linea 758 " + " Tiene tareas de control sin realizar del dia anterior.");
+	            	} else {
+	            		System.out.print(buttonPaciente.getPaciente().getCuenta() + " Linea 758 " + " No tiene tareas de control sin realizar del dia anterior.");
+	            	}
 	            	//menuAsignarEnfermedadJPane.setVisible(false);
 	            	//configMenuAsignarTDCJPanel(buttonEnfermedad.getEnfermedad().getNombre());
 	            }

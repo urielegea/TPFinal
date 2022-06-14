@@ -46,6 +46,7 @@ public class MenuControlRegistroJPanel extends JPanel{
 			} if (flag) {
 				buttonPaciente.setBackground(Color.RED);
 				buttonPaciente.setHoverBackgroundColor(Color.RED);
+				buttonPaciente.setPendientes(true);
 				
 			} else {
 				buttonPaciente.setBackground(new Color(3, 59, 90));
