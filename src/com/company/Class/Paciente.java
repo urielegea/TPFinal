@@ -1,9 +1,11 @@
 package com.company.Class;
 
+import com.company.Class.Interfaces.IngresarDatosDeControl;
+
 import java.util.Date;
 import java.util.Objects;
 
-public class Paciente extends Usuario{
+public class Paciente extends Usuario implements IngresarDatosDeControl {
 
     private String numeroHistorial;
     
