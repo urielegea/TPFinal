@@ -43,7 +43,7 @@ public class MenuAdministradorJPanel extends JPanel {
 		nuevoPacienteButton.setBounds(60, 160, 360, 40);
 		add(nuevoPacienteButton);	
 		
-		asignarProfesional = new ButtonEdit("Asignar profesional");
+		asignarProfesional = new ButtonEdit("Generar tratamiento");
 		asignarProfesional.setForeground(Color.WHITE);
 		asignarProfesional.setBackground(new Color(3, 59, 90));
 		asignarProfesional.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
@@ -67,7 +67,7 @@ public class MenuAdministradorJPanel extends JPanel {
 		administrarTareaDeControlButton.setBounds(60, 310, 360, 40);
 		add(administrarTareaDeControlButton);
 		
-		cerrarMenuAdministradorButton = new ButtonEdit("Cerrar sesión");
+		cerrarMenuAdministradorButton = new ButtonEdit("Cerrar sesion");
 		cerrarMenuAdministradorButton.setForeground(Color.WHITE);
 		cerrarMenuAdministradorButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuAdministradorButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());

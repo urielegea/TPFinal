@@ -1,26 +1,28 @@
 package com.company.Design;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import com.company.Class.Paciente;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import com.company.Class.Paciente;
+
 @SuppressWarnings("serial")
-public class MenuAsignarPacienteJPanel extends JPanel {
+public class InformarNuevoPacienteJPanel extends JPanel {
 	
 	private ArrayList<ButtonPaciente> pacienteListaButton;	
-	private ButtonEdit volverMenuButton;
+	private ButtonEdit cerrarSesionButton;
+	
+	public InformarNuevoPacienteJPanel(ArrayList<Paciente> pacienteLista) {
 
-	public MenuAsignarPacienteJPanel(ArrayList<Paciente> pacienteLista) {
-		
 		setBackground(SystemColor.menu);		
 		setLayout(null);
 		
-		JLabel lblMenuPaciente = new JLabel("Seleccionar paciente del tratamiento", SwingConstants.CENTER);
+		JLabel lblMenuPaciente = new JLabel("Lista de pacientes nuevos", SwingConstants.CENTER);
 		lblMenuPaciente.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblMenuPaciente.setBounds(0, 34, 484, 46);
 		add(lblMenuPaciente);	
@@ -43,20 +45,20 @@ public class MenuAsignarPacienteJPanel extends JPanel {
 			ubicacion = ubicacion + 50;
 		}	
 		
-		volverMenuButton = new ButtonEdit("Volver al menu");
-		volverMenuButton.setForeground(Color.WHITE);
-		volverMenuButton.setBackground(new Color(3, 59, 90));
-		volverMenuButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
-		volverMenuButton.setPressedBackgroundColor(Color.BLACK);
-		volverMenuButton.setBounds(60, ubicacion, 360, 40);
-		add(volverMenuButton);	
+		cerrarSesionButton = new ButtonEdit("Cerrar sesion");
+		cerrarSesionButton.setForeground(Color.WHITE);
+		cerrarSesionButton.setBackground(new Color(3, 59, 90));
+		cerrarSesionButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
+		cerrarSesionButton.setPressedBackgroundColor(Color.BLACK);
+		cerrarSesionButton.setBounds(60, ubicacion, 360, 40);
+		add(cerrarSesionButton);			
 	}
 
 	public ArrayList<ButtonPaciente> getPacienteListaButton() {
 		return pacienteListaButton;
 	}
 
-	public ButtonEdit getVolverMenuButton() {
-		return volverMenuButton;
-	}	
+	public ButtonEdit getCerrarSesionButton() {
+		return cerrarSesionButton;
+	}
 }

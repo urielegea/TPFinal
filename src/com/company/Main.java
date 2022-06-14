@@ -1,34 +1,30 @@
 package com.company;
 
 import java.awt.EventQueue;
-import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
 import com.company.Class.*;
 import com.company.JSON.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {	
 	
 	public static void main(String[] args) {
 		
-		//cargarAdministradorJSON();
+		cargarAdministradorJSON();		
 		//leerAdministradorJSON();
-		//cargarProfesionalJSON();
+		cargarProfesionalJSON();
 		//leerProfesionalJSON();
-		//cargarPacienteJSON();
+		cargarPacienteJSON();
 		//leerPacienteJSON();
-		//cargarEnfermedadJSON();
+		cargarEnfermedadJSON();
 		//leerEnfermedadJSON();
-		//cargarTareaDeControlJSON();
+		cargarTareaDeControlJSON();
 		//leerTareaDeControlJSON();
-		cargarTratamientoJSON();
+		cargarHistorialMedicoJSON();
+		//leerHistorialMedicoJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -98,8 +94,12 @@ public class Main {
 			e1.printStackTrace();
 		}
 		
+		ArrayList<String> pacienteLista = new ArrayList<String>();
+		pacienteLista.add("jaime@gmail.com");
+		
 		Profesional roberto = new Profesional("Roberto", "Perez","18.365.560","222 674-8532",
-				"roberto@gmail.com","1234", fechaAlta, null);	
+				"roberto@gmail.com","1234", fechaAlta, pacienteLista);		
+		
 		profesionalLista.add(roberto);	
 		
 		Profesional emilio = new Profesional("Emilio", "Sanchez","22.001.258","110 968-8328",
@@ -139,7 +139,7 @@ public class Main {
 		}
 		
 		Paciente jaime = new Paciente("Jaime", "Lopez","27.528.562","112 565-2825",
-				"jaime@gmail.com","1234", fechaAlta, null);	
+				"jaime@gmail.com","1234", fechaAlta, "0000000000");	
 		pacienteLista.add(jaime);
 		
 		Paciente romina = new Paciente("Romina", "Sanchez","18.902.120","223 542-7565",
@@ -170,12 +170,15 @@ public class Main {
 	public static void cargarEnfermedadJSON() {
 
 		ArrayList<Enfermedad> enfermedadLista = new ArrayList<>();
+		
+		ArrayList<String> tareaDeControlLista = new ArrayList<String>();
+		tareaDeControlLista.add("Tomar Presion");
 
-		Enfermedad tos = new Enfermedad("Gripe A", null, "Mucha tos", 2);
-		enfermedadLista.add(tos);
+		Enfermedad enfermedad1 = new Enfermedad("Gripe A", tareaDeControlLista, "Mucha tos", 2);
+		enfermedadLista.add(enfermedad1);
 
-		Enfermedad fiebre = new Enfermedad("Covid", null, "Fiebre de mas de 38 grados, contagioso", 6);
-		enfermedadLista.add(fiebre);
+		Enfermedad enfermedad2 = new Enfermedad("Covid", null, "Fiebre de mas de 38 grados, contagioso", 6);
+		enfermedadLista.add(enfermedad2);
 
 		try {
 			EnfermedadJSON enfermedadJSON = new EnfermedadJSON();
@@ -204,19 +207,14 @@ public class Main {
 		
 		DecimalTDC decimal1 = new DecimalTDC("Temperatura:");
 		EnteroTDC entero1 = new EnteroTDC("Presion:");
-		VerdaderoFalsoTDC verdaderoFalso1 = new VerdaderoFalsoTDC("Fiebre:");
 
 		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
-													"Observaci�n de temperatura.", decimal1);
+													"Observacion de temperatura.", decimal1);
 		
 		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
-														"Se toma la presi�n.",entero1);
-		
-		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar Fiebre",false,
-														"Se comprueba la fiebre.",verdaderoFalso1);
+														"Se toma la presion.",entero1);		
 		tdcLista.add(tareaDeControl1);
 		tdcLista.add(tareaDeControl2);
-		tdcLista.add(tareaDeControl3);
 
 		try {
 			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();
@@ -239,21 +237,35 @@ public class Main {
 		}
 	}
 
-	public static void cargarTratamientoJSON(){
-
+	public static void cargarHistorialMedicoJSON(){
+		
+		ArrayList<HistorialMedico> historialMedicoLista = new ArrayList<HistorialMedico>();
+		
 		ArrayList<Tratamiento> tratamientoLista = new ArrayList<>();
-		Date diaInicial = new Date();
-		Date diaFinal = new Date();
+		Tratamiento tratamiento = new Tratamiento("1111111111","Gripe A","roberto@gmail.com");
+		tratamientoLista.add(tratamiento);
 
-		Tratamiento tratamiento1 = new Tratamiento("Controlar fiebre","Covid",14,
-											diaInicial, diaFinal, null, "matias@gmail.com");
-
-		tratamientoLista.add(tratamiento1);
+		HistorialMedico historialMedico = new HistorialMedico("0000000000", tratamientoLista);
+		historialMedicoLista.add(historialMedico);
+		
 		try {
-			TratamientoJSON tratamientoJSON = new TratamientoJSON();
-			tratamientoJSON.cargarJSON(tratamientoLista);
+			HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+			historialMedicoJSON.cargarJSON(historialMedicoLista);
 		} catch (IOException e) {
 			System.out.print(e.toString());
+		}
+	}
+	
+	public static void leerHistorialMedicoJSON(){
+		try {
+			HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+			HashMap<String,HistorialMedico> historialMedicoHashMap = historialMedicoJSON.leerJSON();
+			for (HashMap.Entry<String, HistorialMedico> obj : historialMedicoHashMap.entrySet()) {
+				HistorialMedico historialMedico = obj.getValue();
+				System.out.println(historialMedico.toString());
+			}
+		} catch (IOException e1) {
+			System.out.print(e1.toString());
 		}
 	}
 }

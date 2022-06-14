@@ -10,7 +10,7 @@ public interface AsignarProfesional {
 
     public default Profesional asignarProfesional(String cuentaProfesional, String cuentaPaciente, HashMap<String, Usuario> usuarioHashMap ){
         Profesional auxProfesional = (Profesional) usuarioHashMap.get(cuentaProfesional);
-        if(auxProfesional.getPacienteLista()!=null){
+        if(auxProfesional.getPacienteLista() != null){
             boolean flag = false;
             for (String s: auxProfesional.getPacienteLista()){
                 if(s.compareTo(cuentaPaciente)==0){

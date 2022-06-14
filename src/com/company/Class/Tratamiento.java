@@ -1,6 +1,5 @@
 package com.company.Class;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,10 +11,22 @@ public class Tratamiento {
     private Date diaInicial;
     private Date diaFinal;
     private ArrayList<ControlDiario> controlDiarioLista;
+	private ArrayList<TareaDeControl> tareaDeControlListado;
 	private String profesionalCuenta;
+	
+	public Tratamiento() {
+		
+	}
+	
+    public Tratamiento(String token, String enfermedadNombre, String profesionalCuenta) {
+		this.token = token;
+		this.enfermedadNombre = enfermedadNombre;
+		this.profesionalCuenta = profesionalCuenta;
+	}
 
     public Tratamiento(String token, String enfermedadNombre, int duracionDias, Date diaInicial,
-					   Date diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta) {
+					   Date diaFinal, ArrayList<ControlDiario> controlDiarioLista, String profesionalCuenta,
+					   ArrayList<TareaDeControl> tareaDeControlListado) {
 		this.token = token;
 		this.enfermedadNombre = enfermedadNombre;
 		this.duracionDias = duracionDias;
@@ -23,6 +34,7 @@ public class Tratamiento {
 		this.diaFinal = diaFinal;
 		this.controlDiarioLista = controlDiarioLista;
 		this.profesionalCuenta = profesionalCuenta;
+		this.tareaDeControlListado = tareaDeControlListado;
 	}
 
     public String getToken() {
@@ -79,6 +91,14 @@ public class Tratamiento {
 
 	public void setProfesionalCuenta(String profesionalCuenta) {
 		this.profesionalCuenta = profesionalCuenta;
+	}
+
+	public ArrayList<TareaDeControl> getTareaDeControlListado() {
+		return tareaDeControlListado;
+	}
+
+	public void setTareaDeControlListado(ArrayList<TareaDeControl> tareaDeControlListado) {
+		this.tareaDeControlListado = tareaDeControlListado;
 	}
 
 	@Override

@@ -1,10 +1,12 @@
 package com.company.Class;
 
+import com.company.Class.Interfaces.AdministrarTratamiento;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class Profesional extends Usuario{
+public class Profesional extends Usuario implements AdministrarTratamiento {
 
     private ArrayList<String> pacienteLista;
     
