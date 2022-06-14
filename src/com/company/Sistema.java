@@ -197,7 +197,9 @@ public class Sistema extends JFrame {
 		cerrarMenuAdministradorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("cerrarMenuAdministradorButton...");
+            	usuarioActivo = null;
+            	menuAdministradorPane.setVisible(false);
+            	loginPane.setVisible(true);
             }
         }); 		
 		contentPane.add(menuAdministradorPane);
@@ -502,7 +504,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {     
             	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
-            		mensajeLeer("Se asigno la tarea de control con éxito.");
+            		mensajeLeer("Se asigno la tarea de control con Ã©xito.");
             		menuAsignarTDCJPane.setVisible(false);
             		administrarEnfermedadesJPane.setVisible(true);
             	} else {
@@ -560,7 +562,7 @@ public class Sistema extends JFrame {
             		
             		if (nuevaTareaDeControl(generarTareaDeControlJPane.getNombre(), false, generarTareaDeControlJPane.getObservacion(), estructuraTDC)) { 
 
-                		mensajeLeer("Se ha generado la tarea de control con éxito.");
+                		mensajeLeer("Se ha generado la tarea de control con Ã©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarTareaDeControlJPane.setVisible(false);
                 		
@@ -948,16 +950,6 @@ public class Sistema extends JFrame {
 			}
 		}
 		return flag;
-	}
-
-	public ArrayList<String> tareaDeControlLiberadas(String nombreEnfermedad){
-		ArrayList<String> tareaDeControlListaLibre = new ArrayList<String>();
-		if(usuarioActivo instanceof Administrador){
-			Administrador admin = (Administrador) usuarioActivo;
-			Enfermedad enfermedad = enfermedadesHashMap.get(nombreEnfermedad);
-			tareaDeControlListaLibre = admin.retornarTareasDeControlLibre(getListaTareaDeControl(),enfermedad);
-		}
-		return tareaDeControlListaLibre;
 	}
 	
 	/*public ArrayList<String> tareaDeControlLiberadas(String nombreEnfermedad){

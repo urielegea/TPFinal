@@ -65,9 +65,6 @@ public class LoginJPanel extends JPanel {
 		resetButton.setPressedBackgroundColor(Color.BLACK);
 		resetButton.setBounds(257, 340, 180, 40);
 		add(resetButton);
-		
-		userField.setText("matias@gmail.com");
-		passwordField.setText("1234");
 	}
 
 	public JTextField getUserField() {

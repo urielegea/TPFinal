@@ -41,7 +41,7 @@ public class MenuProfesionalJPanel extends JPanel {
 		controlRegistroDePacientes.setBounds(60, 160, 360, 40);
 		add(controlRegistroDePacientes);	
 		
-		finalizarPlanesDeControl = new ButtonEdit("Administrar enfermedades");
+		finalizarPlanesDeControl = new ButtonEdit("Finalizar plan de control");
 		finalizarPlanesDeControl.setForeground(Color.WHITE);
 		finalizarPlanesDeControl.setBackground(new Color(3, 59, 90));
 		finalizarPlanesDeControl.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
