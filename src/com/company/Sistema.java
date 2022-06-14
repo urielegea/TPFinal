@@ -1580,4 +1580,56 @@ public class Sistema extends JFrame {
 	public void mensajeLeer(String mensaje) {
 		System.out.println(mensaje);
 	}
+
+    //********************ESTO FUE CULPA DE GASPAR, OJITO EH***********************
+
+
+	//Metodo para introducir en el tratamiento del historial el control diario NUEVO.
+    public boolean actualizarHistorialMedico(Tratamiento tratamiento) {
+        boolean flag = false;
+        if(usuarioActivo instanceof Paciente){
+            Paciente paciente = (Paciente) usuarioActivo;
+            ControlDiario controlDiarioNuevo = paciente.retornarControlDiarioTratamiento(tratamiento,new Date());
+			boolean flog = controlDiarioExiste(controlDiarioNuevo, tratamiento.getControlDiarioLista());
+            if(!flog){
+
+				HistorialMedico historialMedico = cargarControlDiarioInHistorialMedico(paciente, controlDiarioNuevo, tratamiento.getToken());
+                try{
+					historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);
+					ArrayList<HistorialMedico> historialMedicoLista = getListaHistorialMedico();
+					HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+					historialMedicoJSON.cargarJSON(historialMedicoLista);
+                    flag = true;
+                }catch (IOException e){
+                    mensajeLeer(e.toString());
+                }
+            }
+        }
+        return flag;
+    }
+
+	//Metodo complementario para verificar si dicho control diario no existe en el tratamiento
+	public boolean controlDiarioExiste(ControlDiario controlDiarioNuevo, ArrayList<ControlDiario> controlDiarioLista){
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		for(ControlDiario controlDiario : controlDiarioLista) {
+			if (format.format(controlDiario.getFecha()).compareTo(format.format(controlDiarioNuevo.getFecha())) == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//Metodo complementario para cargar el control diario NUEVO en la lista de controles diarios del tratamiento del paciente.
+	public HistorialMedico cargarControlDiarioInHistorialMedico(Paciente paciente, ControlDiario controlDiarioNuevo, String tokenTratamiento){
+		HistorialMedico historialMedicoActualizado = historialMedicoHashMap.get(paciente.getNumeroHistorial());
+		ArrayList<Tratamiento> auxTratamiento = new ArrayList<Tratamiento>();
+		for(Tratamiento tratamiento : historialMedicoActualizado.getTratamientoLista()){
+			if(tratamiento.getToken().compareTo(tokenTratamiento) == 0){
+				tratamiento.getControlDiarioLista().add(controlDiarioNuevo);
+			}
+			auxTratamiento.add(tratamiento);
+		}
+		historialMedicoActualizado.setTratamientoLista(auxTratamiento);
+		return historialMedicoActualizado;
+	}
 }
