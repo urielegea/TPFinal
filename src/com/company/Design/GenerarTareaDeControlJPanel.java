@@ -57,7 +57,7 @@ public class GenerarTareaDeControlJPanel extends JPanel {
 		nombreTextField.setBounds(10, 40, 408, 30);
 		panel_1.add(nombreTextField);
 		
-		observacionLabel = new JLabel("Observaci\u00F3n de la tarea de control:");
+		observacionLabel = new JLabel("Observacion de la tarea de control:");
 		observacionLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		observacionLabel.setBounds(10, 70, 408, 30);
 		panel_1.add(observacionLabel);
@@ -68,7 +68,7 @@ public class GenerarTareaDeControlJPanel extends JPanel {
 		observacionTextField.setBounds(10, 100, 408, 30);
 		panel_1.add(observacionTextField);
 		
-		descripcionAccionLabel = new JLabel("Acci\u00F3n de la tarea de control:");
+		descripcionAccionLabel = new JLabel("Accion de la tarea de control:");
 		descripcionAccionLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		descripcionAccionLabel.setBounds(10, 130, 408, 30);
 		panel_1.add(descripcionAccionLabel);

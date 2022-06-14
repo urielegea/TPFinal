@@ -23,7 +23,7 @@ public class LoginJPanel extends JPanel {
 		setBackground(SystemColor.menu);
 		setLayout(null);
 		
-		JLabel tittleLabel = new JLabel("Iniciar sesi\u00F3n", SwingConstants.CENTER);
+		JLabel tittleLabel = new JLabel("Iniciar sesion", SwingConstants.CENTER);
 		tittleLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		tittleLabel.setBounds(0, 34, 484, 46);
 		add(tittleLabel);
@@ -33,7 +33,7 @@ public class LoginJPanel extends JPanel {
 		userLabel.setBounds(52, 146, 116, 30);
 		add(userLabel);
 		
-		JLabel passwordLabel = new JLabel("Contrase\u00F1a:");
+		JLabel passwordLabel = new JLabel("Clave:");
 		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passwordLabel.setBounds(52, 206, 131, 30);
 		add(passwordLabel);
@@ -50,7 +50,7 @@ public class LoginJPanel extends JPanel {
 		add(passwordField);
 		passwordField.setColumns(10);
 		
-		loginButton = new ButtonEdit("Iniciar sesi\u00F3n");
+		loginButton = new ButtonEdit("Iniciar sesion");
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setBackground(new Color(3, 59, 90));
 		loginButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());

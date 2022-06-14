@@ -9,8 +9,7 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class MenuProfesionalJPanel extends JPanel {
-	
-	private ButtonEdit asignarPlanesDeControl;	
+
 	private ButtonEdit controlRegistroDePacientes;
 	private ButtonEdit finalizarPlanesDeControl;
 	private ButtonEdit cerrarMenuProfesionalButton;
@@ -24,42 +23,30 @@ public class MenuProfesionalJPanel extends JPanel {
 		lblMenuPaciente.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblMenuPaciente.setBounds(0, 34, 484, 46);
 		add(lblMenuPaciente);
-	
-		asignarPlanesDeControl = new ButtonEdit("Asignar plan de control");
-		asignarPlanesDeControl.setForeground(Color.WHITE);
-		asignarPlanesDeControl.setBackground(new Color(3, 59, 90));
-		asignarPlanesDeControl.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
-		asignarPlanesDeControl.setPressedBackgroundColor(Color.BLACK);
-		asignarPlanesDeControl.setBounds(60, 110, 360, 40);
-		add(asignarPlanesDeControl);	
 		
 		controlRegistroDePacientes = new ButtonEdit("Control de registro de pacientes");
 		controlRegistroDePacientes.setForeground(Color.WHITE);
 		controlRegistroDePacientes.setBackground(new Color(3, 59, 90));
 		controlRegistroDePacientes.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		controlRegistroDePacientes.setPressedBackgroundColor(Color.BLACK);
-		controlRegistroDePacientes.setBounds(60, 160, 360, 40);
+		controlRegistroDePacientes.setBounds(60, 110, 360, 40);
 		add(controlRegistroDePacientes);	
 		
-		finalizarPlanesDeControl = new ButtonEdit("Finalizar plan de control");
+		finalizarPlanesDeControl = new ButtonEdit("Finalizar planes de control");
 		finalizarPlanesDeControl.setForeground(Color.WHITE);
 		finalizarPlanesDeControl.setBackground(new Color(3, 59, 90));
 		finalizarPlanesDeControl.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		finalizarPlanesDeControl.setPressedBackgroundColor(Color.BLACK);
-		finalizarPlanesDeControl.setBounds(60, 210, 360, 40);
+		finalizarPlanesDeControl.setBounds(60, 160, 360, 40);
 		add(finalizarPlanesDeControl);	
 		
-		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesión");
+		cerrarMenuProfesionalButton = new ButtonEdit("Cerrar sesion");
 		cerrarMenuProfesionalButton.setForeground(Color.WHITE);
 		cerrarMenuProfesionalButton.setBackground(new Color(3, 59, 90));
 		cerrarMenuProfesionalButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cerrarMenuProfesionalButton.setPressedBackgroundColor(Color.BLACK);
-		cerrarMenuProfesionalButton.setBounds(60, 260, 360, 40);
+		cerrarMenuProfesionalButton.setBounds(60, 210, 360, 40);
 		add(cerrarMenuProfesionalButton);
-	}
-
-	public ButtonEdit getAsignarPlanesDeControl() {
-		return asignarPlanesDeControl;
 	}
 
 	public ButtonEdit getControlRegistroDePacientes() {

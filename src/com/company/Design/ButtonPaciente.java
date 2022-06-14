@@ -6,10 +6,12 @@ import com.company.Class.Paciente;
 public class ButtonPaciente extends ButtonEdit{
 
 	private Paciente paciente;
+	private boolean pendientes;
 	
 	public ButtonPaciente(Paciente paciente){
 		super();
 		this.paciente = paciente;
+		this.pendientes = false;
 	}
 
 	public Paciente getPaciente() {
@@ -18,5 +20,13 @@ public class ButtonPaciente extends ButtonEdit{
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+
+	public boolean isPendientes() {
+		return pendientes;
+	}
+
+	public void setPendientes(boolean pendientes) {
+		this.pendientes = pendientes;
 	}	
 }
