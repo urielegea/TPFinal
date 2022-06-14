@@ -1261,6 +1261,7 @@ public class Sistema extends JFrame {
 			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
 			ArrayList<TareaDeControl> tareaDeControlListado = new ArrayList<TareaDeControl>() ;
 			for(TareaDeControl t : getListaTareaDeControl()){
+				flog = false;
 				for(String s : tareaDeControlLista) {
 					if (t.getNombre().compareTo(s)==0){
 						flog=true;
