@@ -19,10 +19,6 @@ public class MenuControlRegistroJPanel extends JPanel{
 	
 	public MenuControlRegistroJPanel(ArrayList<Paciente> pacienteLista, ArrayList<String> pacienteSinCumplirLista) {
 		
-		for (String paciente : pacienteSinCumplirLista) {
-			System.out.print(paciente);
-		}
-		
 		setBackground(SystemColor.menu);		
 		setLayout(null);
 		

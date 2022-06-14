@@ -22,7 +22,7 @@ public class Sistema extends JFrame {
 
 	private JPanel contentPane;
 
-	// Perfil todos
+	// Perfil administrador - profesional - paciente.
 	private LoginJPanel loginPane;
 	private ButtonEdit loginButton;
 	private ButtonEdit loginResetButton;
@@ -255,7 +255,9 @@ public class Sistema extends JFrame {
 		cerrarMenuProfesionalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("cerrarMenuProfesionalButton...");
+            	usuarioActivo = null;
+            	menuProfesionalPane.setVisible(false);
+            	loginPane.setVisible(true);
             }
         }); 		
 		contentPane.add(menuProfesionalPane);
@@ -299,7 +301,8 @@ public class Sistema extends JFrame {
                 	
                 	if (nuevoProfesional(generarProfesionalJPane.getNombre(), generarProfesionalJPane.getApellido(), generarProfesionalJPane.getDni(), 
                 			generarProfesionalJPane.getTelefono(), generarProfesionalJPane.getCuenta(), generarProfesionalJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el profesional con ?xito.");
+                		
+                		mensajeLeer("Se ha generado el profesional con exito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarProfesionalJPane.setVisible(false);
                 		
@@ -428,7 +431,7 @@ public class Sistema extends JFrame {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
 		            	if(asignarProfesionalEnfermedadTratamiento(cuentaPaciente, cuentaProfesional, buttonEnfermedad.getEnfermedad().getNombre())) {
-			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con éxito.");
+			        		mensajeLeer("Se asigno al paciente un profesional y un nuevo tratamiento con su enfermedad con exito.");
 			        		menuAsignarEnfermedadTratamientoJPanel.setVisible(false);
 			        		menuAdministradorPane.setVisible(true);
 		        		} else {
@@ -496,10 +499,10 @@ public class Sistema extends JFrame {
             		int duracionDias = controEntero(generarEnfermedadJPane.getDuracionDias());
             		
             		if (duracionDias < 1){
-            			mensajeLeer("Error al cargar los dias de duraci?n de la enfermedad.");
+            			mensajeLeer("Error al cargar los dias de duracion de la enfermedad.");
             		} else {
     	            	if(nuevaEnfermedad(generarEnfermedadJPane.getNombre(), generarEnfermedadJPane.getDescripcion(), duracionDias)) {
-    	            		mensajeLeer("Se genero una nueva enfermedad con ?xito.");
+    	            		mensajeLeer("Se genero una nueva enfermedad con exito.");
     	            		generarEnfermedadJPane.setVisible(false);
     	            		administrarEnfermedadesJPane.setVisible(true);
     	            	} else {
@@ -557,7 +560,7 @@ public class Sistema extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {     
             	if (asignarTareaDeControlEnfermedad(nombreEnfermedad, menuAsignarTDCJPane.getAsignarTDCLista())) {
-            		mensajeLeer("Se asigno la tarea de control con éxito.");
+            		mensajeLeer("Se asigno la tarea de control con exito.");
             		menuAsignarTDCJPane.setVisible(false);
             		administrarEnfermedadesJPane.setVisible(true);
             	} else {
@@ -613,7 +616,7 @@ public class Sistema extends JFrame {
             		
             		if (nuevaTareaDeControl(generarTareaDeControlJPane.getNombre(), false, generarTareaDeControlJPane.getObservacion(), estructuraTDC)) { 
 
-                		mensajeLeer("Se ha generado la tarea de control con Ã©xito.");
+                		mensajeLeer("Se ha generado la tarea de control con exito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarTareaDeControlJPane.setVisible(false);
                 		
@@ -699,8 +702,6 @@ public class Sistema extends JFrame {
 		tratamientoEditarJPane.setVisible(true);	
 	}
 	
-	// Vista para completar el tratamiento pendiente.
-	
 	public void configCompletarTratamiento(String nombreEnfermedad, String cuentaPaciente, String tokenTratamiento) {		
 		int duracionDias = enfermedadesHashMap.get(nombreEnfermedad).getDuracionDias();
 		ArrayList<String> tareaDeControlEnfermedadNombreLista = enfermedadesHashMap.get(nombreEnfermedad).getTareaDeControlLista();
@@ -716,7 +717,7 @@ public class Sistema extends JFrame {
 	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();	            	
 	            	if (!tareaDeControlLista.isEmpty()) {
 						if (actualizarTratamiento(cuentaPaciente, tokenTratamiento, diasDuracion, tareaDeControlLista, new Date())) {
-	                		mensajeLeer("Se actualizo el tratamiento con éxito.");
+	                		mensajeLeer("Se actualizo el tratamiento con exito.");
 	                		completarTratamientoJPane.setVisible(false);
 	                		iniciarSesionProfesional();
 	                	} else {
@@ -726,7 +727,7 @@ public class Sistema extends JFrame {
 	            		mensajeLeer("Se debe seleciconar aunque sea una tarea de control.");
 	            	}
 	            } else {
-	            	mensajeLeer("Error al leer la duración de días.");
+	            	mensajeLeer("Error al leer la duracion de dias.");
 	            }
 	        }
 	     }); 
@@ -745,7 +746,7 @@ public class Sistema extends JFrame {
 	
 	public void configMenuControlRegistroJPanel(){
 		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();
-		ArrayList<String> pacienteSinCumplirLista = pacienteSinCumplirLista();
+		ArrayList<String> pacienteSinCumplirLista = pacienteSinCumplirLista(pacienteLista);
 		menuControlRegistroJPane = new MenuControlRegistroJPanel(pacienteLista, pacienteSinCumplirLista);
 		menuControlRegistroJPane.setBounds(0, 0, 484, 461);		
 		pacienteRegistroListaButton = menuControlRegistroJPane.getPacienteListaButton();		
@@ -753,7 +754,7 @@ public class Sistema extends JFrame {
 			buttonPaciente.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
-	            	System.out.print(buttonPaciente.getPaciente().getCuenta());
+	            	//System.out.print(buttonPaciente.getPaciente().getCuenta());
 	            	//menuAsignarEnfermedadJPane.setVisible(false);
 	            	//configMenuAsignarTDCJPanel(buttonEnfermedad.getEnfermedad().getNombre());
 	            }
@@ -770,10 +771,8 @@ public class Sistema extends JFrame {
 		contentPane.add(menuControlRegistroJPane);
 		menuControlRegistroJPane.setVisible(true);	
 	}
-		
-	/* ============================================================================================================================== */
-	/* ============================================================================================================================== */
-	/* ============================================================================================================================== */
+	
+	// Carga los usuarios administradores, profesionales y los pacientes, dentro del hashMap de usuarios.
 	
 	public void cargarUsuarios() {		
 		HashMap<String,Usuario> usuariosHashMap = new HashMap<String,Usuario>();
@@ -801,6 +800,8 @@ public class Sistema extends JFrame {
 		this.usuariosHashMap = usuariosHashMap;
 	}
 	
+	// Retorna un hashMap con los administradores dentro del JSON.
+	
 	public HashMap<String,Administrador> leerAdministradorJSON() {
 		try {			
 			AdministradorJSON administradorJSON =  new AdministradorJSON();
@@ -810,6 +811,8 @@ public class Sistema extends JFrame {
 			return null;			
 		}
 	}
+	
+	// Retorna un hashMap con los profesionales dentro del JSON.
 	
 	public HashMap<String,Profesional> leerProfesionalJSON() {
 		try {			
@@ -821,6 +824,8 @@ public class Sistema extends JFrame {
 		}
 	}
 	
+	// Retorna un hashMap con los pacientes dentro del JSON.
+	
 	public HashMap<String,Paciente> leerPacienteJSON() {
 		try {			
 			PacienteJSON pacienteJSON =  new PacienteJSON();
@@ -830,6 +835,8 @@ public class Sistema extends JFrame {
 			return null;			
 		}
 	}
+	
+	// Carga las enfermedades dentro del hashMap del mismo.
 
 	public void cargarEnfermedades(){
 		HashMap<String,Enfermedad> enfermedadesHashMap = leerEnfermedadJSON();
@@ -841,6 +848,8 @@ public class Sistema extends JFrame {
 		}
 		this.enfermedadesHashMap = enfermedadesHashMap;
 	}
+	
+	// Retorna un hashMap con las enfermedades dentro del JSON.
 
 	public HashMap<String, Enfermedad> leerEnfermedadJSON(){
 		try{
@@ -852,6 +861,8 @@ public class Sistema extends JFrame {
 		}
 	}
 	
+	// Carga las tareas de control dentro del hashMap del mismo.
+	
 	public void cargarTareasDeControl(){
 		HashMap<String, TareaDeControl> tareaDeControlHashMap = leerTareaDeControlJSON();
 		if(tareaDeControlHashMap != null){
@@ -862,6 +873,8 @@ public class Sistema extends JFrame {
 		}
 		this.tareaDeControlHashMap = tareaDeControlHashMap;
 	}
+	
+	// Retorna un hashMap con las tareas de control dentro del JSON.
 
 	public HashMap<String, TareaDeControl> leerTareaDeControlJSON(){
 		try {
@@ -872,6 +885,8 @@ public class Sistema extends JFrame {
 			return null;
 		}
 	}
+	
+	// Carga el usuario ingresado en caso correcto en el atributo usuarioActivo, luego lo redirige a su perfil.
 	
 	public boolean iniciarSesion(String cuenta, String clave){		
 		Usuario usuario = buscarUsuario(cuenta, clave);	
@@ -895,6 +910,8 @@ public class Sistema extends JFrame {
 		}
 		return flag;		
 	}
+	
+	// Retorna el usuario buscado, en caso contrario retorna nulo.
 			
 	public Usuario buscarUsuario(String cuenta, String clave){
 		Usuario usuario = null;
@@ -910,6 +927,8 @@ public class Sistema extends JFrame {
 		return usuario;
 	}
 	
+	// Retorna una lista de usuarios profesionales cargados en el hashMap de usuarios.
+	
 	public ArrayList<Profesional> getListaProfesional(){
 		ArrayList<Profesional> profesionalLista = new ArrayList<Profesional>();
 		for (Usuario usuario : this.usuariosHashMap.values()) {
@@ -920,6 +939,8 @@ public class Sistema extends JFrame {
 		}
 		return profesionalLista;
 	}
+	
+	// Retorna una lista de usuarios administradores cargados en el hashMap de usuarios.
 
 	public ArrayList<Administrador> getListaAdministrador(){
 		ArrayList<Administrador> adminLista = new ArrayList<Administrador>();
@@ -931,6 +952,8 @@ public class Sistema extends JFrame {
 		}
 		return adminLista;
 	}
+	
+	// Retorna una lista de enfermedades cargados en el hashMap de enfermedades.
 
 	public ArrayList<Enfermedad> getListaEnfermedad(){
 		ArrayList<Enfermedad> enfermedadLista = new ArrayList<Enfermedad>();
@@ -940,6 +963,8 @@ public class Sistema extends JFrame {
 		return enfermedadLista;
 	}
 	
+	// Retorna una lista de tareas de control cargados en el hashMap de tareas de control.
+	
 	public ArrayList<TareaDeControl> getListaTareaDeControl(){
 		ArrayList<TareaDeControl> tareaDeControlLista = new ArrayList<TareaDeControl>();
 		for(TareaDeControl tareaDeControl : this.tareaDeControlHashMap.values()){
@@ -947,6 +972,8 @@ public class Sistema extends JFrame {
 		}
 		return tareaDeControlLista;
 	}
+	
+	// Genera un nuevo profesional y retorna verdadero en caso de que se haga guardado correctamente en el hashmap y JSON del mismo.
 	
 	public boolean nuevoProfesional(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
@@ -969,6 +996,8 @@ public class Sistema extends JFrame {
 		return flag;
 	}
 	
+	// Retorna una lista de pacientes cargados en el hashMap de pacientes.
+	
 	public ArrayList<Paciente> getListaPaciente(){
 		ArrayList<Paciente> pacienteLista = new ArrayList<Paciente>();
 		for (Usuario usuario : this.usuariosHashMap.values()) {
@@ -979,6 +1008,8 @@ public class Sistema extends JFrame {
 		}
 		return pacienteLista;
 	}
+	
+	// Genera un nuevo paciente, lo agrega al hashMap de usuarios y luego lo guarda en el JSON.
 
 	public boolean nuevoPaciente(String nombre, String apellido, String dni, String telefono, String cuenta, String clave, Date fechaAlta) {
 		boolean flag = false;
@@ -1001,6 +1032,8 @@ public class Sistema extends JFrame {
 		return flag;
 	}	
 	
+	// Retorna un hashMap con los historiales medicos del JSON.
+	
 	public HashMap<String, HistorialMedico> leerHistorialMedicoJSON(){
 		try {			
 			HistorialMedicoJSON historialMedicoJSON =  new HistorialMedicoJSON();
@@ -1010,6 +1043,8 @@ public class Sistema extends JFrame {
 			return null;			
 		}
 	}
+	
+	// Carga el historial medico en el atributo de la clase historialMedicoHashMap.
 		
 	public void cargarHistorialMedico(){
 		HashMap<String, HistorialMedico> historialMedicoHashMap = leerHistorialMedicoJSON();
@@ -1022,6 +1057,8 @@ public class Sistema extends JFrame {
 		this.historialMedicoHashMap = historialMedicoHashMap;
 	}
 	
+	// Retorna una lista de enfermedades que no esten siendo tratadas actualmente en un paciente.
+	
 	public ArrayList<Enfermedad> enfermedadLiberadas(String cuentaPaciente){					
 		ArrayList<Enfermedad> enfermedadListaLibre = new ArrayList<Enfermedad>();
 		if(usuarioActivo instanceof Administrador){
@@ -1033,6 +1070,8 @@ public class Sistema extends JFrame {
 		return enfermedadListaLibre;	
 	}
 	
+	// Retorna si es posible el historial medico de un paciente enviado por parametro.
+	
 	public HistorialMedico getHistorialMedicoPaciente(Paciente paciente) {
 		HistorialMedico historialMedico = null;		
 		if (paciente.getNumeroHistorial() != null) {
@@ -1041,13 +1080,17 @@ public class Sistema extends JFrame {
 		return historialMedico;
 	}
 	
+	// Asigna el paciente al profesional y genera el tratamiento con el profesional y la enfermedad. En caso correcto retorna verdadero, en caso contrario falso.
+	
 	public boolean asignarProfesionalEnfermedadTratamiento(String cuentaPaciente, String cuentaProfesional, String nombreEnfermedad){		
 		boolean flag = false;		
 		if (asignarProfesional(cuentaPaciente, cuentaProfesional) && asignarEnfermedadTratamiento(cuentaPaciente, nombreEnfermedad, cuentaProfesional)) {
 			flag = true;
 		}		
 		return flag;
-	}		
+	}
+	
+	// Asigna un nuevo paciente al profesional, lo guarda en el hashmap y JSON del mismo, y retorna verdadero si todo salio correcto.
 
 	public boolean asignarProfesional(String cuentaPaciente, String cuentaProfesional) {
 		boolean flag = false;
@@ -1112,6 +1155,8 @@ public class Sistema extends JFrame {
 		return flag;
 	}
 	
+	// Retorna una lista del historial medico.
+	
 	public ArrayList<HistorialMedico> getListaHistorialMedico(){
 		ArrayList<HistorialMedico> historialMedicoLista = new ArrayList<HistorialMedico>();
 		for (HistorialMedico historialMedico : this.historialMedicoHashMap.values()) {
@@ -1119,6 +1164,8 @@ public class Sistema extends JFrame {
 		}
 		return historialMedicoLista;
 	}
+	
+	// Genera una nueva enfermedad en el hashmap y JSON del mismo, y retorna verdadero si todo salio correcto o falso en caso contrario.
 	
 	public boolean nuevaEnfermedad(String nombre, String descripcion, int duracionDias) {
 		boolean flag = false;
@@ -1140,6 +1187,8 @@ public class Sistema extends JFrame {
  		}
 		return flag;
 	}
+	
+	// Actualiza la ultima sesion del usuario activo.
 
 	public void actualizarUltimaSesion(){
 		if (usuarioActivo instanceof Administrador){
@@ -1153,6 +1202,8 @@ public class Sistema extends JFrame {
 		}
 	}
 
+	// Actualiza la ultima sesion del administrador activo.
+	
 	public void actualizarUltimaSesionAdministrador(){
 		if(usuarioActivo!=null){
 			try{
@@ -1165,6 +1216,8 @@ public class Sistema extends JFrame {
 			}
 		}
 	}
+	
+	// Actualiza la ultima sesion del profesional activo.
 
 	public void actualizarUltimaSesionProfesional(){
 		usuarioActivo.setUltimaSesion(new Date());
@@ -1180,8 +1233,10 @@ public class Sistema extends JFrame {
 		}
 	}
 	
+	// Actualiza la ultima sesion del paciente activo.
+	
 	public void actualizarUltimaSesionPaciente(){
-		if(usuarioActivo!=null){
+		if(usuarioActivo != null){
 			try{
 				usuariosHashMap.put(usuarioActivo.getCuenta(),usuarioActivo);
 				ArrayList<Paciente> pacienteLista = getListaPaciente();
@@ -1192,6 +1247,8 @@ public class Sistema extends JFrame {
 			}
 		}
 	}
+	
+	// Asigna una o mas tareas de control al hashmap de enfermedades y al JSON del mismo.
 	
 	public boolean asignarTareaDeControlEnfermedad(String nombreEnfermedad, ArrayList<String> nombreTareaDeControl) {
 		boolean flag = false;
@@ -1213,6 +1270,8 @@ public class Sistema extends JFrame {
 		return flag;
 	}
 	
+	// Genera una nueva tarea de control y la guarda en el hashmap de tareas de control y en el JSON del mismo.
+	
 	public boolean nuevaTareaDeControl(String nombre, boolean accion, String observacion, EstructuraTDC estructuraTDC) {
 		boolean flag = false;
 		if(usuarioActivo instanceof Administrador){
@@ -1233,6 +1292,8 @@ public class Sistema extends JFrame {
 		}
 		return flag;
 	}
+	
+	// Retorna una lista de los nombres de las tareas de control no asignadas a la enfermedad enviada por parametro.
 	
 	public ArrayList<String> tareaDeControlLiberadas(String nombreEnfermedad){
 		ArrayList<String> tareaDeControlListaLibre = new ArrayList<String>();
@@ -1340,10 +1401,35 @@ public class Sistema extends JFrame {
 	
 	// Retorna los pacientes que tenga el tratamiento con las tareas del dia anterior sin cumplir.
 	
-	public ArrayList<String> pacienteSinCumplirLista(){
-		return new ArrayList<String>();
+	public ArrayList<String> pacienteSinCumplirLista(ArrayList<Paciente> pacienteTratamientolLista){
+		
+		ArrayList<String> pacienteSinCumplirLista = new ArrayList<String>();
+		
+		for (Paciente paciente : pacienteTratamientolLista) {			
+			HistorialMedico historialMedico = historialMedicoHashMap.get(paciente.getNumeroHistorial());			
+			if (historialMedico != null) {
+				boolean flag = false;
+				for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {					
+					if (!flag) {
+						if (tratamientoSinCumplir(tratamiento)) {
+							pacienteSinCumplirLista.add(paciente.getCuenta());	
+							flag = true;
+						}	
+					}
+				}
+			}	
+		}		
+		return pacienteSinCumplirLista;
+	}
+	
+	// Retorna true si el tratamiento tiene tareas del dia anterio sin completar.
+	
+	public boolean tratamientoSinCumplir (Tratamiento tratamiento) {
+		return true;
 	}
 		
+	// Verifica que el String pueda ser parseado a un entero, en caso contrario retorna 0.
+	
 	public int controEntero(String str){
 		try {
 			int integer = Integer.parseInt(str);	
@@ -1352,6 +1438,8 @@ public class Sistema extends JFrame {
 	        return 0;
 	    }	      
 	}
+	
+	// Metodo para contener los mensajes que se quieran mostrar.
 	
 	public void mensajeLeer(String mensaje) {
 		System.out.println(mensaje);

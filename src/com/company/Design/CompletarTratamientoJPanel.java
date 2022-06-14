@@ -30,7 +30,7 @@ public class CompletarTratamientoJPanel extends JPanel{
 		add(lblMenuCompletarTratamiento);			
 		int ubicacion = 110; // Ubicacion inicial.	 
 		
-		duracionDiasLabel = new JLabel("Dias de duraci\u00F3n:");
+		duracionDiasLabel = new JLabel("Dias de duracion:");
 		duracionDiasLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		duracionDiasLabel.setBounds(60, 110, 164, 30);
 		add(duracionDiasLabel);		
