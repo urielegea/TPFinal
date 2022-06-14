@@ -124,6 +124,11 @@ public class Sistema extends JFrame {
 	private ArrayList<ButtonTratamiento> tratamientoRegistroListaButton;
 	private ButtonEdit volverTratamientoRegistrotButton;
 	
+	
+	// Perfil profesional
+	private MenuControlRegistroDatosJPanel menuControlRegistroDatosJPane;
+	private ButtonEdit menuControlRegistroDatosButton;
+	
 	// ================================================
 	
 	private HashMap<String,Usuario> usuariosHashMap;
@@ -346,7 +351,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
+                		mensajeLeer("Se ha generado el paciente con éxito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -734,8 +739,7 @@ public class Sistema extends JFrame {
 	            	mensajeLeer("Error al leer la duracion de dias.");
 	            }
 	        }
-	     }); 
-		
+	     }); 		
 		cancelarCompletarTratamientoButton = completarTratamientoJPane.getCancelarCompletarTratamientoButton();
 		cancelarCompletarTratamientoButton.addActionListener(new ActionListener() {
             @Override
@@ -775,7 +779,7 @@ public class Sistema extends JFrame {
 		menuControlRegistroJPane.setVisible(true);	
 	}
 	
-	// El parametro pendiente da el dato de si ese paciente tiene tratamientos pendientes o no.
+	// El parametro "pendiente" da el dato de si ese paciente tiene tratamientos pendientes o no.
 	
 	public void configMenuControlRegistroTratamientoJPanel(boolean pendiente, String cuentaPaciente) {		
 		
@@ -790,7 +794,7 @@ public class Sistema extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
 	            	menuControlRegistroTratamientoJPane.setVisible(false);
-	            	configMenuControlRegistroControlDiarioJPanel(buttonTratamiento.getTratamiento());
+	            	configMenuControlRegistroControlDiarioJPanel(buttonTratamiento.getTratamiento(), (Paciente) usuariosHashMap.get(cuentaPaciente));
 	            }
 	        }); 
 		}		
@@ -806,8 +810,20 @@ public class Sistema extends JFrame {
 		menuControlRegistroTratamientoJPane.setVisible(true);	
 	}
 	
-	public void configMenuControlRegistroControlDiarioJPanel(Tratamiento tratamiento){
-		System.out.print(tratamiento.getEnfermedadNombre());
+	public void configMenuControlRegistroControlDiarioJPanel(Tratamiento tratamiento, Paciente paciente){
+		menuControlRegistroDatosJPane = new MenuControlRegistroDatosJPanel(tratamiento, paciente);
+		menuControlRegistroDatosJPane.setBounds(0, 0, 484, 461);
+		menuControlRegistroDatosButton = menuControlRegistroDatosJPane.getMenuControlRegistroDatosButton();
+		menuControlRegistroDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {     
+            	System.out.print("volver");
+            	//menuControlRegistroDatosButton.setVisible(false);
+            	//menuControlRegistroTratamientoJPane.setVisible(true);
+            }
+        }); 		
+		contentPane.add(menuControlRegistroDatosJPane);
+		menuControlRegistroDatosJPane.setVisible(true);	
 	}
 	
 	// Carga los usuarios administradores, profesionales y los pacientes, dentro del hashMap de usuarios.
