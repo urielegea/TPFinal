@@ -70,7 +70,7 @@ public class CompletarTratamientoJPanel extends JPanel{
 		
 		ubicacion = ubicacion + 10;
 		
-		completarTratamientoButton = new ButtonEdit("Completar tratamiento");
+		completarTratamientoButton = new ButtonEdit("Comenzar tratamiento");
 		completarTratamientoButton.setForeground(Color.WHITE);
 		completarTratamientoButton.setBackground(new Color(3, 59, 90));
 		completarTratamientoButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
