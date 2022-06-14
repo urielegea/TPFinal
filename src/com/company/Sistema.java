@@ -119,6 +119,11 @@ public class Sistema extends JFrame {
 	private ArrayList<ButtonPaciente> pacienteRegistroListaButton;
 	private ButtonEdit volverRegistroButton;
 	
+	// Perfil profesional.
+	private MenuControlRegistroTratamientoJPanel menuControlRegistroTratamientoJPane;
+	private ArrayList<ButtonTratamiento> tratamientoRegistroListaButton;
+	private ButtonEdit volverTratamientoRegistrotButton;
+	
 	// ================================================
 	
 	private HashMap<String,Usuario> usuariosHashMap;
@@ -341,7 +346,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
+                		mensajeLeer("Se ha generado el paciente con éxito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -753,13 +758,8 @@ public class Sistema extends JFrame {
 			buttonPaciente.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
-	            	if (buttonPaciente.isPendientes()) {
-	            		System.out.print(buttonPaciente.getPaciente().getCuenta() + " Linea 758 " + " Tiene tareas de control sin realizar del dia anterior.");
-	            	} else {
-	            		System.out.print(buttonPaciente.getPaciente().getCuenta() + " Linea 758 " + " No tiene tareas de control sin realizar del dia anterior.");
-	            	}
-	            	//menuAsignarEnfermedadJPane.setVisible(false);
-	            	//configMenuAsignarTDCJPanel(buttonEnfermedad.getEnfermedad().getNombre());
+	            	menuControlRegistroJPane.setVisible(false);
+	            	configMenuControlRegistroTratamientoJPanel(buttonPaciente.isPendientes(), buttonPaciente.getPaciente().getCuenta());
 	            }
 	        }); 
 		}		
@@ -773,6 +773,37 @@ public class Sistema extends JFrame {
         }); 
 		contentPane.add(menuControlRegistroJPane);
 		menuControlRegistroJPane.setVisible(true);	
+	}
+	
+	// El parametro pendiente da el dato de si ese paciente tiene tratamientos pendientes o no.
+	
+	public void configMenuControlRegistroTratamientoJPanel(boolean pendiente, String cuentaPaciente) {		
+		
+		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteProfesional(cuentaPaciente);
+		ArrayList<String> tratamientoSinCumplirLista = tratamientoSinCumplirLista(tratamientoLista);
+		
+		menuControlRegistroTratamientoJPane = new MenuControlRegistroTratamientoJPanel(tratamientoLista, tratamientoSinCumplirLista);
+		menuControlRegistroTratamientoJPane.setBounds(0, 0, 484, 461);		
+		tratamientoRegistroListaButton = menuControlRegistroTratamientoJPane.getTratamientoRegistroListaButton();		
+		for (ButtonTratamiento buttonTratamiento : tratamientoRegistroListaButton) {
+			buttonTratamiento.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	//menuControlRegistroJPane.setVisible(false);
+	            	//configMenuControlRegistroTratamientoJPanel(buttonPaciente.isPendientes(), buttonPaciente.getPaciente().getCuenta());
+	            }
+	        }); 
+		}		
+		volverTratamientoRegistrotButton = menuControlRegistroTratamientoJPane.getVolverTratamientoRegistrotButton();
+		volverTratamientoRegistrotButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        		//menuControlRegistroJPane.setVisible(false);
+        		//menuProfesionalPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(menuControlRegistroTratamientoJPane);
+		menuControlRegistroTratamientoJPane.setVisible(true);	
 	}
 	
 	// Carga los usuarios administradores, profesionales y los pacientes, dentro del hashMap de usuarios.
@@ -1516,6 +1547,11 @@ public class Sistema extends JFrame {
 		return flag;
 	}
 	
+	// Retornar una lista con tratamientos con tareas de control sin cumplir.
+	
+	public ArrayList<String> tratamientoSinCumplirLista(ArrayList<Tratamiento>tratamientoLista){
+		return new ArrayList<String>();
+	}	
 		
 	// Verifica que el String pueda ser parseado a un entero, en caso contrario retorna 0.
 	
