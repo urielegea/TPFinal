@@ -789,8 +789,8 @@ public class Sistema extends JFrame {
 			buttonTratamiento.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
-	            	//menuControlRegistroJPane.setVisible(false);
-	            	//configMenuControlRegistroTratamientoJPanel(buttonPaciente.isPendientes(), buttonPaciente.getPaciente().getCuenta());
+	            	menuControlRegistroTratamientoJPane.setVisible(false);
+	            	configMenuControlRegistroControlDiarioJPanel(buttonTratamiento.getTratamiento());
 	            }
 	        }); 
 		}		
@@ -798,12 +798,16 @@ public class Sistema extends JFrame {
 		volverTratamientoRegistrotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-        		//menuControlRegistroJPane.setVisible(false);
-        		//menuProfesionalPane.setVisible(true);
+            	menuControlRegistroTratamientoJPane.setVisible(false);
+        		menuProfesionalPane.setVisible(true);
             }
         }); 
 		contentPane.add(menuControlRegistroTratamientoJPane);
 		menuControlRegistroTratamientoJPane.setVisible(true);	
+	}
+	
+	public void configMenuControlRegistroControlDiarioJPanel(Tratamiento tratamiento){
+		System.out.print(tratamiento.getEnfermedadNombre());
 	}
 	
 	// Carga los usuarios administradores, profesionales y los pacientes, dentro del hashMap de usuarios.
