@@ -126,7 +126,6 @@ public class Sistema extends JFrame {
 	private HashMap<String,TareaDeControl> tareaDeControlHashMap;
 	private HashMap<String, HistorialMedico> historialMedicoHashMap;
 	private Usuario usuarioActivo = null;
-	private Date sesionAnterior;
 	
 	public Sistema() {				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -161,7 +160,6 @@ public class Sistema extends JFrame {
         		if (!loginPane.getUserField().getText().isEmpty() && !loginPane.getPasswordField().getText().isEmpty()) {        			
         			if (iniciarSesion(loginPane.getUserField().getText(),loginPane.getPasswordField().getText())) {
         				loginPane.setVisible(false);
-						sesionAnterior = usuarioActivo.getUltimaSesion();
 						actualizarUltimaSesion();
         			}
         		}            	
@@ -343,7 +341,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con éxito.");
+                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -1433,7 +1431,10 @@ public class Sistema extends JFrame {
 		
 		boolean flag = false;				
 		
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  		
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  	
+		
+		 // .getTime()-86400000 para simular que el tratamiento se inicio un dia antes.
+		
 	    String fechaInicialTratamiento = format.format(tratamiento.getDiaInicial());  
 	    String fechaActual = format.format(new Date());	       
 
@@ -1447,18 +1448,24 @@ public class Sistema extends JFrame {
 	    	
 	    	ControlDiario controlDiarioFechaAnterior = null;
 	    	
-	    	// Busca un control diario en el tratamiento con la fecha del dia anterior.
+	    	// Revisa que el tratamiento tenga controles diarios.
 	    	
-	    	for (ControlDiario controlDiario : tratamiento.getControlDiarioLista()){
+	    	if (tratamiento.getControlDiarioLista() != null) {
 	    		
-	    		String fechaControlDiario =  format.format(controlDiario.getFecha());
+		    	// Busca un control diario en el tratamiento con la fecha del dia anterior.
+		    	
+		    	for (ControlDiario controlDiario : tratamiento.getControlDiarioLista()){
+		    		
+		    		String fechaControlDiario =  format.format(controlDiario.getFecha());
+		    		
+		    		// En caso de encontrarla la guarda en una variable llamada controlDiarioFechaAnterior.
+		    		
+		    		if (fechaControlDiario.compareTo(fechaDiaAnterior) == 0) {	    			
+		    			controlDiarioFechaAnterior = controlDiario;	    			
+		    		}	    		        
+		    	}
 	    		
-	    		// En caso de encontrarla la guarda en una variable llamada controlDiarioFechaAnterior.
-	    		
-	    		if (fechaControlDiario.compareTo(fechaDiaAnterior) == 0) {	    			
-	    			controlDiarioFechaAnterior = controlDiario;	    			
-	    		}	    		        
-	    	}	
+	    	}
 	    	
 	    	// En caso de que controlDiarioFechaAnterior sea nulo, significa que no fue cargado el control diario en el tratamiento por lo tanto esta pendiente.
 	    	
