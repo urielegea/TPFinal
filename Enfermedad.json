@@ -1,1 +1,1 @@
-[{"nombre":"Gripe A","tareaDeControlLista":null,"descripcion":"Mucha tos","duracionDias":2},{"nombre":"Covid","tareaDeControlLista":null,"descripcion":"Fiebre de mas de 38 grados, contagioso","duracionDias":6}]
+[{"nombre":"Gripe A","tareaDeControlLista":["Tomar Presion"],"descripcion":"Mucha tos","duracionDias":2},{"nombre":"Covid","tareaDeControlLista":null,"descripcion":"Fiebre de mas de 38 grados, contagioso","duracionDias":6}]
