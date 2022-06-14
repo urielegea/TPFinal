@@ -3,6 +3,7 @@ package com.company;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -1422,11 +1423,88 @@ public class Sistema extends JFrame {
 		return pacienteSinCumplirLista;
 	}
 	
-	// Retorna true si el tratamiento tiene tareas del dia anterio sin completar.
+	// Retorna true si el tratamiento tiene controles diarios anteriores sin completar del dia anterior.
 	
-	public boolean tratamientoSinCumplir (Tratamiento tratamiento) {
-		return true;
+	public boolean tratamientoSinCumplir (Tratamiento tratamiento) {	
+		
+		boolean flag = false;				
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");  		
+	    String fechaInicialTratamiento = format.format(tratamiento.getDiaInicial());  
+	    String fechaActual = format.format(new Date());	       
+
+	    // Revisa que el tratamiento tenga mas de un dia antes de buscar controles diarios realizados.
+	    
+	    if (fechaInicialTratamiento.compareTo(fechaActual) != 0) {
+	    	
+	    	 String fechaDiaAnterior = format.format(new Date().getTime()-86400000);	
+	    	
+	    	// Por defecto el control diario es nulo.
+	    	
+	    	ControlDiario controlDiarioFechaAnterior = null;
+	    	
+	    	// Busca un control diario en el tratamiento con la fecha del dia anterior.
+	    	
+	    	for (ControlDiario controlDiario : tratamiento.getControlDiarioLista()){
+	    		
+	    		String fechaControlDiario =  format.format(controlDiario.getFecha());
+	    		
+	    		// En caso de encontrarla la guarda en una variable llamada controlDiarioFechaAnterior.
+	    		
+	    		if (fechaControlDiario.compareTo(fechaDiaAnterior) == 0) {	    			
+	    			controlDiarioFechaAnterior = controlDiario;	    			
+	    		}	    		        
+	    	}	
+	    	
+	    	// En caso de que controlDiarioFechaAnterior sea nulo, significa que no fue cargado el control diario en el tratamiento por lo tanto esta pendiente.
+	    	
+	    	if (controlDiarioFechaAnterior == null) {	    		
+	    		flag = true;
+	    		
+	    	} else {
+	    		
+	    		// En caso contrario revisa si todos los controles diarios fueron realizados correctamente mediante el metodo tareasDeControlSinCumplir.
+	    		
+	    		flag = tareasDeControlSinCumplir(tratamiento.getTareaDeControlListado(), controlDiarioFechaAnterior.getTareaDeControlLista());
+	    	}
+	    	
+	    }
+	    
+		return flag;
 	}
+	
+	// Revisa las tareas de control realizadas y se asegura que no haya alguna sin cumplir de las obligatorias.
+	
+	public boolean tareasDeControlSinCumplir(ArrayList<TareaDeControl> tareasDeControlObligatorias, ArrayList<TareaDeControl> tareasDeControlRealizadas) {
+		
+		boolean flag = false;
+		
+		// Se recorren las tareas obligatorias y luego se buscan entre las tareas realizadas en el control diario.
+		
+		for (TareaDeControl tareaDeControlObligatoria : tareasDeControlObligatorias) {			
+			
+			boolean flog = true;
+			
+			for (TareaDeControl tareaDeControlRealizada : tareasDeControlRealizadas) {
+				
+				// Si se encuentra la tarea de control se verifica que este tambien realizada con el atributo accion.
+				
+				if (tareaDeControlObligatoria.getNombre().compareTo(tareaDeControlRealizada.getNombre()) == 0 && tareaDeControlRealizada.getAccion()) {
+					flog = false;
+				}				
+			}
+			
+			// Si no se encuentra la tarea obligatoria o no aparece como realizada en el atributo accion, se retorna que hay aunque sea una tarea sin.
+			
+			if (flog) {
+				
+				flag = true;
+			}
+		}
+		
+		return flag;
+	}
+	
 		
 	// Verifica que el String pueda ser parseado a un entero, en caso contrario retorna 0.
 	
