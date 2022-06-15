@@ -22,9 +22,9 @@ public class GenerarProfesionalJPanel extends JPanel {
 	private JLabel cuentaLabel;
 	private JTextField cuentaTextField;
 	private JLabel nombreLabel;
-	private JTextField NombreTextField;
+	private JTextField nombreTextField;
 	private JLabel apellidoLabel;
-	private JTextField ApellidoTextField;
+	private JTextField apellidoTextField;
 	private JLabel dniLabel;
 	private JTextField dniTextField;
 	private JLabel telefonoLabel;
@@ -71,22 +71,22 @@ public class GenerarProfesionalJPanel extends JPanel {
 		nombreLabel.setBounds(52, 91, 109, 30);
 		panel_1.add(nombreLabel);
 		
-		NombreTextField = new JTextField();
-		NombreTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		NombreTextField.setColumns(10);
-		NombreTextField.setBounds(171, 91, 200, 30);
-		panel_1.add(NombreTextField);
+		nombreTextField = new JTextField();
+		nombreTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		nombreTextField.setColumns(10);
+		nombreTextField.setBounds(171, 91, 200, 30);
+		panel_1.add(nombreTextField);
 		
 		apellidoLabel = new JLabel("Apellido:");
 		apellidoLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		apellidoLabel.setBounds(52, 131, 109, 30);
 		panel_1.add(apellidoLabel);
 		
-		ApellidoTextField = new JTextField();
-		ApellidoTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		ApellidoTextField.setColumns(10);
-		ApellidoTextField.setBounds(171, 131, 200, 30);
-		panel_1.add(ApellidoTextField);
+		apellidoTextField = new JTextField();
+		apellidoTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		apellidoTextField.setColumns(10);
+		apellidoTextField.setBounds(171, 131, 200, 30);
+		panel_1.add(apellidoTextField);
 		
 		dniLabel = new JLabel("Dni:");
 		dniLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -140,11 +140,11 @@ public class GenerarProfesionalJPanel extends JPanel {
 	}
 
 	public String getNombre() {
-		return NombreTextField.getText();
+		return nombreTextField.getText();
 	}
 
 	public String getApellido() {
-		return ApellidoTextField.getText();
+		return apellidoTextField.getText();
 	}
 
 	public String getDni() {

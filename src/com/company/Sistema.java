@@ -123,11 +123,30 @@ public class Sistema extends JFrame {
 	private MenuControlRegistroTratamientoJPanel menuControlRegistroTratamientoJPane;
 	private ArrayList<ButtonTratamiento> tratamientoRegistroListaButton;
 	private ButtonEdit volverTratamientoRegistrotButton;
-	
-	
-	// Perfil profesional
+		
+	// Perfil profesional.
 	private MenuControlRegistroDatosJPanel menuControlRegistroDatosJPane;
 	private ButtonEdit menuControlRegistroDatosButton;
+	
+	// Perfil profesional .
+	private FinalizarTratamientoPacienteJPanel finalizarTratamientoPacienteJPane;
+	private ArrayList<ButtonPaciente> pacienteListaFinalizarButton;	
+	private ButtonEdit volverMenuFinalizarButton;
+	
+	// Perfil profesional.
+	private FinalizarTratamientoSeleccionarJPanel finalizarTratamientoSeleccionarJPane;
+	private ArrayList<ButtonTratamiento> tratamientoFinalizarListaButton;
+	private ButtonEdit volverFinalizartButton;
+	
+	// Perfil profesional.
+	private FinalizarTratamientoAccionJPanel finalizarTratamientoAccionJPane;
+	private ButtonEdit finalizarTratamientoButton;
+	private ButtonEdit finalizarTratamientoCancelarButton;
+	
+	// Perfil paciente.
+	private IngresarDatosTratamientoJPanel ingresarDatosTratamientoJPane;
+	private ArrayList<ButtonTratamiento> tratamientoIngresarDatosListaButton;
+	private ButtonEdit volverIngresarDatosButton;
 	
 	// ================================================
 	
@@ -257,7 +276,8 @@ public class Sistema extends JFrame {
 		finalizarPlanesDeControl.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("finalizarPlanesDeControl...");
+            	configFinalizarTratamientoPacienteJPanel();
+            	menuProfesionalPane.setVisible(false);   
             }
         }); 		
 		cerrarMenuProfesionalButton = menuProfesionalPane.getCerrarMenuProfesionalButton();
@@ -280,14 +300,17 @@ public class Sistema extends JFrame {
 		ingresarDatosDeControl.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("ingresarDatosDeControl...");
+            	configIngresarDatosTratamientoJPanel();
+            	menuPacientePane.setVisible(false); 
             }
         }); 		
 		cerrarMenuPacienteButton = menuPacientePane.getCerrarMenuPacienteButton();
 		cerrarMenuPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("cerrarMenuPacienteButton...");
+            	usuarioActivo = null;
+            	menuPacientePane.setVisible(false);
+            	loginPane.setVisible(true);
             }
         }); 		
 		contentPane.add(menuPacientePane);
@@ -781,8 +804,7 @@ public class Sistema extends JFrame {
 	
 	// El parametro "pendiente" da el dato de si ese paciente tiene tratamientos pendientes o no.
 	
-	public void configMenuControlRegistroTratamientoJPanel(boolean pendiente, String cuentaPaciente) {		
-		
+	public void configMenuControlRegistroTratamientoJPanel(boolean pendiente, String cuentaPaciente) {				
 		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteProfesional(cuentaPaciente);
 		ArrayList<String> tratamientoSinCumplirLista = tratamientoSinCumplirLista(tratamientoLista);
 		
@@ -817,13 +839,125 @@ public class Sistema extends JFrame {
 		menuControlRegistroDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {     
-            	System.out.print("volver");
-            	//menuControlRegistroDatosButton.setVisible(false);
-            	//menuControlRegistroTratamientoJPane.setVisible(true);
+            	menuControlRegistroDatosButton.setVisible(false);
+            	menuControlRegistroTratamientoJPane.setVisible(true);
             }
         }); 		
 		contentPane.add(menuControlRegistroDatosJPane);
 		menuControlRegistroDatosJPane.setVisible(true);	
+	}
+	
+	public void configFinalizarTratamientoPacienteJPanel(){
+		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();
+		
+		finalizarTratamientoPacienteJPane = new FinalizarTratamientoPacienteJPanel(pacienteLista);
+		finalizarTratamientoPacienteJPane.setBounds(0, 0, 484, 461);		
+		pacienteListaFinalizarButton = finalizarTratamientoPacienteJPane.getPacienteListaButton();		
+		for (ButtonPaciente buttonPaciente : pacienteListaFinalizarButton) {
+			buttonPaciente.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	finalizarTratamientoPacienteJPane.setVisible(false);
+	            	configFinalizarTratamientoSeleccionarJPanel(buttonPaciente.getPaciente().getCuenta());
+	            }
+	        }); 
+		}		
+		volverMenuFinalizarButton = finalizarTratamientoPacienteJPane.getVolverMenuButton();
+		volverMenuFinalizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	finalizarTratamientoPacienteJPane.setVisible(false);
+        		menuProfesionalPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(finalizarTratamientoPacienteJPane);
+		finalizarTratamientoPacienteJPane.setVisible(true);	
+	}
+	
+	public void configFinalizarTratamientoSeleccionarJPanel(String cuentaPaciente) {
+		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteProfesional(cuentaPaciente);		
+		finalizarTratamientoSeleccionarJPane = new FinalizarTratamientoSeleccionarJPanel(tratamientoLista);
+		finalizarTratamientoSeleccionarJPane.setBounds(0, 0, 484, 461);		
+		tratamientoFinalizarListaButton = finalizarTratamientoSeleccionarJPane.getTratamientoFinalizarListaButton();		
+		for (ButtonTratamiento buttonTratamiento : tratamientoFinalizarListaButton) {
+			buttonTratamiento.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	finalizarTratamientoSeleccionarJPane.setVisible(false);
+	            	configFinalizarTratamientoAccionJPanel(buttonTratamiento.getTratamiento(), (Paciente) usuariosHashMap.get(cuentaPaciente));
+	            }
+	        }); 
+		}		
+		volverFinalizartButton = finalizarTratamientoSeleccionarJPane.getVolverFinalizarButton();
+		volverFinalizartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	finalizarTratamientoSeleccionarJPane.setVisible(false);
+            	finalizarTratamientoPacienteJPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(finalizarTratamientoSeleccionarJPane);
+		finalizarTratamientoSeleccionarJPane.setVisible(true);	
+	}
+	
+	public void configFinalizarTratamientoAccionJPanel(Tratamiento tratamiento, Paciente paciente) {
+		finalizarTratamientoAccionJPane = new FinalizarTratamientoAccionJPanel(tratamiento, paciente, (Profesional)usuariosHashMap.get(tratamiento.getProfesionalCuenta()));
+		finalizarTratamientoAccionJPane.setBounds(0, 0, 484, 461);		
+	
+		finalizarTratamientoButton = finalizarTratamientoAccionJPane.getFinalizarTratamientoButton();
+		finalizarTratamientoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {        
+            	if (finalizarTratamiento(tratamiento, paciente)) {
+            		finalizarTratamientoAccionJPane.setVisible(false);
+            		menuProfesionalPane.setVisible(true);
+            		mensajeLeer("Se finalizo el tratamiento con exito.");
+            	} else {
+            		mensajeLeer("Algo salio mal.");
+            	}
+            }
+        }); 		
+		finalizarTratamientoCancelarButton = finalizarTratamientoAccionJPane.getFinalizarTratamientoCancelarButton();
+		finalizarTratamientoCancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	finalizarTratamientoAccionJPane.setVisible(false);
+            	finalizarTratamientoSeleccionarJPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(finalizarTratamientoAccionJPane);
+		finalizarTratamientoAccionJPane.setVisible(true);			
+	}
+	
+	public void configIngresarDatosTratamientoJPanel() {		
+		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteActivo();		
+		ingresarDatosTratamientoJPane = new IngresarDatosTratamientoJPanel(tratamientoLista);
+		ingresarDatosTratamientoJPane.setBounds(0, 0, 484, 461);		
+		tratamientoIngresarDatosListaButton = ingresarDatosTratamientoJPane.getTratamientoIngresarDatosListaButton();		
+		for (ButtonTratamiento buttonTratamiento : tratamientoIngresarDatosListaButton) {
+			buttonTratamiento.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	ingresarDatosTratamientoJPane.setVisible(false);
+	            	configIngresarDatosAccionJPanel(buttonTratamiento.getTratamiento());
+	            }
+	        }); 
+		}		
+		volverIngresarDatosButton = ingresarDatosTratamientoJPane.getVolverIngresarDatosButton();
+		volverIngresarDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	ingresarDatosTratamientoJPane.setVisible(false);
+            	menuPacientePane.setVisible(true);
+            }
+        }); 
+		contentPane.add(ingresarDatosTratamientoJPane);
+		ingresarDatosTratamientoJPane.setVisible(true);	
+	}
+	
+	public void configIngresarDatosAccionJPanel(Tratamiento tratamiento) {	
+		System.out.println("En desarrollo...");
+		ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());		
 	}
 	
 	// Carga los usuarios administradores, profesionales y los pacientes, dentro del hashMap de usuarios.
@@ -1591,16 +1725,8 @@ public class Sistema extends JFrame {
 	    }	      
 	}
 	
-	// Metodo para contener los mensajes que se quieran mostrar.
+	// Metodo para introducir en el tratamiento del historial el control diario nuevo.
 	
-	public void mensajeLeer(String mensaje) {
-		System.out.println(mensaje);
-	}
-
-    //********************ESTO FUE CULPA DE GASPAR, OJITO EH***********************
-
-
-	//Metodo para introducir en el tratamiento del historial el control diario NUEVO.
     public boolean actualizarHistorialMedico(Tratamiento tratamiento) {
         boolean flag = false;
         if(usuarioActivo instanceof Paciente){
@@ -1624,7 +1750,8 @@ public class Sistema extends JFrame {
         return flag;
     }
 
-	//Metodo complementario para verificar si dicho control diario no existe en el tratamiento
+	// Metodo complementario para verificar si dicho control diario no existe en el tratamiento.
+    
 	public boolean controlDiarioExiste(ControlDiario controlDiarioNuevo, ArrayList<ControlDiario> controlDiarioLista){
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		for(ControlDiario controlDiario : controlDiarioLista) {
@@ -1635,7 +1762,8 @@ public class Sistema extends JFrame {
 		return false;
 	}
 
-	//Metodo complementario para cargar el control diario NUEVO en la lista de controles diarios del tratamiento del paciente.
+	// Metodo complementario para cargar el control diario nuevo en la lista de controles diarios del tratamiento del paciente.
+	
 	public HistorialMedico cargarControlDiarioInHistorialMedico(Paciente paciente, ControlDiario controlDiarioNuevo, String tokenTratamiento){
 		HistorialMedico historialMedicoActualizado = historialMedicoHashMap.get(paciente.getNumeroHistorial());
 		ArrayList<Tratamiento> auxTratamiento = new ArrayList<Tratamiento>();
@@ -1647,5 +1775,29 @@ public class Sistema extends JFrame {
 		}
 		historialMedicoActualizado.setTratamientoLista(auxTratamiento);
 		return historialMedicoActualizado;
+	}
+	
+	// Retorna una lista con los tratamientos sin finalizar del paciente activo.
+	
+	public ArrayList<Tratamiento> retornarTratamientosPacienteActivo(){
+		return new ArrayList<Tratamiento>();
+	}
+	
+	// Actualizar el tratamiento a finalizado y lo guarda en el hashMap y JSON de historial medicos.
+	
+	public boolean finalizarTratamiento(Tratamiento tratamiento, Paciente paciente){
+		return true;
+	}
+	
+	// Retorna el control diario del tratamiento en esa fecha si existe y en caso de que no, lo crea utilizando la interfaz IngresarDatosDeControl (retornarControlDiarioTratamiento).
+	
+	public ControlDiario getControlDiarioFecha(Tratamiento tratamiento, Date date) {
+		return null;
+	}
+	
+	// Metodo para contener los mensajes que se quieran mostrar.
+	
+	public void mensajeLeer(String mensaje) {
+		System.out.println(mensaje);
 	}
 }
