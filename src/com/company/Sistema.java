@@ -374,7 +374,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
+                		mensajeLeer("Se ha generado el paciente con éxito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -929,7 +929,12 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configIngresarDatosTratamientoJPanel() {		
-		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteActivo();		
+		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteActivo();	
+		System.out.println("holis");
+		for (Tratamiento tratamiento : tratamientoLista) {
+			System.out.println(tratamiento.getEnfermedadNombre());
+		}
+		
 		ingresarDatosTratamientoJPane = new IngresarDatosTratamientoJPanel(tratamientoLista);
 		ingresarDatosTratamientoJPane.setBounds(0, 0, 484, 461);		
 		tratamientoIngresarDatosListaButton = ingresarDatosTratamientoJPane.getTratamientoIngresarDatosListaButton();		
@@ -956,8 +961,10 @@ public class Sistema extends JFrame {
 	
 	public void configIngresarDatosAccionJPanel(Tratamiento tratamiento) {	
 		System.out.println("En desarrollo...");
-		ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());		
+		//ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());		
 	}
+	
+	/* ==================================================== ================================================================ */
 	
 	// Carga los usuarios administradores, profesionales y los pacientes, dentro del hashMap de usuarios.
 	
@@ -1779,13 +1786,11 @@ public class Sistema extends JFrame {
 	// Retorna una lista con los tratamientos sin finalizar del paciente activo.
 	
 	public ArrayList<Tratamiento> retornarTratamientosPacienteActivo(){
-
 		ArrayList<Tratamiento> tratamientoArrayList = new ArrayList<Tratamiento>();
-
 		if(usuarioActivo instanceof Paciente){
 			Paciente paciente = (Paciente) usuarioActivo;
 			String numeroHistorial = paciente.getNumeroHistorial();
-			ArrayList<Tratamiento > tratamientoSinVerificarLista = historialMedicoHashMap.get(numeroHistorial).getTratamientoLista();
+			ArrayList<Tratamiento> tratamientoSinVerificarLista = historialMedicoHashMap.get(numeroHistorial).getTratamientoLista();
 			for(Tratamiento aux : tratamientoSinVerificarLista){
 				if(aux.getDiaFinal() == null && aux.getDiaInicial() != null){
 					tratamientoArrayList.add(aux);
@@ -1801,7 +1806,6 @@ public class Sistema extends JFrame {
 		boolean flag = false;
 		if(usuarioActivo instanceof Profesional){
 			Profesional profesional = (Profesional) usuarioActivo;
-
 			HistorialMedico historialMedico = profesional.actualizarTratamiento(historialMedicoHashMap,
 																				paciente.getNumeroHistorial(),
 																				tratamiento.getToken(), paciente);
@@ -1814,9 +1818,7 @@ public class Sistema extends JFrame {
 			}catch (IOException e){
 				mensajeLeer(e.toString());
 			}
-
 		}
-
 		return flag;
 	}
 	
@@ -1826,10 +1828,8 @@ public class Sistema extends JFrame {
 		if(usuarioActivo instanceof Paciente){
 			Paciente paciente = (Paciente) usuarioActivo;
 			ControlDiario controlDiario = paciente.retornarControlDiarioTratamiento(tratamiento,date);
-
 			return controlDiario;
 		}
-
 		return null;
 	}
 	

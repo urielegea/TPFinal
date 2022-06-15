@@ -12,4 +12,5 @@ public interface InterfazJSON <T>{
 	public HashMap<String,T> leerJSON() throws IOException;   
 	
 	public String getUbicacion();	
+	
 }
