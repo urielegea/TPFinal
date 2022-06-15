@@ -374,7 +374,7 @@ public class Sistema extends JFrame {
             		
                 	if (nuevoPaciente(generarPacienteJPane.getNombre(), generarPacienteJPane.getApellido(), generarPacienteJPane.getDni(), 
                 			generarPacienteJPane.getTelefono(), generarPacienteJPane.getCuenta(), generarPacienteJPane.getClave(), fechaAlta)) {  
-                		mensajeLeer("Se ha generado el paciente con éxito.");
+                		mensajeLeer("Se ha generado el paciente con Ã©xito.");
                 		menuAdministradorPane.setVisible(true);
                 		generarPacienteJPane.setVisible(false);
                 		
@@ -848,8 +848,7 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configFinalizarTratamientoPacienteJPanel(){
-		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();
-		
+		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();		
 		finalizarTratamientoPacienteJPane = new FinalizarTratamientoPacienteJPanel(pacienteLista);
 		finalizarTratamientoPacienteJPane.setBounds(0, 0, 484, 461);		
 		pacienteListaFinalizarButton = finalizarTratamientoPacienteJPane.getPacienteListaButton();		
@@ -875,8 +874,6 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configFinalizarTratamientoSeleccionarJPanel(String cuentaPaciente) {
-
-		//ACOMODAR ESTO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteProfesional(cuentaPaciente);		
 		finalizarTratamientoSeleccionarJPane = new FinalizarTratamientoSeleccionarJPanel(tratamientoLista);
 		finalizarTratamientoSeleccionarJPane.setBounds(0, 0, 484, 461);		
@@ -1527,7 +1524,7 @@ public class Sistema extends JFrame {
 			tratamientoLista.add(t);			
 		} 
 		return tratamientoLista;		
-	}
+	}	
 	
 	// Actualizar el tratamiento con los datos nuevos ingresados por el profesional.
 	
@@ -1578,7 +1575,7 @@ public class Sistema extends JFrame {
 				if (historialMedico != null) {
 					boolean flag = false;
 					for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {
-						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null && !flag) {
+						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null && tratamiento.getDiaFinal() == null && !flag) {
 							pacienteTratamientoLista.add(paciente);
 							flag = true;
 						}
