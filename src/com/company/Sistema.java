@@ -875,6 +875,8 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configFinalizarTratamientoSeleccionarJPanel(String cuentaPaciente) {
+
+		//ACOMODAR ESTO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteProfesional(cuentaPaciente);		
 		finalizarTratamientoSeleccionarJPane = new FinalizarTratamientoSeleccionarJPanel(tratamientoLista);
 		finalizarTratamientoSeleccionarJPane.setBounds(0, 0, 484, 461);		
@@ -1532,7 +1534,7 @@ public class Sistema extends JFrame {
 	public boolean actualizarTratamiento(String cuentaPaciente, String tokenTratamiento, int diasDuracion,
 										 ArrayList<String> tareaDeControlLista, Date diaInicial) {
 		boolean flag = false;
-		boolean flog = false;
+		boolean flog;
 		if(usuarioActivo instanceof Profesional){
 			Profesional profesional = (Profesional) usuarioActivo;
 			Paciente paciente = (Paciente) usuariosHashMap.get(cuentaPaciente);
@@ -1780,18 +1782,57 @@ public class Sistema extends JFrame {
 	// Retorna una lista con los tratamientos sin finalizar del paciente activo.
 	
 	public ArrayList<Tratamiento> retornarTratamientosPacienteActivo(){
-		return new ArrayList<Tratamiento>();
+
+		ArrayList<Tratamiento> tratamientoArrayList = new ArrayList<Tratamiento>();
+
+		if(usuarioActivo instanceof Paciente){
+			Paciente paciente = (Paciente) usuarioActivo;
+			String numeroHistorial = paciente.getNumeroHistorial();
+			ArrayList<Tratamiento > tratamientoSinVerificarLista = historialMedicoHashMap.get(numeroHistorial).getTratamientoLista();
+			for(Tratamiento aux : tratamientoSinVerificarLista){
+				if(aux.getDiaFinal() == null && aux.getDiaInicial() != null){
+					tratamientoArrayList.add(aux);
+				}
+			}
+		}
+		return tratamientoArrayList;
 	}
 	
 	// Actualizar el tratamiento a finalizado y lo guarda en el hashMap y JSON de historial medicos.
 	
 	public boolean finalizarTratamiento(Tratamiento tratamiento, Paciente paciente){
-		return true;
+		boolean flag = false;
+		if(usuarioActivo instanceof Profesional){
+			Profesional profesional = (Profesional) usuarioActivo;
+
+			HistorialMedico historialMedico = profesional.actualizarTratamiento(historialMedicoHashMap,
+																				paciente.getNumeroHistorial(),
+																				tratamiento.getToken(), paciente);
+			try{
+				historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);
+				ArrayList<HistorialMedico> historialMedicoLista = getListaHistorialMedico();
+				HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+				historialMedicoJSON.cargarJSON(historialMedicoLista);
+				flag = true;
+			}catch (IOException e){
+				mensajeLeer(e.toString());
+			}
+
+		}
+
+		return flag;
 	}
 	
 	// Retorna el control diario del tratamiento en esa fecha si existe y en caso de que no, lo crea utilizando la interfaz IngresarDatosDeControl (retornarControlDiarioTratamiento).
-	
+
 	public ControlDiario getControlDiarioFecha(Tratamiento tratamiento, Date date) {
+		if(usuarioActivo instanceof Paciente){
+			Paciente paciente = (Paciente) usuarioActivo;
+			ControlDiario controlDiario = paciente.retornarControlDiarioTratamiento(tratamiento,date);
+
+			return controlDiario;
+		}
+
 		return null;
 	}
 	
