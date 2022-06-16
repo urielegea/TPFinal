@@ -961,8 +961,7 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configIngresarDatosAccionJPanel(Tratamiento tratamiento) {			
-		//ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());	
-		ControlDiario controlDiario = null;
+		ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());
 		ingresarDatosAccionJPane = new IngresarDatosAccionJPanel(controlDiario);		
 		ingresarDatosAccionJPane.setBounds(0, 0, 484, 461);			
 		estructuraTDCListaButton = ingresarDatosAccionJPane.getEstructuraTDCListaButton();			

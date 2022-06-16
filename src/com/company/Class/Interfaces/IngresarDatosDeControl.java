@@ -41,10 +41,12 @@ public interface IngresarDatosDeControl {
 
     public default ControlDiario getControlDiario(ArrayList<ControlDiario> controlDiarioLista, Date fecha) {
         ControlDiario controlDiario = null;
-        for(ControlDiario c : controlDiarioLista){
-            if(c.getFecha().compareTo(fecha)==0){
-                controlDiario = c;
-                return controlDiario;
+        if(controlDiarioLista!=null) {
+            for (ControlDiario c : controlDiarioLista) {
+                if (c.getFecha().compareTo(fecha) == 0) {
+                    controlDiario = c;
+                    return controlDiario;
+                }
             }
         }
         return controlDiario;
