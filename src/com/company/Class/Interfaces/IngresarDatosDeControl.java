@@ -55,14 +55,15 @@ public interface IngresarDatosDeControl {
     // Guarda el control diario en la lista. En caso de no encontrarlo lo agrega, en caso contrario lo edita en base a la fecha.
 
     public default ArrayList<ControlDiario> guardarControlDiario(ArrayList<ControlDiario> controlDiarioLista, ControlDiario controlDiarioEdited){
-        if(controlDiarioLista.isEmpty()){
+        if(controlDiarioLista!=null){
             int last = controlDiarioLista.size() - 1;
             controlDiarioLista.remove(last);
             controlDiarioLista.add(last, controlDiarioEdited);
-
-            return controlDiarioLista;
+        }else{
+            controlDiarioLista = new ArrayList<ControlDiario>();
+            controlDiarioLista.add(controlDiarioEdited);
         }
-        return null;
+        return controlDiarioLista;
     }
 
 }
