@@ -1037,7 +1037,7 @@ public class Sistema extends JFrame {
             	
             	if (control) {
             		
-            		if (guardarDatosDeControl(tratamiento.getControlDiarioLista(),controlDiarioAux)) {
+            		if (guardarDatosDeControl(tratamiento.getControlDiarioLista(),controlDiarioAux, tratamiento.getToken())) {
             			
             			ingresarDatosAccionJPane.setVisible(false);
                 		menuPacientePane.setVisible(true);
@@ -1887,7 +1887,7 @@ public class Sistema extends JFrame {
 		ArrayList<Tratamiento> auxTratamiento = new ArrayList<Tratamiento>();
 		for(Tratamiento tratamiento : historialMedicoActualizado.getTratamientoLista()){
 			if(tratamiento.getToken().compareTo(tokenTratamiento) == 0){
-				tratamiento.getControlDiarioLista().add(controlDiarioNuevo);
+				tratamiento.setControlDiarioLista(paciente.guardarControlDiario(tratamiento.getControlDiarioLista(),controlDiarioNuevo));
 			}
 			auxTratamiento.add(tratamiento);
 		}
@@ -1947,10 +1947,22 @@ public class Sistema extends JFrame {
 	
 	// Guarda el control diario editado dentro del historial medico. El mismo utiliza la interfaz IngresarDatosDeControl.
 	
-	public boolean guardarDatosDeControl(ArrayList<ControlDiario> controlDiarioLista , ControlDiario controlDiarioEditado) {
-				
-		
-		return true;
+	public boolean guardarDatosDeControl(ArrayList<ControlDiario> controlDiarioLista , ControlDiario controlDiarioEditado, String tokenTratamiento) {
+		boolean flag = false;
+		if(usuarioActivo instanceof Paciente){
+			Paciente paciente = (Paciente) usuarioActivo;
+			HistorialMedico historialMedico = cargarControlDiarioInHistorialMedico(paciente,controlDiarioEditado,tokenTratamiento);
+			try{
+				historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);
+				ArrayList<HistorialMedico> historialMedicoLista = getListaHistorialMedico();
+				HistorialMedicoJSON historialMedicoJSON = new HistorialMedicoJSON();
+				historialMedicoJSON.cargarJSON(historialMedicoLista);
+				flag = true;
+			} catch (IOException e){
+				mensajeLeer(e.toString());
+			}
+		}
+		return flag;
 	}
 	
 	// Metodo para contener los mensajes que se quieran mostrar.
