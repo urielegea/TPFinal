@@ -782,7 +782,7 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configMenuControlRegistroJPanel(){
-		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();
+		ArrayList<Paciente> pacienteLista = pacienteTratamientoLista();
 		ArrayList<String> pacienteSinCumplirLista = pacienteSinCumplirLista(pacienteLista);
 		menuControlRegistroJPane = new MenuControlRegistroJPanel(pacienteLista, pacienteSinCumplirLista);
 		menuControlRegistroJPane.setBounds(0, 0, 484, 461);		
@@ -854,7 +854,7 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configFinalizarTratamientoPacienteJPanel(){
-		ArrayList<Paciente> pacienteLista = pacienteTratamientolLista();		
+		ArrayList<Paciente> pacienteLista = pacienteTratamientoLista();		
 		finalizarTratamientoPacienteJPane = new FinalizarTratamientoPacienteJPanel(pacienteLista);
 		finalizarTratamientoPacienteJPane.setBounds(0, 0, 484, 461);		
 		pacienteListaFinalizarButton = finalizarTratamientoPacienteJPane.getPacienteListaButton();		
@@ -961,7 +961,8 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configIngresarDatosAccionJPanel(Tratamiento tratamiento) {			
-		ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());	
+		//ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());	
+		ControlDiario controlDiario = null;
 		ingresarDatosAccionJPane = new IngresarDatosAccionJPanel(controlDiario);		
 		ingresarDatosAccionJPane.setBounds(0, 0, 484, 461);			
 		estructuraTDCListaButton = ingresarDatosAccionJPane.getEstructuraTDCListaButton();			
@@ -1603,7 +1604,7 @@ public class Sistema extends JFrame {
 	
 	// Retorna los pacientes asignados al profesional que tengan tratamientos sin finalizar.
 	
-	public ArrayList<Paciente> pacienteTratamientolLista(){
+	public ArrayList<Paciente> pacienteTratamientoLista(){
 		ArrayList<Paciente> pacienteTratamientoLista = new ArrayList<Paciente>();
 		Profesional profesional = (Profesional) usuarioActivo;
 		if (profesional.getPacienteLista() != null) {

@@ -9,9 +9,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import com.company.Class.ControlDiario;
-import com.company.Class.Tratamiento;
 
 @SuppressWarnings("serial")
 public class IngresarDatosAccionJPanel extends JPanel{
@@ -28,7 +26,7 @@ public class IngresarDatosAccionJPanel extends JPanel{
 		Date fecha = new Date();		
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		
-		JLabel lblMenuDatos = new JLabel("Control diariol fecha " + format.format(fecha), SwingConstants.CENTER);
+		JLabel lblMenuDatos = new JLabel("Control diario " + format.format(fecha), SwingConstants.CENTER);
 		lblMenuDatos.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblMenuDatos.setBounds(0, 34, 484, 46);
 		add(lblMenuDatos);	
@@ -51,20 +49,20 @@ public class IngresarDatosAccionJPanel extends JPanel{
 			ubicacion = ubicacion + 50;	*/					
 		//}			
 		
-		cargarDatosButton = new ButtonEdit("Volver al menu");
+		cargarDatosButton = new ButtonEdit("Guardar datos");
 		cargarDatosButton.setForeground(Color.WHITE);
 		cargarDatosButton.setBackground(new Color(3, 59, 90));
 		cargarDatosButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cargarDatosButton.setPressedBackgroundColor(Color.BLACK);
-		cargarDatosButton.setBounds(20, ubicacion, 180, 40);
+		cargarDatosButton.setBounds(248, ubicacion, 180, 40);
 		add(cargarDatosButton);	
 		
-		cancelarDatosButton = new ButtonEdit("Volver al menu");
+		cancelarDatosButton = new ButtonEdit("Cancelar");
 		cancelarDatosButton.setForeground(Color.WHITE);
 		cancelarDatosButton.setBackground(new Color(3, 59, 90));
 		cancelarDatosButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cancelarDatosButton.setPressedBackgroundColor(Color.BLACK);
-		cancelarDatosButton.setBounds(283, ubicacion, 180, 40);
+		cancelarDatosButton.setBounds(58, ubicacion, 180, 40);
 		add(cancelarDatosButton);	
 	}
 
