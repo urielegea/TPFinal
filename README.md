@@ -20,5 +20,5 @@ Usuario: roberto@gmail.com
 Clave: 1234
 
 [Paciente]
-Usuario: elbarto@yahoo.com
-Clave: YoNoFuiHomero
+Usuario: jaime@gmail.com
+Clave: 1234
