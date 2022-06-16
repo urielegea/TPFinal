@@ -13,18 +13,12 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		cargarAdministradorJSON();		
-		//leerAdministradorJSON();
-		cargarProfesionalJSON();
-		//leerProfesionalJSON();
-		cargarPacienteJSON();
-		//leerPacienteJSON();
-		cargarEnfermedadJSON();
-		//leerEnfermedadJSON();
-		cargarTareaDeControlJSON();
-		//leerTareaDeControlJSON();
-		cargarHistorialMedicoJSON();
-		//leerHistorialMedicoJSON();
+		//cargarAdministradorJSON();		
+		//cargarProfesionalJSON();
+		//cargarPacienteJSON();
+		//cargarEnfermedadJSON();
+		//cargarTareaDeControlJSON();
+		//cargarHistorialMedicoJSON();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -207,14 +201,20 @@ public class Main {
 		
 		DecimalTDC decimal1 = new DecimalTDC("Temperatura:");
 		EnteroTDC entero1 = new EnteroTDC("Presion:");
+		VerdaderoFalsoTDC verdaderoFalso = new VerdaderoFalsoTDC("Medicacion:");
 
-		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura",false,
-													"Observacion de temperatura.", decimal1);
+		TareaDeControl tareaDeControl1 = new TareaDeControl("Tomar Temperatura", false, 
+				"Observacion de temperatura.", decimal1);
 		
-		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion",false,
-														"Se toma la presion.",entero1);		
+		TareaDeControl tareaDeControl2 = new TareaDeControl("Tomar Presion", false, 
+				"Se toma la presion.",entero1);	
+		
+		TareaDeControl tareaDeControl3 = new TareaDeControl("Tomar medicacion", false,
+				"Se toma la medacion.",verdaderoFalso);	
+				
 		tdcLista.add(tareaDeControl1);
 		tdcLista.add(tareaDeControl2);
+		tdcLista.add(tareaDeControl3);
 
 		try {
 			TareaDeControlJSON tareaDeControlJSON = new TareaDeControlJSON();

@@ -7,8 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import com.company.Design.*;
 import com.company.JSON.AdministradorJSON;
 import com.company.JSON.EnfermedadJSON;
@@ -150,7 +154,6 @@ public class Sistema extends JFrame {
 	
 	// Perfil paciente.
 	private IngresarDatosAccionJPanel ingresarDatosAccionJPane;
-	private ArrayList<ButtonEstructuraTDC> estructuraTDCListaButton;
 	private ButtonEdit cargarDatosButton;
 	private ButtonEdit cancelarDatosButton;
 	
@@ -488,8 +491,7 @@ public class Sistema extends JFrame {
             }
         }); 		
 		contentPane.add(menuAsignarEnfermedadTratamientoJPanel);
-		menuAsignarEnfermedadTratamientoJPanel.setVisible(true);		
-
+		menuAsignarEnfermedadTratamientoJPanel.setVisible(true);	
 	}
 	
 	public void configAdministrarEnfermedadesJPanel() {
@@ -534,7 +536,7 @@ public class Sistema extends JFrame {
             	if (!generarEnfermedadJPane.getNombre().isEmpty() && !generarEnfermedadJPane.getDescripcion().isEmpty() && 
             			!generarEnfermedadJPane.getDuracionDias().isEmpty()) {
             		
-            		int duracionDias = controEntero(generarEnfermedadJPane.getDuracionDias());
+            		int duracionDias = controlEntero(generarEnfermedadJPane.getDuracionDias());
             		
             		if (duracionDias < 1){
             			mensajeLeer("Error al cargar los dias de duracion de la enfermedad.");
@@ -750,7 +752,7 @@ public class Sistema extends JFrame {
 			@Override
 	        public void actionPerformed(ActionEvent e) { 
 				
-				int diasDuracion = controEntero(completarTratamientoJPane.getDuracionDias());
+				int diasDuracion = controlEntero(completarTratamientoJPane.getDuracionDias());
 	            if (diasDuracion > 0) {
 	            	ArrayList<String> tareaDeControlLista = completarTratamientoJPane.tareaDeControlLista();	            	
 	            	if (!tareaDeControlLista.isEmpty()) {
@@ -964,22 +966,90 @@ public class Sistema extends JFrame {
 		ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());
 		ingresarDatosAccionJPane = new IngresarDatosAccionJPanel(controlDiario);		
 		ingresarDatosAccionJPane.setBounds(0, 0, 484, 461);			
-		estructuraTDCListaButton = ingresarDatosAccionJPane.getEstructuraTDCListaButton();			
-		for (ButtonEstructuraTDC buttonEstructuraTDC : estructuraTDCListaButton) {
-			buttonEstructuraTDC.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) { 
-	            	//ingresarDatosTratamientoJPane.setVisible(false);
-	            	//configIngresarDatosAccionJPanel(buttonTratamiento.getTratamiento());
-	            }
-	        }); 
-		}	
 		cargarDatosButton = ingresarDatosAccionJPane.getCargarDatosButton();
 		cargarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//ingresarDatosTratamientoJPane.setVisible(false);
-            	//menuPacientePane.setVisible(true);
+            	
+            	boolean control = true;
+            	
+            	ArrayList<Object> dataTDCLista = ingresarDatosAccionJPane.getDatoTDCLista();
+            	ControlDiario controlDiarioAux = controlDiario;
+            	ArrayList<TareaDeControl> estructuraTDCLista = new ArrayList<TareaDeControl>();
+            	int index = 0;
+            	for (TareaDeControl tareaDeControl : controlDiarioAux.getTareaDeControlLista()) {
+            		
+            		TareaDeControl tareaDeControlAux = tareaDeControl;
+            		
+            		if (tareaDeControl.getEstructura() instanceof DecimalTDC) {
+            			
+            			JTextField jTextField = (JTextField) dataTDCLista.get(index);
+            			Double controlDouble = controlDouble(jTextField.getText());
+            			if (controlDouble > 0) {            				
+            				DecimalTDC estructuraAux = new DecimalTDC(tareaDeControlAux.getEstructura().getTextoDescriptivo());
+            				estructuraAux.setDecimal(controlDouble);            				
+            				tareaDeControlAux.setEstructura(estructuraAux);  
+            				
+            			} else {
+            				control = false;
+            			}
+            			
+            		} else if(tareaDeControl.getEstructura() instanceof EnteroTDC) {
+            			
+            		    JTextField jTextField = (JTextField) dataTDCLista.get(index);
+            		    Integer controlInt = controlEntero(jTextField.getText());
+            		    if (controlInt > 0) {
+            		        EnteroTDC estructuraAux = new EnteroTDC(tareaDeControlAux.getEstructura().getTextoDescriptivo());
+            		        estructuraAux.setEntero(controlInt);
+            		        tareaDeControlAux.setEstructura(estructuraAux);
+            		    } else {
+            		        control = false;
+            		    }
+
+					} else if(tareaDeControl.getEstructura() instanceof NotaTDC){
+						
+						JTextField jTextField = (JTextField) dataTDCLista.get(index);  
+						String controlNota = jTextField.getText();
+						
+						if (!controlNota.isEmpty()) {
+							NotaTDC estructuraAux = new NotaTDC(tareaDeControlAux.getEstructura().getTextoDescriptivo());
+							estructuraAux.setNota(controlNota);            				
+	        				tareaDeControlAux.setEstructura(estructuraAux); 	
+	        				
+						} else {
+							control = false;
+						}
+						
+					} else if(tareaDeControl.getEstructura() instanceof VerdaderoFalsoTDC){
+					
+						JCheckBox jCheckBox = (JCheckBox) dataTDCLista.get(index); 
+						boolean controlVF = jCheckBox.isSelected();
+						VerdaderoFalsoTDC estructuraAux = new VerdaderoFalsoTDC(tareaDeControlAux.getEstructura().getTextoDescriptivo());						
+						estructuraAux.setVof(controlVF);
+					}
+            		
+            		index++;
+            		
+            		estructuraTDCLista.add(tareaDeControlAux);
+            		
+            	}            	
+            	controlDiarioAux.setTareaDeControlLista(estructuraTDCLista);
+            	
+            	if (control) {
+            		
+            		if (guardarDatosDeControl(tratamiento.getControlDiarioLista(),controlDiarioAux)) {
+            			
+            			ingresarDatosAccionJPane.setVisible(false);
+                		menuPacientePane.setVisible(true);
+                		mensajeLeer("Se guardaron los datos de control con exito.");
+                		
+            		} else {
+            			mensajeLeer("Algo salio mal.");
+            		} 
+            		
+            	} else {
+            		mensajeLeer("Se han ingresado tipo de datos incorrectos.");
+            	}
             }
         }); 		
 		cancelarDatosButton = ingresarDatosAccionJPane.getCancelarDatosButton();
@@ -1754,7 +1824,7 @@ public class Sistema extends JFrame {
 		
 	// Verifica que el String pueda ser parseado a un entero, en caso contrario retorna 0.
 	
-	public int controEntero(String str){
+	public int controlEntero(String str){
 		try {
 			int integer = Integer.parseInt(str);	
 	        return integer;
@@ -1762,6 +1832,17 @@ public class Sistema extends JFrame {
 	        return 0;
 	    }	      
 	}
+	
+	// Verifica que el String pueda ser parseado a un double, en caso contrario retorna 0.
+	
+	public double controlDouble(String str){
+        try {
+            double doble = Double.parseDouble(str);
+            return doble;
+        } catch(NumberFormatException nfe){
+            return 0;
+        }
+    }
 	
 	// Metodo para introducir en el tratamiento del historial el control diario nuevo.
 	
@@ -1862,6 +1943,14 @@ public class Sistema extends JFrame {
 			return controlDiario;
 		}
 		return null;
+	}
+	
+	// Guarda el control diario editado dentro del historial medico. El mismo utiliza la interfaz IngresarDatosDeControl.
+	
+	public boolean guardarDatosDeControl(ArrayList<ControlDiario> controlDiarioLista , ControlDiario controlDiarioEditado) {
+				
+		
+		return true;
 	}
 	
 	// Metodo para contener los mensajes que se quieran mostrar.

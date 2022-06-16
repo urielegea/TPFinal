@@ -52,7 +52,6 @@ public interface IngresarDatosDeControl {
         return controlDiario;
     }
 
-
     // Guarda el control diario en la lista. En caso de no encontrarlo lo agrega, en caso contrario lo edita en base a la fecha.
 
     public default ArrayList<ControlDiario> guardarControlDiario(ArrayList<ControlDiario> controlDiarioLista, ControlDiario controlDiarioEdited){
