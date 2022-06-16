@@ -58,9 +58,21 @@ public interface IngresarDatosDeControl {
 
     public default ArrayList<ControlDiario> guardarControlDiario(ArrayList<ControlDiario> controlDiarioLista, ControlDiario controlDiarioEdited){
         if(controlDiarioLista!=null){
-            int last = controlDiarioLista.size() - 1;
-            controlDiarioLista.remove(last);
-            controlDiarioLista.add(last, controlDiarioEdited);
+            boolean flag = false;
+            ArrayList<ControlDiario> aux = new ArrayList<ControlDiario>();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            for(ControlDiario c : controlDiarioLista){
+                if(format.format(c.getFecha()).compareTo(format.format(controlDiarioEdited.getFecha())) == 0){
+                    aux.add(controlDiarioEdited);
+                    flag = true;
+                }else{
+                    aux.add(c);
+                }
+            }
+            if(!flag){
+                aux.add(controlDiarioEdited);
+            }
+            controlDiarioLista = aux;
         }else{
             controlDiarioLista = new ArrayList<ControlDiario>();
             controlDiarioLista.add(controlDiarioEdited);
