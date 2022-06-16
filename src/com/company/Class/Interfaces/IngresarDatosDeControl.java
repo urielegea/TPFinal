@@ -2,6 +2,7 @@ package com.company.Class.Interfaces;
 
 import com.company.Class.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,9 +42,10 @@ public interface IngresarDatosDeControl {
 
     public default ControlDiario getControlDiario(ArrayList<ControlDiario> controlDiarioLista, Date fecha) {
         ControlDiario controlDiario = null;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         if(controlDiarioLista!=null) {
             for (ControlDiario c : controlDiarioLista) {
-                if (c.getFecha().compareTo(fecha) == 0) {
+                if (format.format(c.getFecha()).compareTo(format.format(fecha)) == 0) {
                     controlDiario = c;
                     return controlDiario;
                 }

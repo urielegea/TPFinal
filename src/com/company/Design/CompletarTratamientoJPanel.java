@@ -75,7 +75,7 @@ public class CompletarTratamientoJPanel extends JPanel{
 		completarTratamientoButton.setBackground(new Color(3, 59, 90));
 		completarTratamientoButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		completarTratamientoButton.setPressedBackgroundColor(Color.BLACK);
-		completarTratamientoButton.setBounds(60, ubicacion, 180, 40);
+		completarTratamientoButton.setBounds(240, ubicacion, 180, 40);
 		add(completarTratamientoButton);
 		
 		cancelarCompletarTratamientoButton = new ButtonEdit("Cancelar");
@@ -83,7 +83,7 @@ public class CompletarTratamientoJPanel extends JPanel{
 		cancelarCompletarTratamientoButton.setBackground(new Color(3, 59, 90));
 		cancelarCompletarTratamientoButton.setHoverBackgroundColor(new Color(3, 59, 90).brighter());
 		cancelarCompletarTratamientoButton.setPressedBackgroundColor(Color.BLACK);
-		cancelarCompletarTratamientoButton.setBounds(250, ubicacion, 170, 40);
+		cancelarCompletarTratamientoButton.setBounds(60, ubicacion, 170, 40);
 		add(cancelarCompletarTratamientoButton);
 	}
 

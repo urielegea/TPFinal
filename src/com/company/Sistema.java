@@ -1023,9 +1023,10 @@ public class Sistema extends JFrame {
 					} else if(tareaDeControl.getEstructura() instanceof VerdaderoFalsoTDC){
 					
 						JCheckBox jCheckBox = (JCheckBox) dataTDCLista.get(index); 
-						boolean controlVF = jCheckBox.isSelected();
+						boolean controlVF = jCheckBox.isSelected();						
 						VerdaderoFalsoTDC estructuraAux = new VerdaderoFalsoTDC(tareaDeControlAux.getEstructura().getTextoDescriptivo());						
 						estructuraAux.setVof(controlVF);
+						tareaDeControlAux.setEstructura(estructuraAux); 
 					}
             		
             		index++;

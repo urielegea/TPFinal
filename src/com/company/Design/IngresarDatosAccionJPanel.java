@@ -51,7 +51,30 @@ public class IngresarDatosAccionJPanel extends JPanel{
 			
 			if ((tareaDeControl.getEstructura() instanceof DecimalTDC) || (tareaDeControl.getEstructura() instanceof EnteroTDC) || (tareaDeControl.getEstructura() instanceof NotaTDC)) {
 							
-				JTextField datoTextField = new JTextField();
+				String texto = "";
+
+				if (tareaDeControl.getEstructura() instanceof DecimalTDC) {
+					
+					DecimalTDC aux = (DecimalTDC) tareaDeControl.getEstructura();
+				    if (aux.getDecimal() != null) {
+				    	 texto = aux.getDecimal().toString();
+				    }
+					
+				} else if (tareaDeControl.getEstructura() instanceof EnteroTDC){					
+				    EnteroTDC aux = (EnteroTDC) tareaDeControl.getEstructura();
+				    if (aux.getEntero() != null) {
+				    	 texto = aux.getEntero().toString();				    	
+				    }
+				    
+				} else if (tareaDeControl.getEstructura() instanceof NotaTDC) {
+					
+					NotaTDC aux = (NotaTDC) tareaDeControl.getEstructura();
+				    if (aux.getNota() != null) {
+				    	texto = aux.getNota();
+				    }
+				}
+				
+				JTextField datoTextField = new JTextField(texto);
 				datoTextField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 				datoTextField.setColumns(10);
 				datoTextField.setBounds(220, ubicacion, 210, 30);
@@ -60,14 +83,19 @@ public class IngresarDatosAccionJPanel extends JPanel{
 				datoTDCLista.add(datoTextField);				
 				
 			} else if (tareaDeControl.getEstructura() instanceof VerdaderoFalsoTDC) {
-				
+								
 				JCheckBox jCheckBox = new JCheckBox();
-				jCheckBox.setForeground(Color.black);
+				jCheckBox.setForeground(Color.black);				
 				jCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				jCheckBox.setBackground(SystemColor.menu);
 				jCheckBox.setText(" Si / No ");
 				jCheckBox.setBounds(220, ubicacion, 210, 30);
 				add(jCheckBox);		
+				
+				VerdaderoFalsoTDC verdaderoFalsoTDC = (VerdaderoFalsoTDC) tareaDeControl.getEstructura();
+				if (verdaderoFalsoTDC.getVof() != null) {					
+					jCheckBox.setSelected(verdaderoFalsoTDC.getVof());
+				}
 				
 				datoTDCLista.add(jCheckBox);	
 			}				

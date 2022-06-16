@@ -8,6 +8,9 @@ public class ControlDiario {
     private Date fecha;
     private ArrayList<TareaDeControl> tareaDeControlLista;   
     
+    public ControlDiario() {    	
+    }
+    
     public ControlDiario(Date fecha, ArrayList<TareaDeControl> tareaDeControlLista){
         this.fecha = fecha;
         this.tareaDeControlLista = tareaDeControlLista;
