@@ -148,6 +148,12 @@ public class Sistema extends JFrame {
 	private ArrayList<ButtonTratamiento> tratamientoIngresarDatosListaButton;
 	private ButtonEdit volverIngresarDatosButton;
 	
+	// Perfil paciente.
+	private IngresarDatosAccionJPanel ingresarDatosAccionJPane;
+	private ArrayList<ButtonEstructuraTDC> estructuraTDCListaButton;
+	private ButtonEdit cargarDatosButton;
+	private ButtonEdit cancelarDatosButton;
+	
 	// ================================================
 	
 	private HashMap<String,Usuario> usuariosHashMap;
@@ -929,12 +935,7 @@ public class Sistema extends JFrame {
 	}
 	
 	public void configIngresarDatosTratamientoJPanel() {		
-		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteActivo();	
-		System.out.println("holis");
-		for (Tratamiento tratamiento : tratamientoLista) {
-			System.out.println(tratamiento.getEnfermedadNombre());
-		}
-		
+		ArrayList<Tratamiento> tratamientoLista = retornarTratamientosPacienteActivo();		
 		ingresarDatosTratamientoJPane = new IngresarDatosTratamientoJPanel(tratamientoLista);
 		ingresarDatosTratamientoJPane.setBounds(0, 0, 484, 461);		
 		tratamientoIngresarDatosListaButton = ingresarDatosTratamientoJPane.getTratamientoIngresarDatosListaButton();		
@@ -959,9 +960,38 @@ public class Sistema extends JFrame {
 		ingresarDatosTratamientoJPane.setVisible(true);	
 	}
 	
-	public void configIngresarDatosAccionJPanel(Tratamiento tratamiento) {	
-		System.out.println("En desarrollo...");
-		//ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());		
+	public void configIngresarDatosAccionJPanel(Tratamiento tratamiento) {			
+		ControlDiario controlDiario = getControlDiarioFecha(tratamiento, new Date());	
+		ingresarDatosAccionJPane = new IngresarDatosAccionJPanel(controlDiario);		
+		ingresarDatosAccionJPane.setBounds(0, 0, 484, 461);			
+		estructuraTDCListaButton = ingresarDatosAccionJPane.getEstructuraTDCListaButton();			
+		for (ButtonEstructuraTDC buttonEstructuraTDC : estructuraTDCListaButton) {
+			buttonEstructuraTDC.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) { 
+	            	//ingresarDatosTratamientoJPane.setVisible(false);
+	            	//configIngresarDatosAccionJPanel(buttonTratamiento.getTratamiento());
+	            }
+	        }); 
+		}	
+		cargarDatosButton = ingresarDatosAccionJPane.getCargarDatosButton();
+		cargarDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	//ingresarDatosTratamientoJPane.setVisible(false);
+            	//menuPacientePane.setVisible(true);
+            }
+        }); 		
+		cancelarDatosButton = ingresarDatosAccionJPane.getCancelarDatosButton();
+		cancelarDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	ingresarDatosAccionJPane.setVisible(false);
+            	ingresarDatosTratamientoJPane.setVisible(true);
+            }
+        }); 
+		contentPane.add(ingresarDatosAccionJPane);
+		ingresarDatosAccionJPane.setVisible(true);			
 	}
 	
 	/* ==================================================== ================================================================ */
@@ -1554,7 +1584,8 @@ public class Sistema extends JFrame {
 					tareaDeControlListado.add(t);				
 				}
 			}			
-			HistorialMedico historialMedico = profesional.actualizarTratamiento(paciente, tokenTratamiento, diasDuracion, tareaDeControlListado, diaInicial, historialMedicoHashMap);
+			HistorialMedico historialMedico = profesional.actualizarTratamiento(paciente, tokenTratamiento, diasDuracion, tareaDeControlListado, 
+					diaInicial, historialMedicoHashMap);
 			try{
 				historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);
 				ArrayList<HistorialMedico> historialMedicoLista = getListaHistorialMedico();
@@ -1582,7 +1613,8 @@ public class Sistema extends JFrame {
 				if (historialMedico != null) {
 					boolean flag = false;
 					for (Tratamiento tratamiento : historialMedico.getTratamientoLista()) {
-						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null && tratamiento.getDiaFinal() == null && !flag) {
+						if (tratamiento.getDiaInicial() != null && tratamiento.getDuracionDias() != 0 && tratamiento.getTareaDeControlListado() != null 
+								&& tratamiento.getDiaFinal() == null && !flag) {
 							pacienteTratamientoLista.add(paciente);
 							flag = true;
 						}
@@ -1740,7 +1772,6 @@ public class Sistema extends JFrame {
             ControlDiario controlDiarioNuevo = paciente.retornarControlDiarioTratamiento(tratamiento,new Date());
 			boolean flog = controlDiarioExiste(controlDiarioNuevo, tratamiento.getControlDiarioLista());
             if(!flog){
-
 				HistorialMedico historialMedico = cargarControlDiarioInHistorialMedico(paciente, controlDiarioNuevo, tratamiento.getToken());
                 try{
 					historialMedicoHashMap.put(historialMedico.getNumeroHistorial(),historialMedico);

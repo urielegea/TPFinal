@@ -12,7 +12,7 @@ public interface IngresarDatosDeControl {
 
     public default ControlDiario retornarControlDiarioTratamiento (Tratamiento tratamiento, Date fecha) {
         ControlDiario controlDiario = getControlDiario(tratamiento.getControlDiarioLista(), fecha);
-        if(controlDiario==null){
+        if(controlDiario == null){
             controlDiario = crearControlDiario(tratamiento.getTareaDeControlListado(), fecha);
         }
         return controlDiario;

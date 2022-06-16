@@ -28,4 +28,9 @@ public class ControlDiario {
     public void setTareaDeControlLista(ArrayList<TareaDeControl> tareaDeControlLista) {
         this.tareaDeControlLista = tareaDeControlLista;
     }
+
+	@Override
+	public String toString() {
+		return "ControlDiario [fecha=" + fecha + ", tareaDeControlLista=" + tareaDeControlLista + "]";
+	}   
 }
