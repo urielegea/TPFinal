@@ -7,3 +7,18 @@ https://lucid.app/lucidchart/496fc91f-5db9-499f-92cb-e128096317d3/edit?invitatio
 Uriel Egea
 Matias Valenzisi
 Gaspar Almaraz
+
+
+Profe, les de dejamos data para probar:
+
+[Admin]
+Usuario: uriel@gmail.com
+Clave: 1234
+
+[Profesional] 
+Usuario: roberto@gmail.com
+Clave: 1234
+
+[Paciente]
+Usuario: elbarto@yahoo.com
+Clave: YoNoFuiHomero
