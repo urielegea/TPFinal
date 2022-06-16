@@ -12,14 +12,16 @@ import com.company.JSON.*;
 public class Main {	
 	
 	public static void main(String[] args) {
-		
-		cargarAdministradorJSON();		
+
+
+		cargarAdministradorJSON();
 		cargarProfesionalJSON();
 		cargarPacienteJSON();
 		cargarEnfermedadJSON();
 		cargarTareaDeControlJSON();
 		cargarHistorialMedicoJSON();
-		
+
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
